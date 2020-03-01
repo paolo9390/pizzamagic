@@ -7,8 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
-  web: string = 'somethingcool.co.uk/org'
-  message: string = 'All rights reserved to wedevelopit.co.uk';
+  web: string = 'pizzamagic.co.uk/org'
+  message: string = 'All rights reserved to pizzamagic.co.uk';
 
 
   constructor() { }

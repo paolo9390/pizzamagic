@@ -9,7 +9,7 @@ import { ThemeService } from 'src/app/core/services/theme.service';
 })
 export class HeaderComponent implements OnInit {
 
-  title: string = 'Company Name';
+  title: string = 'Pizza Magic';
   isDarkTheme: Observable<boolean>;
 
   constructor(private themeService: ThemeService) { }
