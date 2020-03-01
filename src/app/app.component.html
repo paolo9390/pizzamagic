@@ -1,0 +1,12 @@
+<!--app-root-->
+
+<div>
+  <section [class.dark-theme]="isDarkTheme | async">
+    <!-- <app-loader></app-loader> -->
+    <app-header></app-header>
+    <router-outlet></router-outlet>
+    <app-footer></app-footer>
+
+  </section>
+
+</div>

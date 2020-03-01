@@ -1,0 +1,9 @@
+<mat-toolbar color="primary" fxLayoutAlign="space-between center">
+  <a mat-button [routerLink]="['./']">
+    <mat-icon>power</mat-icon>{{title}}
+  </a>
+
+  <mat-slide-toggle [checked]="isDarkTheme | async" (change)="toggleDarkTheme($event.checked)">
+    <span>{{(isDarkTheme | async) ? 'Dark' : 'Normal'}}</span>
+  </mat-slide-toggle>
+</mat-toolbar>
