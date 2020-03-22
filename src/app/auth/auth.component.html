@@ -1,0 +1,29 @@
+<section class="home">
+  <div class="content" fxLayout="column" fxLayoutAlign="space-between center">
+    <h2>
+      <mat-icon>auth</mat-icon>{{title}}
+    </h2>
+
+    <form [formGroup]="loginForm">
+        <div fxLayout="column" fxLayoutAlign="center">
+          <mat-form-field appearance="fill">
+            <mat-label>Email</mat-label>
+            <input formControlName="email" matInput placeholder="Email">
+            <mat-icon matSuffix>email</mat-icon>
+            <mat-error *ngIf="this.loginForm.controls.email.invalid">{{getErrorMessage()}}</mat-error>
+          </mat-form-field>
+    
+          <mat-form-field appearance="fill">
+            <mat-label>Enter your password</mat-label>
+            <input formControlName="password"  matInput [type]="hide ? 'password' : 'text'">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error *ngIf="this.loginForm.controls.password.invalid">Enter your password</mat-error>
+          </mat-form-field>
+        </div>
+
+    </form>
+    <button mat-raised-button color="accent" (click)="login()">Login</button>
+  </div>
+</section>

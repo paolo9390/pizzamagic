@@ -11,6 +11,7 @@ export class HeaderComponent implements OnInit {
 
   title: string = 'Pizza Magic';
   isDarkTheme: Observable<boolean>;
+  logo: string = '/assets/img/pizzamagic-white.png';
 
   constructor(private themeService: ThemeService) { }
 
