@@ -1,0 +1,84 @@
+<section>
+  <div class="content" fxLayout="column" fxLayoutAlign="space-between start">
+
+    <mat-tab-group dynamicHeight>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon class="tab-icon">face</mat-icon>
+          Profile
+        </ng-template>
+        <div>
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title>
+                <mat-icon class="align-icon" mat-list-icon>perm_identity</mat-icon>{{user?.name}}
+              </mat-card-title>
+              <mat-card-subtitle>Full Name</mat-card-subtitle>
+            </mat-card-header>
+            <mat-list>
+              <mat-list-item>
+                <mat-icon mat-list-icon>email</mat-icon>
+                <div mat-line>{{user?.email}}</div>
+                <div mat-line> Email </div>
+              </mat-list-item>
+              <mat-list-item>
+                <mat-icon mat-list-icon>phone</mat-icon>
+                <div mat-line>{{user?.phone}}</div>
+                <div mat-line> Phone number </div>
+              </mat-list-item>
+              <mat-list-item>
+                <mat-icon mat-list-icon>my_location</mat-icon>
+                <div mat-line>{{user?.address}}</div>
+                <div mat-line> Full Address </div>
+              </mat-list-item>
+            </mat-list>
+          </mat-card>
+        </div>
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon class="tab-icon">account_balance_wallet</mat-icon>
+          Wallet
+        </ng-template>
+        <div>
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title>
+                <mat-icon class="align-icon">account_balance_wallet</mat-icon> Wallet
+              </mat-card-title>
+              <mat-card-subtitle>Add/edit payment methods</mat-card-subtitle>
+            </mat-card-header>
+
+            <mat-card-content>
+              <span>Edit your wallet here</span>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon class="tab-icon">settings</mat-icon>
+          Settings
+        </ng-template>
+        <div>
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title>
+                <mat-icon class="align-icon">settings</mat-icon> Settings
+              </mat-card-title>
+            </mat-card-header>
+
+            <mat-card-content class="config-content">
+              <h3 class="mat-typography">Theme Configuration</h3>
+              <mat-slide-toggle [checked]="isDarkTheme | async" (change)="toggleDarkTheme($event.checked)">
+                <span>{{(isDarkTheme | async) ? 'Dark' : 'Normal'}}</span>
+              </mat-slide-toggle>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</section>

@@ -1,0 +1,15 @@
+.title {
+    font-size: 70px;
+    border-bottom: 1px solid ;
+    line-height: 1em;
+    letter-spacing: .1em;
+    text-align: center;
+}
+
+.responsive {
+    text-align: center;
+}
+
+h2 {
+    margin: 0.5em;
+}

@@ -1,9 +1,16 @@
-<mat-toolbar color="primary" fxLayoutAlign="space-between center">
-  <a mat-button [routerLink]="['./']">
-    <mat-icon>local_pizza</mat-icon>{{title}}
-  </a>
-
-  <mat-slide-toggle [checked]="isDarkTheme | async" (change)="toggleDarkTheme($event.checked)">
-    <span>{{(isDarkTheme | async) ? 'Dark' : 'Normal'}}</span>
-  </mat-slide-toggle>
+<mat-toolbar>
+  <mat-toolbar-row fxLayoutAlign="space-between center">
+    <a mat-button [routerLink]="['./']">
+      <h3><mat-icon svgIcon="magic" class="align-icon"></mat-icon>{{title | lowercase}}</h3>
+    </a>
+  
+    <div>
+      <button mat-button [matMenuTriggerFor]="menu"><mat-icon class="align-icon">face</mat-icon>{{user?.name}}</button>
+      <mat-menu #menu="matMenu">
+        <button [routerLink]="['user']" mat-menu-item>View Profile</button>
+        <button (click)="logout()" mat-menu-item>Logout</button>
+      </mat-menu>
+    </div>
+  </mat-toolbar-row>
+  
 </mat-toolbar>

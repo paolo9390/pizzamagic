@@ -1,0 +1,73 @@
+<app-menu></app-menu>
+
+<section class="drawer-container" fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="space-around">
+  <div fxFlex="22%">
+
+    <div>
+      <h4>Filters</h4>
+      <mat-accordion>
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Sort
+            </mat-panel-title>
+
+          </mat-expansion-panel-header>
+
+          <div>
+            <mat-radio-group fxLayout="column">
+              <mat-radio-button value="4">New in</mat-radio-button>
+              <mat-radio-button value="1">Reccommended</mat-radio-button>
+              <mat-radio-button value="2">Most Popular</mat-radio-button>
+              <mat-radio-button value="3">Your favourites</mat-radio-button>
+            </mat-radio-group>
+          </div>
+
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Dietary
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <div fxLayout="column">
+            <mat-checkbox>Vegan</mat-checkbox>
+            <mat-checkbox>Vegeterian</mat-checkbox>
+            <mat-checkbox>Pesceterian</mat-checkbox>
+            <mat-checkbox>Gluten free</mat-checkbox>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+  </div>
+
+
+  <div fxFlex="75%">
+    <section class="content">
+      <div fxLayout="row" fxLayoutAlign="space-between stretch" layout-wrap>
+        <mat-card class="card" fxFlex.gt-sm="48%" fxFlex.lt-sm="100%"
+          *ngFor="let burger of burgers">
+          <mat-card-header>
+            <mat-card-title>
+              {{burger?.title}}
+              <mat-icon svgIcon="chilli" *ngIf="burger?.spicy"></mat-icon>
+            </mat-card-title>
+          </mat-card-header>
+          <img mat-card-image [src]="img">
+          <mat-card-content>
+            <p>{{burger?.description}}</p>
+          </mat-card-content>
+          <mat-card-actions fxLayoutAlign="end">
+            <button mat-raised-button color="warn">
+              <mat-icon>add</mat-icon>
+              <span class="mat-typography">£ {{burger?.price_size[0]?.price | number:'1.2'}}</span>
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </section>
+
+  </div>
+</section>

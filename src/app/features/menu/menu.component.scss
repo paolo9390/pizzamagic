@@ -1,0 +1,33 @@
+.mat-toolbar-row {
+  height: 150px;
+}
+
+mat-toolbar-row>app-title {
+  margin-top: 0.5em;
+}
+
+.menu-section {
+  margin: 1em;
+}
+
+button {
+  margin: 0.2em;
+}
+
+.menu_img {
+  margin: 0.5em;
+  width: 5em;
+}
+
+.selected_menu img {
+  width: 6em;
+  margin-right: 0.5em;
+}
+
+button span {
+  margin-left: 0.5em;
+}
+
+mat-divider {
+  width: 60%;
+}

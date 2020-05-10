@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../_services/auth.service';
+import { PizzaMagicUser } from '../_interfaces/user';
+import { UserService } from '../_services/user.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-auth',
@@ -14,10 +17,13 @@ export class AuthComponent implements OnInit {
   loginForm: FormGroup;
   isSubmitted = false;
   hide = true;
+  authErr: string;
 
   constructor(private formBuilder: FormBuilder,
     private router: Router,
-    private authService: AuthService) { }
+    private authService: AuthService,
+    private userService: UserService,
+    private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.loginForm  =  this.formBuilder.group({
@@ -25,6 +31,7 @@ export class AuthComponent implements OnInit {
         Validators.email]],
         password: ['', Validators.required]
     });
+    this.authErr = '';
   }
 
   login(){
@@ -34,11 +41,28 @@ export class AuthComponent implements OnInit {
     }
     this.authService.login(this.loginForm.value).subscribe(
       res => {
-        console.log(res);
+        if (res) {
+          const pmUser: PizzaMagicUser = {
+            email: res.user.email,
+            token: res.token,
+            name: res.user.name.split(' ')[0]
+          };
+          this.userService.setUserValue(pmUser);
+        }
         this.router.navigateByUrl('/home');
       },
-      err => console.error(err)
+      err => {
+        console.error(err);
+        this.authErr = err.error.error;
+        this.openSnackBar(this.authErr, 'ok');
+      }
     );
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 4000,
+    });
   }
 
   getErrorMessage() {

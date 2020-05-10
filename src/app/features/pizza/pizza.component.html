@@ -1,0 +1,103 @@
+<app-menu></app-menu>
+
+<section class="drawer-container" fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="space-around">
+  <div fxFlex="22%">
+
+    <div>
+      <h4>Filters</h4>
+      <mat-accordion>
+        <mat-expansion-panel (opened)="panelOpenState = true"
+                             (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Sort
+            </mat-panel-title>
+            
+          </mat-expansion-panel-header>
+
+          <div>
+            <mat-radio-group fxLayout="column">
+              <mat-radio-button value="4">New in</mat-radio-button>
+              <mat-radio-button value="1">Reccommended</mat-radio-button>
+              <mat-radio-button value="2">Most Popular</mat-radio-button>
+              <mat-radio-button value="3">Your favourites</mat-radio-button>
+            </mat-radio-group>
+          </div>
+          
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Dietary
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+      
+          <div fxLayout="column">
+            <mat-checkbox>Vegan</mat-checkbox>
+            <mat-checkbox>Vegeterian</mat-checkbox>
+            <mat-checkbox>Pesceterian</mat-checkbox>
+            <mat-checkbox>Gluten free</mat-checkbox>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+  </div>
+  
+
+  <div fxFlex="75%">
+    <section class="content">
+      <mat-tab-group color="primary" mat-align-tabs="end">
+          <mat-tab label="House Specials">
+  
+            <div fxLayout="row" fxLayoutAlign="space-between stretch" layout-wrap>
+              <mat-card class="card" fxFlex.gt-sm="32%" fxFlex.md="48%" fxFlex.gt-xs="100%" *ngFor="let pizza of housespecialPizzas">
+                <mat-card-header>
+                  <mat-card-title>
+                    {{pizza?.title}}
+                    <mat-icon svgIcon="chilli" *ngIf="pizza?.spicy"></mat-icon>
+                  </mat-card-title>
+                </mat-card-header>
+                <img mat-card-image [src]="img">
+                <mat-card-content>
+                  <p>{{pizza?.description}}</p>
+                </mat-card-content>
+                <mat-card-actions fxLayoutAlign="end">
+                  <button mat-raised-button color="accent">
+                    <mat-icon>add</mat-icon>{{pizza?.title}}
+                  </button>
+                </mat-card-actions>
+              </mat-card>
+            </div>
+          </mat-tab>
+  
+          <mat-tab label="Vegetarian">
+  
+            <div fxLayout="row" fxLayoutAlign="space-between stretch" layout-wrap>
+              <mat-card class="card" fxFlex.gt-sm="32%" fxFlex.md="48%" fxFlex.gt-xs="100%" *ngFor="let pizza of vegeterianPizzas">
+                <mat-card-header>
+                  <mat-card-title>
+                    {{pizza?.title}}
+                    <mat-icon svgIcon="chilli" *ngIf="pizza?.spicy"></mat-icon>
+                  </mat-card-title>
+                </mat-card-header>
+                <img mat-card-image [src]="img">
+                <mat-card-content>
+                  <p>{{pizza?.description}}</p>
+                </mat-card-content>
+                <mat-card-actions fxLayoutAlign="end">
+                  <button mat-raised-button color="accent">
+                    <mat-icon>add</mat-icon>{{pizza?.title}}
+                  </button>
+                </mat-card-actions>
+              </mat-card>
+            </div>
+          </mat-tab>
+  
+        </mat-tab-group>
+        
+  </section>
+  
+  </div>
+</section>
+
