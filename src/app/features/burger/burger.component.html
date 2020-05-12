@@ -60,7 +60,7 @@
             <p>{{burger?.description}}</p>
           </mat-card-content>
           <mat-card-actions fxLayoutAlign="end">
-            <button mat-raised-button color="warn">
+            <button mat-raised-button color="warn" (click)="addBurger(burger)">
               <mat-icon>add</mat-icon>
               <span class="mat-typography">£ {{burger?.price_size[0]?.price | number:'1.2'}}</span>
             </button>

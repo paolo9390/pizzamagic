@@ -2,8 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DessertDrinkComponent } from './dessert-drink.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatIconModule, MatButtonModule, MatExpansionModule, MatCheckboxModule, MatRadioModule, MatCardModule } from '@angular/material';
+import { MatIconModule, MatButtonModule, MatExpansionModule, MatCheckboxModule, MatRadioModule, MatCardModule, MatDialogModule } from '@angular/material';
 import { MenuModule } from '../menu/menu.module';
+import { OrderProductModule } from '../order-product/order-product.module';
 
 
 
@@ -17,7 +18,9 @@ import { MenuModule } from '../menu/menu.module';
     MatExpansionModule,
     MatCheckboxModule,
     MatRadioModule,
+    MatDialogModule,
     MatCardModule,
+    OrderProductModule,
     MenuModule
   ]
 })

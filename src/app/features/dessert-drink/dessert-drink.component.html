@@ -59,7 +59,7 @@
             <p>{{dd?.description}}</p>
           </mat-card-content>
           <mat-card-actions fxLayoutAlign="end">
-            <button mat-raised-button color="primary">
+            <button mat-raised-button color="primary" (click)="addProduct(dd)">
               <mat-icon>add</mat-icon>
               <span class="mat-typography">£ {{dd?.price | number:'1.2'}}</span>
             </button>

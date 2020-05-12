@@ -63,7 +63,7 @@
                   <p>{{pizza?.description}}</p>
                 </mat-card-content>
                 <mat-card-actions fxLayoutAlign="end">
-                  <button mat-raised-button color="accent">
+                  <button mat-raised-button color="accent" (click)="addPizza(pizza)">
                     <mat-icon>add</mat-icon>{{pizza?.title}}
                   </button>
                 </mat-card-actions>
@@ -86,7 +86,7 @@
                   <p>{{pizza?.description}}</p>
                 </mat-card-content>
                 <mat-card-actions fxLayoutAlign="end">
-                  <button mat-raised-button color="accent">
+                  <button mat-raised-button color="accent" (click)="addPizza(pizza)">
                     <mat-icon>add</mat-icon>{{pizza?.title}}
                   </button>
                 </mat-card-actions>

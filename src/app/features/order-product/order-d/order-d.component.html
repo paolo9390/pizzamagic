@@ -1,0 +1,31 @@
+<h1 mat-dialog-title fxLayoutAlign="space-between">
+    <span>{{data.d.title | titlecase}}</span>
+    <button mat-icon-button (click)="onNoClick()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </h1>
+  
+  <div mat-dialog-content>
+    <section class="description">
+      <img mat-card-image [src]="img">
+      <p>{{data.d.description}}</p>
+    </section>
+  
+  
+    <div *ngIf="data.d.options" class="panel-content">
+      <h4 class="primary-color">Please choose an option:</h4>
+      <mat-radio-group (change)="onChangeOption($event)" [(ngModel)]="optionSelected" fxLayout="column">
+        <mat-radio-button *ngFor="let option of data.d.options" [value]="option">
+          {{option}}
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+  
+  </div>
+  
+  <div mat-dialog-actions fxLayoutAlign="end">
+    <button [disabled]="!totalPrice" mat-stroked-button (click)="onNoClick()" color="accent">
+      <span>Add for £{{totalPrice | number: '1.2'}}</span>
+    </button>
+  </div>
+  

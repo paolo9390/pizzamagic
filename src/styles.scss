@@ -35,6 +35,13 @@ $dark-theme:   mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 
 .dark-theme {
     @include angular-material-theme($dark-theme);
+    background-color: mat-color($dark-primary, 900);
+    color: mat-color($primary, 200);
+
+    .primary-color {
+        color: mat-color($dark-warn);
+    }
+
 }
 
 .primary-body {
@@ -43,14 +50,19 @@ $dark-theme:   mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 }
 
 .dark-primary-body {
-    background-color: mat-color($dark-primary, 900) !important;
-    color: mat-color($dark-primary, 200) !important;
+    background-color: mat-color($dark-primary, 900);
+    color: mat-color($dark-primary, 200);
 }
 
 .primary {
     background-color: mat-color($primary, 900) !important;
     color: mat-color($primary, 100) !important;
 }
+
+.primary-color {
+    color: mat-color($warn);
+}
+
 
 /* You can add global styles to this file, and also import other style files */
 
@@ -87,4 +99,8 @@ body {
 
 .card {
     margin: 0.3em;
+}
+
+.cdk-overlay-container {
+    background: rgba(0, 0, 0, 0.32) !important;
 }

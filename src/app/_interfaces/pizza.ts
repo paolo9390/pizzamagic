@@ -6,6 +6,7 @@ export interface Pizza {
     vegan: boolean;
     vegeterian: boolean;
     spicy: boolean;
+    default_sauce?: string; 
     toppings?: string[];
     optional?: string[];
 }

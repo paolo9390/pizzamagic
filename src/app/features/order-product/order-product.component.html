@@ -1,0 +1,41 @@
+<h1 mat-dialog-title fxLayoutAlign="space-between">
+  <span>{{data.product.title | titlecase}}</span>
+  <button mat-icon-button (click)="onNoClick()">
+    <mat-icon>close</mat-icon>
+  </button>
+</h1>
+
+<div mat-dialog-content>
+
+  <section class="description">
+    <img mat-card-image [src]="img">
+    <p>{{data.product.description}}</p>
+  </section>
+
+
+  <div class="panel-content">
+    <h4 class="primary-color">Please choose a size:</h4>
+    <mat-radio-group (change)="selectSize($event)" [(ngModel)]="sizeSelected" fxLayout="column">
+      <mat-radio-button *ngFor="let size of data.product.price_size" [value]="size">
+          {{size.description ? size.description : size.size | titlecase}}
+        - £{{size.price | number: '1.2'}}
+      </mat-radio-button>
+    </mat-radio-group>
+  </div>
+
+  <div class="panel-content" *ngIf="data?.dips">
+    <h4 class="primary-color">Add any additional dips:</h4>
+    <div fxLayout="column">
+        <mat-checkbox (change)="addExtras($event)" *ngFor="let dip of data.dips" [value]="dip">
+            {{dip.title | titlecase}}
+            <span>(+ £{{dip?.price | number: '1.2'}})</span>
+            <mat-icon svgIcon="chilli" *ngIf="dip.spicy"></mat-icon>
+        </mat-checkbox>
+  </div>
+</div>
+
+<div mat-dialog-actions fxLayoutAlign="end">
+  <button [disabled]="!sizeSelected" mat-stroked-button (click)="onNoClick()" color="accent">
+    <span>Add for £{{totalPrice | number: '1.2'}}</span>
+  </button>
+</div>

@@ -2,8 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SideOrdersComponent } from './side-orders.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatExpansionModule, MatCardModule, MatIconModule, MatButtonModule, MatRadioModule, MatCheckboxModule } from '@angular/material';
+import { MatExpansionModule, MatCardModule, MatIconModule, MatButtonModule, MatRadioModule, MatCheckboxModule, MatDialogModule } from '@angular/material';
 import { MenuModule } from '../menu/menu.module';
+import { OrderProductModule } from '../order-product/order-product.module';
 
 
 
@@ -18,7 +19,9 @@ import { MenuModule } from '../menu/menu.module';
     MatButtonModule,
     MatRadioModule,
     MatCheckboxModule,
-    MenuModule
+    MatDialogModule,
+    MenuModule,
+    OrderProductModule
   ]
 })
 export class SideOrdersModule { }

@@ -61,7 +61,7 @@
             <p>{{side?.price_size[0]?.description}}</p>
           </mat-card-content>
           <mat-card-actions fxLayoutAlign="end">
-            <button mat-raised-button color="primary">
+            <button mat-raised-button color="primary" (click)="addSide(side)">
               <mat-icon>add</mat-icon>
               <span class="mat-typography">£ {{side?.price_size[0]?.price | number:'1.2'}}</span>
             </button>
@@ -82,7 +82,7 @@
         </mat-card-header>
         <img mat-card-image [src]="dipimg">
         <mat-card-actions fxLayoutAlign="end">
-          <button mat-raised-button color="primary">
+          <button mat-raised-button color="primary" (click)="addProduct(dip)">
             <mat-icon>add</mat-icon>
             <span class="mat-typography">£ {{dip?.price | number:'1.2'}}</span>
           </button>

@@ -51,7 +51,7 @@
           *ngFor="let bread of garlicBreads">
           <mat-card-header>
             <mat-card-title>
-              {{bread?.title}}
+              {{bread?.title | titlecase}}
               <mat-icon svgIcon="chilli" *ngIf="bread?.spicy"></mat-icon>
             </mat-card-title>
           </mat-card-header>
@@ -60,8 +60,9 @@
             <p>{{bread?.description}}</p>
           </mat-card-content>
           <mat-card-actions fxLayoutAlign="end">
-            <button mat-raised-button color="accent">
-              <mat-icon>add</mat-icon>{{bread?.title}}
+            <button mat-raised-button color="accent" (click)="addGarlicBread(bread)">
+              <mat-icon>add</mat-icon>
+              <span class="mat-typography">£ {{bread?.price_size[0]?.price | number: '1.2'}}</span>
             </button>
           </mat-card-actions>
         </mat-card>

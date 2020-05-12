@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { UserService } from 'src/app/_services/user.service';
-import { PizzaMagicUser } from 'src/app/_interfaces/user';
-import { AuthService } from 'src/app/_services/auth.service';
+import { UserService } from '../../_services/user.service';
+import { PizzaMagicUser } from '../../_interfaces/user';
+import { AuthService } from '../../_services/auth.service';
 import { Router } from '@angular/router';
 import { MatIconRegistry } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';

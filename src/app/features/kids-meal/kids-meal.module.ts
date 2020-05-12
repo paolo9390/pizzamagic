@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { KidsMealComponent } from './kids-meal.component';
 import { MenuModule } from '../menu/menu.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatIconModule, MatCardModule, MatButtonModule, MatExpansionModule, MatCheckboxModule, MatRadioModule } from '@angular/material';
+import { MatIconModule, MatCardModule, MatButtonModule, MatExpansionModule, MatCheckboxModule, MatRadioModule, MatDialogModule } from '@angular/material';
+import { OrderProductModule } from '../order-product/order-product.module';
 
 
 
@@ -18,7 +19,9 @@ import { MatIconModule, MatCardModule, MatButtonModule, MatExpansionModule, MatC
     MatButtonModule,
     MatExpansionModule,
     MatCheckboxModule,
-    MatRadioModule
+    MatRadioModule,
+    MatDialogModule,
+    OrderProductModule
   ]
 })
 export class KidsMealModule { }
