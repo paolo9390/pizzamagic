@@ -125,6 +125,20 @@ export class OrderPizzaComponent implements OnInit {
         }
       } 
     });
+
+    this.removeNotAvailableBasesFromTotal();
+  }
+
+  removeNotAvailableBasesFromTotal(): void {
+    // ie calzone from deep pan 
+    this.basesSelected.forEach(base => {
+        const index = this.bases.indexOf(base);
+        if (index > -1) {
+        } else {
+          this.basesSelected.splice(index, 1);
+        }
+    });
+    this.calculateTotal();
   }
 
   setStep(index: number) {

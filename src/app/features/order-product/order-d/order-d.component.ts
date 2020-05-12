@@ -13,6 +13,7 @@ export class OrderDComponent implements OnInit {
   optionSelected: string;
   dSelected: OptionSelected;
   totalPrice: number = 0;
+  numberOfItems: number = 1;
 
   constructor(
     public dialogRef: MatDialogRef<OrderDComponent>,
@@ -20,7 +21,21 @@ export class OrderDComponent implements OnInit {
 
   ngOnInit() {
     this.preselectD();
-    this.totalPrice = this.data.d.price;
+    this.calculateTotal();
+  }
+
+  calculateTotal() {
+    this.totalPrice = this.numberOfItems * this.data.d.price;
+  }
+
+  add(): void {
+    if (this.numberOfItems < 10) this.numberOfItems++;
+    this.calculateTotal();
+  }
+
+  remove(): void {
+    if (this.numberOfItems > 1) this.numberOfItems--;
+    this.calculateTotal();
   }
 
   preselectD(): void {

@@ -15,6 +15,8 @@ export class OrderProductComponent implements OnInit {
   sizeSelected: PriceSize;
   extraDips: Dip[] = [];
   totalPrice: number = 0;
+  numberOfItems: number = 1;
+
 
   constructor(
     public dialogRef: MatDialogRef<OrderProductComponent>,
@@ -54,7 +56,17 @@ export class OrderProductComponent implements OnInit {
       extraTotal = extraTotal + dip.price
     });
     // add all to total
-    this.totalPrice = this.sizeSelected.price + extraTotal;
+    this.totalPrice = (this.sizeSelected.price + extraTotal) * this.numberOfItems;
+  }
+
+  add(): void {
+    if (this.numberOfItems < 10) this.numberOfItems++;
+    this.calculateTotal();
+  }
+
+  remove(): void {
+    if (this.numberOfItems > 1) this.numberOfItems--;
+    this.calculateTotal();
   }
 }
 

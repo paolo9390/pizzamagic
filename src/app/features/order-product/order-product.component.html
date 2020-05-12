@@ -32,6 +32,12 @@
             <mat-icon svgIcon="chilli" *ngIf="dip.spicy"></mat-icon>
         </mat-checkbox>
   </div>
+
+  <div class="item_number__content" fxLayout="row" fxLayoutAlign="center center">
+    <button (click)="remove()" mat-icon-button color="accent"><mat-icon>remove_circle</mat-icon></button>
+    <h3>{{numberOfItems}}</h3>
+    <button (click)="add()" mat-icon-button color="accent"><mat-icon>add_circle</mat-icon></button>
+  </div>
 </div>
 
 <div mat-dialog-actions fxLayoutAlign="end">

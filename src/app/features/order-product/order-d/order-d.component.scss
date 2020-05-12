@@ -10,8 +10,12 @@
     margin-top: 0;
 }
 
-.panel-content {
+.panel-content, .item_number__content {
     margin-top: 0.5em;
+}
+
+.item_number__content > button {
+    margin: 1em;
 }
 
 h4 {
