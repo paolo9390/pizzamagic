@@ -17,8 +17,18 @@
     <h4 class="primary-color">Please choose a size:</h4>
     <mat-radio-group (change)="selectSize($event)" [(ngModel)]="sizeSelected" fxLayout="column">
       <mat-radio-button *ngFor="let size of data.product.price_size" [value]="size">
-          {{size.description ? size.description : size.size | titlecase}}
+        {{size.description ? size.description : size.size | titlecase}}
         - £{{size.price | number: '1.2'}}
+      </mat-radio-button>
+    </mat-radio-group>
+  </div>
+
+
+  <div *ngIf="data.product.extras && data.product.extras.length > 0">
+    <h5 class="primary-color">Included dip:</h5>
+    <mat-radio-group (change)="selectIncludedExtra($event)" [(ngModel)]="extraSelected" fxLayout="column">
+      <mat-radio-button *ngFor="let extra of data.product.extras" [value]="extra">
+        {{extra | titlecase}}
       </mat-radio-button>
     </mat-radio-group>
   </div>
@@ -26,22 +36,27 @@
   <div class="panel-content" *ngIf="data?.dips">
     <h4 class="primary-color">Add any additional dips:</h4>
     <div fxLayout="column">
-        <mat-checkbox (change)="addExtras($event)" *ngFor="let dip of data.dips" [value]="dip">
-            {{dip.title | titlecase}}
-            <span>(+ £{{dip?.price | number: '1.2'}})</span>
-            <mat-icon svgIcon="chilli" *ngIf="dip.spicy"></mat-icon>
-        </mat-checkbox>
+      <mat-checkbox (change)="addExtras($event)" *ngFor="let dip of data.dips" [value]="dip">
+        {{dip.title | titlecase}}
+        <span>(+ £{{dip?.price | number: '1.2'}})</span>
+        <mat-icon svgIcon="chilli" *ngIf="dip.spicy"></mat-icon>
+      </mat-checkbox>
+    </div>
+  </div>
+
+  <div class="item_number__content" fxLayout="row" fxLayoutAlign="center center">
+    <button [disabled]="!sizeSelected" (click)="remove()" mat-icon-button color="accent">
+      <mat-icon>remove_circle</mat-icon>
+    </button>
+    <h3>{{numberOfItems}}</h3>
+    <button [disabled]="!sizeSelected" (click)="add()" mat-icon-button color="accent">
+      <mat-icon>add_circle</mat-icon>
+    </button>
   </div>
 </div>
 
-<div class="item_number__content" fxLayout="row" fxLayoutAlign="center center">
-  <button (click)="remove()" mat-icon-button color="accent"><mat-icon>remove_circle</mat-icon></button>
-  <h3>{{numberOfItems}}</h3>
-  <button (click)="add()" mat-icon-button color="accent"><mat-icon>add_circle</mat-icon></button>
-</div>
-
 <div mat-dialog-actions fxLayoutAlign="end">
-  <button [disabled]="!sizeSelected" mat-stroked-button (click)="onNoClick()" color="accent">
+  <button [disabled]="!sizeSelected" mat-stroked-button (click)="onAddClick()" color="accent">
     <span>Add for £{{totalPrice | number: '1.2'}}</span>
   </button>
 </div>

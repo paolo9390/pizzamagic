@@ -2,6 +2,10 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { Topping } from '../../_interfaces/pizza';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { Dip } from '../../_interfaces/side-order';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../_store/models/app-state';
+import { AddItemAction } from '../../_store/actions/shopping.actions';
+import { ShoppingItem, Product } from '../../_store/models/shopping-item';
 
 @Component({
   selector: 'app-order-product',
@@ -14,16 +18,46 @@ export class OrderProductComponent implements OnInit {
   img: string = '/assets/img/pizzas/pizza.jpg'
   sizeSelected: PriceSize;
   extraDips: Dip[] = [];
+  extraSelected: string = '';
   totalPrice: number = 0;
   numberOfItems: number = 1;
 
 
   constructor(
     public dialogRef: MatDialogRef<OrderProductComponent>,
+    private store: Store<AppState>,
     @Inject(MAT_DIALOG_DATA) public data: OrderData) { }
 
   ngOnInit() {
+  }
 
+  onAddClick(): void {
+    this.store.dispatch(new AddItemAction(this.initializeItem()));
+
+    this.dialogRef.close();
+  }
+
+  initializeItem(): ShoppingItem {
+    let extras: string[] = [];
+
+    this.extraDips.forEach(extra => {
+      extras.push(extra.title)
+    });
+    const product: Product = {
+      name: this.data.product.name,
+      title: `${this.data.product.title} ${this.extraSelected}`,
+      description: this.sizeSelected.size,
+      notes: '',
+      extras: extras
+    }
+
+    const shopping: ShoppingItem = {
+      amount: this.numberOfItems,
+      price: this.totalPrice,
+      product: product,
+      type: this.data.type
+    }
+    return shopping;
   }
 
   onNoClick(): void {
@@ -34,6 +68,10 @@ export class OrderProductComponent implements OnInit {
     this.sizeSelected = evt.value;
     this.calculateTotal();
   } 
+
+  selectIncludedExtra(evt: any): void {
+    this.extraSelected = evt.value;
+  }
 
   addExtras(evt: any): void {
     const dip: Dip = evt.source.value;
@@ -55,8 +93,9 @@ export class OrderProductComponent implements OnInit {
     this.extraDips.forEach(dip => {
       extraTotal = extraTotal + dip.price
     });
+    
     // add all to total
-    this.totalPrice = (this.sizeSelected.price + extraTotal) * this.numberOfItems;
+    this.totalPrice = Math.round((((this.sizeSelected.price + extraTotal) * this.numberOfItems) + Number.EPSILON) * 100) / 100;
   }
 
   add(): void {
@@ -75,6 +114,7 @@ export interface OrderData {
   product?: AnyProduct;
   toppings?: Topping[];
   dips?: Dip[];
+  type: string;
 }
 
 export interface AnyProduct {

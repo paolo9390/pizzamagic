@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header.component';
-import { MatToolbarModule, MatIconModule, MatButtonModule, MatMenuModule } from '@angular/material';
+import { MatToolbarModule, MatIconModule, MatButtonModule, MatMenuModule, MatBadgeModule } from '@angular/material';
 import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { StoreModule } from '@ngrx/store';
+import { shoppingReducer } from '../../_store/reducers/shopping.reducer';
 
 
 @NgModule({
@@ -15,7 +17,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatIconModule,
     MatButtonModule,
     MatMenuModule,
-    FlexLayoutModule
+    MatBadgeModule,
+    FlexLayoutModule,
+    StoreModule.forRoot({shopping: shoppingReducer})
   ],
   exports: [HeaderComponent]
 })

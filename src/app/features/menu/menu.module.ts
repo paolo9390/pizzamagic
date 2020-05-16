@@ -5,6 +5,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatCardModule, MatIconModule, MatButtonModule, MatDividerModule, MatToolbarModule } from '@angular/material';
 import { RouterModule } from '@angular/router';
 import { TitleModule } from '../../_shared/title/title.module';
+import { BasketModule } from '../basket/basket.module';
 
 
 
@@ -19,7 +20,8 @@ import { TitleModule } from '../../_shared/title/title.module';
     MatToolbarModule,
     MatDividerModule,
     RouterModule,
-    TitleModule
+    TitleModule,
+    BasketModule
   ],
   exports:[MenuComponent]
 })

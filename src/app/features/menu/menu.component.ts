@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/_store/models/app-state';
 
 @Component({
   selector: 'app-menu',
@@ -52,12 +54,14 @@ export class MenuComponent implements OnInit {
       background: '#ce8400',
       img: '/assets/img/menu/drinks.png'
     }
-  ]
+  ];
+
   route: string;
   selectedMenu: any;
 
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+    private store: Store<AppState>) { }
 
   ngOnInit() {
     this.route = this.router.url;

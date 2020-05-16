@@ -1,5 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { AppState } from '../../../_store/models/app-state';
+import { Store } from '@ngrx/store';
+import { AddItemAction } from '../../../_store/actions/shopping.actions';
+import { ShoppingItem, Product } from '../../../_store/models/shopping-item';
 
 @Component({
   selector: 'app-order-d',
@@ -17,6 +21,7 @@ export class OrderDComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<OrderDComponent>,
+    private store: Store<AppState>,
     @Inject(MAT_DIALOG_DATA) public data: OrderData) { }
 
   ngOnInit() {
@@ -24,8 +29,32 @@ export class OrderDComponent implements OnInit {
     this.calculateTotal();
   }
 
+  onAddClick(): void {
+    this.store.dispatch(new AddItemAction(this.initializeItem()));
+    
+    this.dialogRef.close();
+  }
+
+  initializeItem(): ShoppingItem {
+    const product: Product = {
+      name: this.dSelected.name,
+      title: this.dSelected.title,
+      description: this.optionSelected,
+      notes: '',
+      extras: []
+    }
+
+    const shopping: ShoppingItem = {
+      amount: this.numberOfItems,
+      price: this.totalPrice,
+      product: product,
+      type: this.data.type
+    }
+    return shopping;
+  }
+
   calculateTotal() {
-    this.totalPrice = this.numberOfItems * this.data.d.price;
+    this.totalPrice = Math.round(((this.numberOfItems * this.data.d.price) + Number.EPSILON) * 100) / 100;
   }
 
   add(): void {
@@ -66,6 +95,7 @@ export class OrderDComponent implements OnInit {
 
 export interface OrderData {
   d: AnyProduct;
+  type: string;
 }
 
 export interface AnyProduct {

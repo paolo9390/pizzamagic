@@ -31,6 +31,7 @@ export class SideOrdersComponent implements OnInit {
       maxHeight: '90%',
       data: {
         product: side,
+        type: 'side-order',
         dips: this.dips
       },
     });
@@ -44,7 +45,8 @@ export class SideOrdersComponent implements OnInit {
     const dialogRef = this.dialog.open(OrderDComponent, {
       maxHeight: '90%',
       data: {
-        d: d
+        d: d,
+        type: 'dips'
       },
     });
 

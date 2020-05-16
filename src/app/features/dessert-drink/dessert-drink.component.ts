@@ -38,7 +38,8 @@ export class DessertDrinkComponent implements OnInit {
     const dialogRef = this.dialog.open(OrderDComponent, {
       maxHeight: '90%',
       data: {
-        d: d
+        d: d,
+        type: this.mode
       },
     });
 

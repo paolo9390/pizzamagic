@@ -1,15 +1,15 @@
 .drawer-container {
-  width: 90%;
+  margin: 0 auto;
 }
 
-.drawer-container > div > div {
-    margin: 1em;
+.drawer-container>div>div {
+  margin: 1em;
 }
 
 mat-card-title {
   margin-left: -16px;
 }
 
-mat-card-title > mat-icon {
+mat-card-title>mat-icon {
   vertical-align: sub;
 }

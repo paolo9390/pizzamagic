@@ -42,6 +42,7 @@
         </mat-expansion-panel>
       </mat-accordion>
     </div>
+
   </div>
   
 
@@ -51,7 +52,7 @@
           <mat-tab label="House Specials">
   
             <div fxLayout="row" fxLayoutAlign="space-between stretch" layout-wrap>
-              <mat-card class="card" fxFlex.gt-sm="32%" fxFlex.md="48%" fxFlex.gt-xs="100%" *ngFor="let pizza of housespecialPizzas">
+              <mat-card class="card" fxFlex="32%" fxFlex.lt-lg="48%" fxFlex.lt-sm="100%" *ngFor="let pizza of housespecialPizzas">
                 <mat-card-header>
                   <mat-card-title>
                     {{pizza?.title}}
@@ -74,7 +75,7 @@
           <mat-tab label="Vegetarian">
   
             <div fxLayout="row" fxLayoutAlign="space-between stretch" layout-wrap>
-              <mat-card class="card" fxFlex.gt-sm="32%" fxFlex.md="48%" fxFlex.gt-xs="100%" *ngFor="let pizza of vegeterianPizzas">
+              <mat-card class="card" fxFlex="32%" fxFlex.lt-lg="48%" fxFlex.lt-sm="100%" *ngFor="let pizza of vegeterianPizzas">
                 <mat-card-header>
                   <mat-card-title>
                     {{pizza?.title}}

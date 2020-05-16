@@ -1,6 +1,6 @@
 <app-menu></app-menu>
 
-<section class="drawer-container" fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="space-around">
+<section class="drawer-container" fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="start">
   <div fxFlex="22%">
 
     <div>
@@ -48,7 +48,7 @@
     <section class="content">
     <h2>Side Orders</h2>
       <div fxLayout="row" fxLayoutAlign="space-between stretch" layout-wrap>
-        <mat-card class="card" fxFlex.gt-xs="48%" fxFlex.gt-sm="32%" fxFlex.lt-sm="100%"
+        <mat-card class="card" fxFlex="32%" fxFlex.lt-md="48%" fxFlex.lt-sm="100%"
           *ngFor="let side of sideOrders">
           <mat-card-header>
             <mat-card-title>
@@ -72,7 +72,7 @@
 
       <h2>Dips</h2>
       <div fxLayout="row" fxLayoutAlign="space-between stretch" layout-wrap>
-        <mat-card class="card" fxFlex.gt-xs="48%" fxFlex.gt-sm="32%" fxFlex.lt-sm="100%"
+        <mat-card class="card" fxFlex="32%" fxFlex.lt-md="48%" fxFlex.lt-sm="100%"
         *ngFor="let dip of dips">
         <mat-card-header>
           <mat-card-title>

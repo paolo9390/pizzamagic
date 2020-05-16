@@ -1,5 +1,5 @@
 .drawer-container {
-  width: 90%;
+  margin: 0 auto;
 }
 
 .drawer-container>div>div {
@@ -12,4 +12,16 @@ mat-card-title {
 
 mat-card-title > mat-icon {
   vertical-align: sub;
+}
+
+.basket-wrapper {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 64px;
+  margin-top: 1.5em;
+}
+
+.basket {
+  position: absolute;
+  width: 100%;
 }

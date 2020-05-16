@@ -1,6 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Pizza, PizzaBase, Topping, PizzaSize } from '../../../_interfaces/pizza';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../../_store/models/app-state';
+import { AddItemAction } from '../../../_store/actions/shopping.actions';
+import { ShoppingItem, Product } from '../../../_store/models/shopping-item';
 
 @Component({
   selector: 'app-order-pizza',
@@ -25,10 +29,12 @@ export class OrderPizzaComponent implements OnInit {
   extraToppings: Topping[] = [];
   pizzaPrice: number = 0;
   totalPrice: number = 0;
+  numberOfItems: number = 1;
 
 
   constructor(
     public dialogRef: MatDialogRef<OrderPizzaComponent>,
+    private store: Store<AppState>,
     @Inject(MAT_DIALOG_DATA) public data: OrderPizzaData) {
     }
 
@@ -39,6 +45,38 @@ export class OrderPizzaComponent implements OnInit {
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  onAddClick(): void {
+    this.store.dispatch(new AddItemAction(this.initializeItem()));
+
+    this.dialogRef.close();
+  }
+
+  initializeItem(): ShoppingItem {
+    let extras: string[] = [];
+    this.basesSelected.forEach(base => {
+      extras.push(base.title)
+    });
+    this.extraToppings.forEach(extra => {
+      extras.push(extra.title)
+    });
+
+    const product: Product = {
+      name: this.data.pizza.name,
+      title: `${this.sizeSelected.size}"  ${this.data.pizza.title}`,
+      description: `${this.sizeSelected.type}`,
+      notes: '',
+      extras: extras
+    }
+
+    const shopping: ShoppingItem = {
+      amount: this.numberOfItems,
+      price: this.totalPrice,
+      product: product,
+      type: 'pizza'
+    }
+    return shopping;
   }
 
   selectSize(evt: any): void {

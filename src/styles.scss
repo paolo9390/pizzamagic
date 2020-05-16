@@ -39,7 +39,15 @@ $dark-theme:   mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
     color: mat-color($primary, 200);
 
     .primary-color {
+        color: mat-color($dark-primary);
+    }
+
+    .warn-color {
         color: mat-color($dark-warn);
+    }
+
+    .accent-color {
+        color: mat-color($dark-accent);
     }
 
 }
@@ -59,10 +67,17 @@ $dark-theme:   mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
     color: mat-color($primary, 100) !important;
 }
 
-.primary-color {
+.warn-color {
     color: mat-color($warn);
 }
 
+.accent-color {
+    color: mat-color($accent);
+}
+
+.primary-color {
+    color: mat-color($primary);
+}
 
 /* You can add global styles to this file, and also import other style files */
 
@@ -72,7 +87,15 @@ body {
     margin: 0; 
     padding: 0;
     clear: both;
-    font-family: Roboto, "Roboto Mono", monospace; 
+    font-family: Roboto, 'Roboto Mono', monospace; 
+}
+
+pizza-magic-root {
+    top: 64px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
 
 .container {

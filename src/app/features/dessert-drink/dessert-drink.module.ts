@@ -5,6 +5,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatIconModule, MatButtonModule, MatExpansionModule, MatCheckboxModule, MatRadioModule, MatCardModule, MatDialogModule } from '@angular/material';
 import { MenuModule } from '../menu/menu.module';
 import { OrderProductModule } from '../order-product/order-product.module';
+import { BasketModule } from '../basket/basket.module';
 
 
 

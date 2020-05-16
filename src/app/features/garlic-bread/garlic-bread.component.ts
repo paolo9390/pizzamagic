@@ -26,7 +26,8 @@ export class GarlicBreadComponent implements OnInit {
     const dialogRef = this.dialog.open(OrderProductComponent, {
       maxHeight: '90%',
       data: {
-        product: bread
+        product: bread,
+        type: 'garlic-bread'
       },
     });
 

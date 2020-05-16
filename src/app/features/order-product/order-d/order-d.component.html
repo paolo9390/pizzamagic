@@ -13,7 +13,7 @@
   
   
     <div *ngIf="data.d.options" class="panel-content">
-      <h4 class="primary-color">Please choose an option:</h4>
+      <h4 class="primary-color"><strong>Please choose an option:</strong></h4>
       <mat-radio-group (change)="onChangeOption($event)" [(ngModel)]="optionSelected" fxLayout="column">
         <mat-radio-button *ngFor="let option of data.d.options" [value]="option">
           {{option}}
@@ -29,7 +29,7 @@
   </div>
   
   <div mat-dialog-actions fxLayoutAlign="end">
-    <button [disabled]="!totalPrice" mat-stroked-button (click)="onNoClick()" color="accent">
+    <button [disabled]="!totalPrice" mat-stroked-button (click)="onAddClick()" color="accent">
       <span>Add for £{{totalPrice | number: '1.2'}}</span>
     </button>
   </div>

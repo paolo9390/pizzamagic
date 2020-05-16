@@ -6,6 +6,9 @@ import { AuthService } from '../../_services/auth.service';
 import { Router } from '@angular/router';
 import { MatIconRegistry } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../_store/models/app-state';
+import { ShoppingItem } from 'src/app/_store/models/shopping-item';
 
 @Component({
   selector: 'app-header',
@@ -19,8 +22,12 @@ export class HeaderComponent implements OnInit {
   logo: string = '/assets/img/pizzamagic-white.png';
   user: PizzaMagicUser;
 
+  shoppingCart: Observable<ShoppingItem[]>;
+  basketTotal: number = 0;
+
   constructor(private userService: UserService,
     private authService: AuthService,
+    private store: Store<AppState>,
     private router: Router,
     iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer) {
@@ -31,6 +38,16 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.userService.currentUser.subscribe(user => this.user = user);
+
+    this.shoppingCart = this.store.select(store => store.shopping);
+    this.shoppingCart.subscribe(shopping => {
+      if (shopping && shopping.length > 0) {
+        this.basketTotal = 0;
+        shopping.forEach(item => {
+          this.basketTotal = this.basketTotal + item.amount
+        });
+      }
+    })
   }
 
   logout() {

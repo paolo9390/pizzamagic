@@ -1,6 +1,6 @@
 <app-menu></app-menu>
 
-<section class="drawer-container" fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="space-around">
+<section class="drawer-container" fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="start">
   <div fxFlex="22%">
 
     <div>
@@ -47,8 +47,7 @@
   <div fxFlex="75%">
     <section class="content">
       <div fxLayout="row" fxLayoutAlign="space-between stretch" layout-wrap>
-        <mat-card class="card" fxFlex.gt-sm="48%" fxFlex.lt-sm="100%"
-          *ngFor="let burger of burgers">
+        <mat-card class="card" fxFlex.gt-xs="48%" fxFlex.lt-sm="100%" *ngFor="let burger of burgers">
           <mat-card-header>
             <mat-card-title>
               {{burger?.title}}
@@ -70,4 +69,5 @@
     </section>
 
   </div>
+
 </section>

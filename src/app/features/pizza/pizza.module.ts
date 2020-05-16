@@ -6,6 +6,9 @@ import { MatCardModule, MatIconModule, MatButtonModule, MatTabsModule, MatToolba
 import { MenuModule } from '../menu/menu.module';
 import { OrderPizzaComponent } from './order-pizza/order-pizza.component';
 import { FormsModule } from '@angular/forms';
+import { BasketModule } from '../basket/basket.module';
+import { StoreModule } from '@ngrx/store';
+import { shoppingReducer } from '../../_store/reducers/shopping.reducer';
 
 
 
@@ -25,7 +28,8 @@ import { FormsModule } from '@angular/forms';
     MatDialogModule,
     MatCheckboxModule,
     MenuModule,
-    FormsModule
+    FormsModule,
+    StoreModule.forRoot({shopping: shoppingReducer})
   ],
   entryComponents: [OrderPizzaComponent]
 })

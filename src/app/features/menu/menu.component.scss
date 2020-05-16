@@ -31,3 +31,19 @@ button span {
 mat-divider {
   width: 60%;
 }
+
+.basket-wrapper {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 64px;
+  margin-top: 1.5em;
+  z-index: 100;
+  width: 20%;
+  margin-right: 2em;
+  float: right;
+}
+
+.basket {
+  position: absolute;
+  width: 100%;
+}
