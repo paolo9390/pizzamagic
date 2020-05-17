@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../../_store/models/app-state';
 import { AddItemAction } from '../../../_store/actions/shopping.actions';
 import { ShoppingItem, Product } from '../../../_store/models/shopping-item';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-order-pizza',
@@ -21,7 +22,6 @@ export class OrderPizzaComponent implements OnInit {
     title: string;
   } = null;
 
-  step = 0;
   bases: PizzaBase[] = [];
 
   sizeSelected: PizzaSize;
@@ -31,16 +31,26 @@ export class OrderPizzaComponent implements OnInit {
   totalPrice: number = 0;
   numberOfItems: number = 1;
 
+  sizeFormGroup: FormGroup;
+
 
   constructor(
     public dialogRef: MatDialogRef<OrderPizzaComponent>,
+    private _formBuilder: FormBuilder,
     private store: Store<AppState>,
     @Inject(MAT_DIALOG_DATA) public data: OrderPizzaData) {
     }
 
 
   ngOnInit() {
-    this.resetDefaultSauce()
+    this.resetDefaultSauce();
+    this.createForm();
+  }
+
+  createForm(): void {
+    this.sizeFormGroup = this._formBuilder.group({
+      sizeCtrl: ['', Validators.required]
+    });
   }
 
   onNoClick(): void {
@@ -177,22 +187,6 @@ export class OrderPizzaComponent implements OnInit {
         }
     });
     this.calculateTotal();
-  }
-
-  setStep(index: number) {
-    this.step = index;
-  }
-
-  nextStep() {
-    if (this.step === 0) {
-      this.baseDisabled = false;
-      this.extrasDisabled = false;
-    }
-    this.step++;
-  }
-
-  prevStep() {
-    this.step--;
   }
 
   trim(val: string): string {

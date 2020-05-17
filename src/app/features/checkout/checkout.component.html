@@ -1,0 +1,64 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <app-title title="CHECKOUT"></app-title>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<section class="content" fxLayoutAlign="space-around" fxLayout="column">
+
+  <div fxLayout="row" fxLayoutAlign="space-between">
+    <mat-card class="card" fxFlex="48%" matRipple>
+      <mat-card-header>
+            <div mat-card-avatar class="card-icon">
+                <mat-icon>store</mat-icon>
+            </div>
+        <mat-card-title>
+          Collection
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+          <p>Collection time between 20 to 30 minutes</p>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="card" fxFlex="48%" matRipple>
+      <mat-card-header>
+            <div mat-card-avatar class="card-icon">
+                <mat-icon>local_taxi</mat-icon>
+            </div>
+        <mat-card-title>
+          Delivery
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+          <p>Delivery time between 40 to 60 minutes</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="mat-typography" *ngIf="(shoppingCart | async)?.length > 0">
+    <div class="list" *ngFor="let item of shoppingCart | async" fxLayout="column">
+      <div fxLayout="row" fxLayoutAlign="space-between">
+        <span fxFlex="75%">
+          <button mat-icon-button color="primary" (click)="removeItem(item)">
+            <mat-icon>remove_circle_outline</mat-icon>
+          </button>
+          {{item.amount}}
+          <button mat-icon-button color="primary" (click)="addItem(item)">
+            <mat-icon>add_circle_outline</mat-icon>
+          </button>
+          {{ item.product.title | titlecase}}
+        </span>
+        <span>£ {{item.price | number:'1.2'}}</span>
+      </div>
+
+      <span class="mat-caption description">{{item.product.description | titlecase}}</span>
+      <span class="mat-caption description" *ngFor="let extra of item.product.extras">{{extra | titlecase}}</span>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="mat-body-2" fxLayoutAlign="space-around">
+      <span fxFlex="78%">Total</span>
+      <span>£ {{total | number: '1.2'}}</span>
+    </div>
+  </div>
+
+</section>

@@ -50,13 +50,13 @@
       <div fxLayout="row" fxLayoutAlign="space-between stretch" layout-wrap>
         <mat-card class="card" fxFlex="32%" fxFlex.lt-md="48%" fxFlex.lt-sm="100%"
           *ngFor="let side of sideOrders">
+          <img mat-card-image [src]="img">
           <mat-card-header>
             <mat-card-title>
               {{side?.title}}
               <mat-icon svgIcon="chilli" *ngIf="side?.spicy"></mat-icon>
             </mat-card-title>
           </mat-card-header>
-          <img mat-card-image [src]="img">
           <mat-card-content>
             <p>{{side?.price_size[0]?.description}}</p>
           </mat-card-content>
@@ -74,13 +74,13 @@
       <div fxLayout="row" fxLayoutAlign="space-between stretch" layout-wrap>
         <mat-card class="card" fxFlex="32%" fxFlex.lt-md="48%" fxFlex.lt-sm="100%"
         *ngFor="let dip of dips">
+        <img mat-card-image [src]="dipimg">
         <mat-card-header>
           <mat-card-title>
             {{dip?.title}}
             <mat-icon svgIcon="chilli" *ngIf="dip?.spicy"></mat-icon>
           </mat-card-title>
         </mat-card-header>
-        <img mat-card-image [src]="dipimg">
         <mat-card-actions fxLayoutAlign="end">
           <button mat-raised-button color="primary" (click)="addProduct(dip)">
             <mat-icon>add</mat-icon>

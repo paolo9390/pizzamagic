@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  slogan: string = 'Change me';
+  slogan: string = 'Your favourite local Pizzeria delivered to your door';
   company: string = 'Powered by pizzamagic.co.uk';
   message: string = 'pizzamagic.co.uk provides modern front end web apps. Start building your website today.';
 

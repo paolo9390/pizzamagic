@@ -50,11 +50,26 @@ $dark-theme:   mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
         color: mat-color($dark-accent);
     }
 
+    .primary-background {
+        background-color: mat-color($dark-primary, 900);
+        color: mat-color($dark-primary, 200);
+    }
+
+    .warn-background {
+        background-color: mat-color($dark-warn, 900);
+        color: mat-color($dark-primary, 200);
+    }
+
+    .accent-background {
+        background-color: mat-color($dark-accent, 800);
+        color: mat-color($dark-primary, 200);
+    }
+
 }
 
 .primary-body {
-    background-color: mat-color($primary, 900) !important;
-    color: mat-color($primary, 200) !important;
+    background-color: mat-color($primary, 900);
+    color: mat-color($primary, 200);
 }
 
 .dark-primary-body {
@@ -62,9 +77,19 @@ $dark-theme:   mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
     color: mat-color($dark-primary, 200);
 }
 
-.primary {
-    background-color: mat-color($primary, 900) !important;
-    color: mat-color($primary, 100) !important;
+.primary-background {
+    background-color: mat-color($primary, 900);
+    color: mat-color($primary, 100);
+}
+
+.warn-background {
+    background-color: mat-color($warn, 900);
+    color: mat-color($warn, 50);
+}
+
+.accent-background {
+    background-color: mat-color($accent);
+    color: mat-color($accent, 50);
 }
 
 .warn-color {
@@ -120,8 +145,9 @@ pizza-magic-root {
     vertical-align: sub;
 }
 
-.card {
-    margin: 0.3em;
+.card {    
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
 }
 
 .cdk-overlay-container {

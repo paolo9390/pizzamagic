@@ -52,22 +52,18 @@
           <mat-tab label="House Specials">
   
             <div fxLayout="row" fxLayoutAlign="space-between stretch" layout-wrap>
-              <mat-card class="card" fxFlex="32%" fxFlex.lt-lg="48%" fxFlex.lt-sm="100%" *ngFor="let pizza of housespecialPizzas">
+              <mat-card (click)="addPizza(pizza)" class="card" fxFlex="32%" fxFlex.lt-lg="48%" fxFlex.lt-sm="100%" *ngFor="let pizza of housespecialPizzas">
+                <img mat-card-image [src]="img">
                 <mat-card-header>
                   <mat-card-title>
                     {{pizza?.title}}
                     <mat-icon svgIcon="chilli" *ngIf="pizza?.spicy"></mat-icon>
                   </mat-card-title>
                 </mat-card-header>
-                <img mat-card-image [src]="img">
                 <mat-card-content>
                   <p>{{pizza?.description}}</p>
+                  <p class="base-price">£ {{basePrice}}</p>
                 </mat-card-content>
-                <mat-card-actions fxLayoutAlign="end">
-                  <button mat-raised-button color="accent" (click)="addPizza(pizza)">
-                    <mat-icon>add</mat-icon>{{pizza?.title}}
-                  </button>
-                </mat-card-actions>
               </mat-card>
             </div>
           </mat-tab>
@@ -75,22 +71,18 @@
           <mat-tab label="Vegetarian">
   
             <div fxLayout="row" fxLayoutAlign="space-between stretch" layout-wrap>
-              <mat-card class="card" fxFlex="32%" fxFlex.lt-lg="48%" fxFlex.lt-sm="100%" *ngFor="let pizza of vegeterianPizzas">
+              <mat-card (click)="addPizza(pizza)" class="card" fxFlex="32%" fxFlex.lt-lg="48%" fxFlex.lt-sm="100%" *ngFor="let pizza of vegeterianPizzas">
+                <img mat-card-image [src]="img">
                 <mat-card-header>
                   <mat-card-title>
                     {{pizza?.title}}
                     <mat-icon svgIcon="chilli" *ngIf="pizza?.spicy"></mat-icon>
                   </mat-card-title>
                 </mat-card-header>
-                <img mat-card-image [src]="img">
                 <mat-card-content>
                   <p>{{pizza?.description}}</p>
+                  <p class="base-price">£ {{(pizza.name === 'margherita' ? baseMargheritaPrice : basePrice) | number: '1.2'}}</p>
                 </mat-card-content>
-                <mat-card-actions fxLayoutAlign="end">
-                  <button mat-raised-button color="accent" (click)="addPizza(pizza)">
-                    <mat-icon>add</mat-icon>{{pizza?.title}}
-                  </button>
-                </mat-card-actions>
               </mat-card>
             </div>
           </mat-tab>

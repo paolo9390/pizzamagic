@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { OrderProductComponent } from './order-product.component';
 import { FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatDialogModule, MatIconModule, MatCardModule, MatButtonModule, MatRadioModule, MatCheckboxModule } from '@angular/material';
+import { MatDialogModule, MatIconModule, MatCardModule, MatButtonModule, MatRadioModule, MatCheckboxModule, MatExpansionModule } from '@angular/material';
 import { OrderDComponent } from './order-d/order-d.component';
 import { StoreModule } from '@ngrx/store';
 import { shoppingReducer } from 'src/app/_store/reducers/shopping.reducer';
@@ -18,6 +18,7 @@ import { shoppingReducer } from 'src/app/_store/reducers/shopping.reducer';
     FlexLayoutModule,
     MatDialogModule,
     MatIconModule,
+    MatExpansionModule,
     MatCardModule,
     MatCheckboxModule,
     MatRadioModule,

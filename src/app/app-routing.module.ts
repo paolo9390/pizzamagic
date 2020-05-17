@@ -11,6 +11,7 @@ import { BurgerComponent } from './features/burger/burger.component';
 import { SideOrdersComponent } from './features/side-orders/side-orders.component';
 import { DessertDrinkComponent } from './features/dessert-drink/dessert-drink.component';
 import { KidsMealComponent } from './features/kids-meal/kids-meal.component';
+import { CheckoutComponent } from './features/checkout/checkout.component';
 
 
 const routes: Routes = [
@@ -25,6 +26,7 @@ const routes: Routes = [
   { path: 'desserts', component: DessertDrinkComponent, data: { mode: 'desserts'} },
   { path: 'drinks', component: DessertDrinkComponent, data: { mode: 'drinks'} },
   { path: 'kids-meal', component: KidsMealComponent },
+  { path: 'checkout', component: CheckoutComponent }
 ];
 
 @NgModule({

@@ -49,12 +49,12 @@
       <div fxLayout="row" fxLayoutAlign="space-between stretch" layout-wrap>
         <mat-card class="card" fxFlex.gt-sm="48%" fxFlex.lt-sm="100%"
           *ngFor="let dd of dds">
+          <img mat-card-image [src]="imgs[mode]">
           <mat-card-header>
             <mat-card-title>
               {{dd?.title}}
             </mat-card-title>
           </mat-card-header>
-          <img mat-card-image [src]="imgs[mode]">
           <mat-card-content>
             <p>{{dd?.description}}</p>
           </mat-card-content>

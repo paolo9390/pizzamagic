@@ -5,7 +5,7 @@
     </a>
   
     <div>
-      <button *ngIf="basketTotal > 0" mat-icon-button color="primary">
+      <button [routerLink]="['checkout']"  *ngIf="basketTotal > 0" mat-icon-button color="primary">
         <mat-icon [matBadge]="basketTotal" matBadgeColor="warn">shopping_basket</mat-icon>
       </button>
 

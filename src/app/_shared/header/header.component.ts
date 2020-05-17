@@ -41,8 +41,8 @@ export class HeaderComponent implements OnInit {
 
     this.shoppingCart = this.store.select(store => store.shopping);
     this.shoppingCart.subscribe(shopping => {
+      this.basketTotal = 0;
       if (shopping && shopping.length > 0) {
-        this.basketTotal = 0;
         shopping.forEach(item => {
           this.basketTotal = this.basketTotal + item.amount
         });

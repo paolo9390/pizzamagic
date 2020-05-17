@@ -14,7 +14,7 @@
           <span>£ {{item.price | number:'1.2'}}</span>
         </div>
 
-        <span class="mat-caption description">{{item.product.description | titlecase}} {{trim(item.type)| titlecase}}</span>
+        <span class="mat-caption description">{{item.product.description | titlecase}}</span>
         <span class="mat-caption description" *ngFor="let extra of item.product.extras">{{extra | titlecase}}</span>
       </div>
       <mat-divider></mat-divider>

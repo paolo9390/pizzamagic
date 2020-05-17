@@ -4,79 +4,71 @@
     <mat-icon>close</mat-icon>
   </button>
 </h1>
-<div mat-dialog-content>
 
+<div mat-dialog-content>
   <section class="description">
     <img mat-card-image [src]="img">
     <p>{{data.pizza.description}}</p>
   </section>
 
-  <mat-accordion class="order-headers-align">
-    <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
+  <mat-vertical-stepper [linear]="true" #stepper>
+    <mat-step [stepControl]="sizeFormGroup">
+      <form [formGroup]="sizeFormGroup">
+        <ng-template matStepLabel>
           Size/Crust
-        </mat-panel-title>
-        <mat-panel-description fxHide.lt-sm>
-          Choose Your Individual Pizza Size and Crust
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <div class="panel-content">
-        <mat-radio-group (change)="selectSize($event)" [(ngModel)]="sizeSelected" fxLayout="column">
-          <mat-radio-button *ngFor="let size of data.sizes" [value]="size">{{size.size}} {{size.type | titlecase}}
-            - £{{(data.pizza.name === 'margherita' ? size.margherita_price : size.price) | number: '1.2'}}
-          </mat-radio-button>
-        </mat-radio-group>
-      </div>
-      <mat-action-row>
-        <button mat-button color="accent" [disabled]="!sizeSelected" (click)="nextStep()">Next</button>
-      </mat-action-row>
-    </mat-expansion-panel>
+          <span fxHide.lt-sm>
+            (Choose Your Individual Pizza Size and Crust)
+          </span>
+        </ng-template>
+        
+        <div class="panel-content">
+          <mat-radio-group formControlName="sizeCtrl" (change)="selectSize($event)" fxLayout="column">
+            <mat-radio-button *ngFor="let size of data.sizes" [value]="size">{{size.size}} {{size.type | titlecase}}
+              - £{{(data.pizza.name === 'margherita' ? size.margherita_price : size.price) | number: '1.2'}}
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+  
+        <div class="actions" fxLayoutAlign="end end">
+          <button mat-button color="accent" [disabled]="!sizeFormGroup.valid" matStepperNext>Next</button>
+        </div>
+      </form>
 
-    <mat-expansion-panel [disabled]="baseDisabled" [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>
           {{defaultSauce?.title | titlecase}}
-        </mat-panel-title>
-        <mat-panel-description fxHide.lt-sm>
-          Modify The Base For Your Pizza (Optional)
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <div class="panel-content" fxLayout="column">
-        <mat-checkbox (change)="addBase($event)" *ngFor="let base of bases" [value]="base">{{base.title | titlecase}}
-          (+ £{{base.price | number:'1.2'}})</mat-checkbox>
-      </div>
-      <mat-action-row>
-        <button mat-button color="warn" (click)="prevStep()">Previous</button>
-        <button mat-button color="accent" (click)="nextStep()">Next</button>
-      </mat-action-row>
-    </mat-expansion-panel>
+          <span fxHide.lt-sm>
+            (Modify The Base For Your Pizza - Optional)
+          </span>
 
-    <mat-expansion-panel [disabled]="extrasDisabled" [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Extras
-        </mat-panel-title>
-        <mat-panel-description fxHide.lt-sm>
-          Add any additional toppings
-        </mat-panel-description>
-      </mat-expansion-panel-header>
+        </ng-template>
+        
+        <div class="panel-content" fxLayout="column">
+          <mat-checkbox (change)="addBase($event)" *ngFor="let base of bases" [value]="base">{{base.title | titlecase}}
+            (+ £{{base.price | number:'1.2'}})</mat-checkbox>
+        </div>
+        <div class="actions" fxLayoutAlign="end end">
+          <button mat-button color="warn" matStepperPrevious>Previous</button>
+          <button mat-button color="accent" matStepperNext>Next</button>
+        </div>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Add any additional Toppings</ng-template>
+      <span class="mat-caption"> (+ £{{sizeSelected?.price_per_topping | number: '1.2'}} each)</span>
+
       <div class="panel-content" fxLayout="column">
         <mat-checkbox (change)="addTopping($event)" *ngFor="let topping of data.toppings" [value]="topping">
           {{topping.title | titlecase}}
           <span class="veg-span" *ngIf="topping.vegeterian">V</span>
-          <span>(+ £{{sizeSelected?.price_per_topping | number: '1.2'}})</span>
           <mat-icon svgIcon="chilli" *ngIf="topping.spicy"></mat-icon>
         </mat-checkbox>
       </div>
-
-      <mat-action-row>
-        <button mat-button color="warn" (click)="prevStep()">Previous</button>
-        <button mat-button color="accent" (click)="nextStep()">End</button>
-      </mat-action-row>
-    </mat-expansion-panel>
-
-  </mat-accordion>
+      <div class="actions" fxLayoutAlign="end End">
+        <button mat-button color="warn" matStepperPrevious>Previous</button>
+      </div>
+    </mat-step>
+  </mat-vertical-stepper>
 </div>
 
 <div mat-dialog-actions fxLayoutAlign="end">

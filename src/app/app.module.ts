@@ -19,6 +19,7 @@ import { BurgerModule } from './features/burger/burger.module';
 import { SideOrdersModule } from './features/side-orders/side-orders.module';
 import { DessertDrinkModule } from './features/dessert-drink/dessert-drink.module';
 import { KidsMealModule } from './features/kids-meal/kids-meal.module';
+import { CheckoutModule } from './features/checkout/checkout.module';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { KidsMealModule } from './features/kids-meal/kids-meal.module';
     BurgerModule,
     SideOrdersModule,
     DessertDrinkModule,
-    KidsMealModule
+    KidsMealModule,
+    CheckoutModule
   ],
   providers: [
     LoaderService,

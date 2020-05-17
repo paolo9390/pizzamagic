@@ -21,6 +21,8 @@ export class PizzaComponent implements OnInit {
   housespecialPizzas: Pizza[] = [];
   pizzabases: PizzaBase[];
   pizzasizes: PizzaSize[];
+  basePrice: number;
+  baseMargheritaPrice: number;
   toppings: Topping[];
 
 
@@ -36,10 +38,20 @@ export class PizzaComponent implements OnInit {
         this.pizzasizes = menu.sizes;
         this.toppings = menu.toppings;
 
+        // divide vegeterian from house special pizzas 
         menu.pizzas.forEach(pizza => {
           if (pizza.vegeterian) this.vegeterianPizzas.push(pizza);
           else this.housespecialPizzas.push(pizza);
         });
+
+        // initial price for pizzas set from the 7inch
+        menu.sizes.forEach(size => {
+          if (size.size === '7') {
+            this.baseMargheritaPrice = size.margherita_price;
+            this.basePrice = size.price;
+          }
+        });
+       
       }
     })
   }

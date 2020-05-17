@@ -2,11 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PizzaComponent } from './pizza.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatCardModule, MatIconModule, MatButtonModule, MatTabsModule, MatToolbarModule, MatSidenavModule, MatExpansionModule, MatRadioModule, MatCheckboxModule, MatDialogModule } from '@angular/material';
+import { MatCardModule, MatIconModule, MatButtonModule, MatTabsModule, MatToolbarModule, MatSidenavModule, MatExpansionModule, MatRadioModule, MatCheckboxModule, MatDialogModule, MatStepperModule } from '@angular/material';
 import { MenuModule } from '../menu/menu.module';
 import { OrderPizzaComponent } from './order-pizza/order-pizza.component';
-import { FormsModule } from '@angular/forms';
-import { BasketModule } from '../basket/basket.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { shoppingReducer } from '../../_store/reducers/shopping.reducer';
 
@@ -20,6 +19,7 @@ import { shoppingReducer } from '../../_store/reducers/shopping.reducer';
     MatCardModule,
     MatIconModule,
     MatButtonModule,
+    MatStepperModule,
     MatToolbarModule,
     MatTabsModule,
     MatSidenavModule,
@@ -29,6 +29,7 @@ import { shoppingReducer } from '../../_store/reducers/shopping.reducer';
     MatCheckboxModule,
     MenuModule,
     FormsModule,
+    ReactiveFormsModule,
     StoreModule.forRoot({shopping: shoppingReducer})
   ],
   entryComponents: [OrderPizzaComponent]

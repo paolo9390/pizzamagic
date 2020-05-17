@@ -48,12 +48,12 @@
       <div fxLayout="row" fxLayoutAlign="space-between stretch" layout-wrap>
         <mat-card class="card" fxFlex.gt-sm="48%" fxFlex.lt-sm="100%"
           *ngFor="let meal of kidsmeals">
+          <img mat-card-image [src]="img">
           <mat-card-header>
             <mat-card-title>
               {{meal?.title}}
             </mat-card-title>
           </mat-card-header>
-          <img mat-card-image [src]="img">
           <mat-card-content>
             <p>{{meal?.description}}</p>
           </mat-card-content>

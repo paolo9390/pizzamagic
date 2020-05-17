@@ -33,15 +33,29 @@
     </mat-radio-group>
   </div>
 
+
   <div class="panel-content" *ngIf="data?.dips">
-    <h4 class="primary-color">Add any additional dips:</h4>
-    <div fxLayout="column">
-      <mat-checkbox (change)="addExtras($event)" *ngFor="let dip of data.dips" [value]="dip">
-        {{dip.title | titlecase}}
-        <span>(+ £{{dip?.price | number: '1.2'}})</span>
-        <mat-icon svgIcon="chilli" *ngIf="dip.spicy"></mat-icon>
-      </mat-checkbox>
-    </div>
+
+    <mat-accordion>
+      <mat-expansion-panel [disabled]="!sizeSelected">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Add any additional dips
+          </mat-panel-title>
+          <mat-panel-description>
+            Optional
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+    
+        <div fxLayout="column">
+          <mat-checkbox (change)="addExtras($event)" *ngFor="let dip of data.dips" [value]="dip">
+            {{dip.title | titlecase}}
+            <span>(+ £{{dip?.price | number: '1.2'}})</span>
+            <mat-icon svgIcon="chilli" *ngIf="dip.spicy"></mat-icon>
+          </mat-checkbox>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
   </div>
 
   <div class="item_number__content" fxLayout="row" fxLayoutAlign="center center">

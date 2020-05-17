@@ -14,15 +14,12 @@
     margin-top: 0;
 }
 
-.order-headers-align .mat-expansion-panel-header-title,
-.order-headers-align .mat-expansion-panel-header-description {
-  flex-basis: 0;
-  height: 99%;
+.mat-vertical-content {
+    padding-left: 0 !important;
 }
 
-.order-headers-align .mat-expansion-panel-header-description {
-  justify-content: space-between;
-  align-items: center;
+.actions {
+    margin-top: 1em;
 }
 
 mat-radio-button {
@@ -45,3 +42,10 @@ mat-checkbox mat-icon {
 .panel-content {
     margin-top: 0.5em;
 }
+
+@media (max-width:420px) {
+    .panel-content {
+      font-size: 12px;
+      margin-left: -10px;
+    }
+  }

@@ -1,10 +1,43 @@
 <section class="home">
-  <div class="content" fxLayout="column" fxLayoutAlign="space-between start">
-    <h2>
-      <mat-icon>edit</mat-icon>{{slogan}}
-    </h2>
+  <div class="header accent-background">
+
+    <div class="content" fxLayout="column" fxLayoutAlign="space-between start">
+      <h1 class="title">
+        <mat-icon>local_pizza</mat-icon>PIZZA MAGIC
+      </h1>
+      <h2>
+        {{slogan}}
+      </h2>
+
+      <div class="find-div" fxLayout="row" fxLayoutAlign="space-between">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-subtitle>
+              Enter your postcode to find your local Pizza Magic
+            </mat-card-subtitle>
+          </mat-card-header>
+          
+          <mat-card-content>
+            <mat-form-field appearance="outline">
+              <mat-label>Postcode</mat-label>
+              <input matInput placeholder="ie. CH60 0AG">
+              <mat-icon matSuffix>near_me</mat-icon>
+            </mat-form-field>
+          </mat-card-content>
+
+          <mat-card-actions fxLayoutAlign="end">
+            <button mat-flat-button color="accent">Search</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+  
+
+  <div class="content">
     <h4>{{company}}</h4>
     <p>{{message}}</p>
     <button mat-raised-button color="accent">Contact us</button>
   </div>
+
 </section>
