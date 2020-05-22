@@ -3,21 +3,21 @@
     <div class="selected_menu">
       <img [src]="selectedMenu?.img">
     </div>
-      <app-title [title]="selectedMenu.name | uppercase"></app-title>
+    <app-title [title]="selectedMenu.name | uppercase"></app-title>
   </mat-toolbar-row>
 </mat-toolbar>
+
 <div class="mat-typography">
-  <section class="menu-section" layout-wrap fxLayout.gt-sm="row"
-    fxLayoutAlign="space-between stretch">
-    <button (click)="navigateTo(menu.route)" [ngStyle]="{'background-color': menu?.background}" mat-flat-button *ngFor="let menu of menus" fxFlex="16%" fxFlex.lt-lg="32%" fxFlex.lt-md="48%" fxFlex.lt-sm="100%">
-        <img class="menu_img" [src]="menu?.img"><span class="mat-h4">{{menu?.name}}</span>
+  <section class="menu-section" layout-wrap fxLayout.gt-sm="row" fxLayoutAlign="space-between stretch">
+    <button (click)="navigateTo(menu.route)" [ngStyle]="{'background-color': menu?.background}" mat-flat-button
+      *ngFor="let menu of menus" fxFlex="16%" fxFlex.lt-lg="32%" fxFlex.lt-md="48%" fxFlex.lt-sm="100%">
+      <img class="menu_img" [src]="menu?.img"><span class="mat-h4">{{menu?.name}}</span>
     </button>
   </section>
 
   <section fxLayoutAlign="center">
     <mat-divider></mat-divider>
   </section>
-
 </div>
 
 <div class="basket-wrapper" fxHide.lt-lg>

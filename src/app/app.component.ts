@@ -1,8 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { ThemeService } from './core/services/theme.service';
-import { Observable } from 'rxjs';
 import { MatIconRegistry } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ColorSchemeService } from './core/services/color-scheme.service';
 
 @Component({
   selector: 'pizza-magic-root',
@@ -12,13 +11,12 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class AppComponent {
   title = 'pizzamagic';
-  isDarkTheme: Observable<boolean>;
 
-  constructor(private themeService: ThemeService,
+  constructor(private colorSchemeService: ColorSchemeService,
     private iconRegistry: MatIconRegistry,
     private sanitizer: DomSanitizer) {
-    this.isDarkTheme = this.themeService.isDarkTheme;
-
+    
+    this.colorSchemeService.load();
     this.iconRegistry.addSvgIcon(
       'chilli',
       this.sanitizer.bypassSecurityTrustResourceUrl('/assets/svg/chilli.svg')

@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { AppState } from '../../../_store/models/app-state';
 import { Store } from '@ngrx/store';
 import { AddItemAction } from '../../../_store/actions/shopping.actions';
-import { ShoppingItem, Product } from '../../../_store/models/shopping-item';
+import { ShoppingItem, Product } from '../../../_store/models/shopping';
 
 @Component({
   selector: 'app-order-d',

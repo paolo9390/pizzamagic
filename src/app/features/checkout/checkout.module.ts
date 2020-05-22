@@ -22,7 +22,7 @@ import { TitleModule } from '../../_shared/title/title.module';
     MatToolbarModule,
     MatRippleModule,
     TitleModule,
-    StoreModule.forRoot({shopping: shoppingReducer})
+    StoreModule.forFeature('shopping', shoppingReducer)
   ]
 })
 export class CheckoutModule { }

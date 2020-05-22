@@ -15,7 +15,7 @@ export class DessertDrinkComponent implements OnInit {
   mode: string;
   dds: DessertDrink[];
   imgs: any= {
-    desserts: '/assets/img/dessert-drinks/dessert.jpg',
+    desserts: '/assets/img/dessert-drinks/desserts.jpg',
     drinks: '/assets/img/dessert-drinks/drink.jpg'
   }
   panelOpenState = false;

@@ -15,7 +15,7 @@ import { CheckoutComponent } from './features/checkout/checkout.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: 'pizza', pathMatch: 'full' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'login', component: AuthComponent},
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'user', component: UserComponent, canActivate: [AuthGuard] },

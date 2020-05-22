@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../_store/models/app-state';
-import { ShoppingItem } from 'src/app/_store/models/shopping-item';
+import { ShoppingItem } from 'src/app/_store/models/shopping';
 import { Observable } from 'rxjs';
 import { DeleteItemAction, EditItemAction } from 'src/app/_store/actions/shopping.actions';
 
@@ -20,7 +20,7 @@ export class BasketComponent implements OnInit {
 
   ngOnInit() {
     // current shopping cart
-    this.shoppingCart = this.store.select(store => store.shopping);
+    this.shoppingCart = this.store.select(store => store.shopping.list);
     this.shoppingCart.subscribe(shopping => {
       if (shopping.length > 0) {
         this.shopping = shopping;

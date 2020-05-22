@@ -12,3 +12,7 @@ export interface Product {
     notes?: string;
     extras?: string[];
 }
+
+export interface ShoppingState { 
+    list: ShoppingItem[];
+}

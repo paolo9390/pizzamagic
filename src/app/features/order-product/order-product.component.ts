@@ -5,7 +5,7 @@ import { Dip } from '../../_interfaces/side-order';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../_store/models/app-state';
 import { AddItemAction } from '../../_store/actions/shopping.actions';
-import { ShoppingItem, Product } from '../../_store/models/shopping-item';
+import { ShoppingItem, Product } from '../../_store/models/shopping';
 
 @Component({
   selector: 'app-order-product',

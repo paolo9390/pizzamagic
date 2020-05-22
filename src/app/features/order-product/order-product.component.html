@@ -33,44 +33,30 @@
     </mat-radio-group>
   </div>
 
-
   <div class="panel-content" *ngIf="data?.dips">
-
-    <mat-accordion>
-      <mat-expansion-panel [disabled]="!sizeSelected">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Add any additional dips
-          </mat-panel-title>
-          <mat-panel-description>
-            Optional
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-    
-        <div fxLayout="column">
-          <mat-checkbox (change)="addExtras($event)" *ngFor="let dip of data.dips" [value]="dip">
-            {{dip.title | titlecase}}
-            <span>(+ £{{dip?.price | number: '1.2'}})</span>
-            <mat-icon svgIcon="chilli" *ngIf="dip.spicy"></mat-icon>
-          </mat-checkbox>
-        </div>
-      </mat-expansion-panel>
-    </mat-accordion>
+    <h5 class="warn-color">Add any additional dips:</h5>
+    <div fxLayout="column">
+      <mat-checkbox (change)="addExtras($event)" *ngFor="let dip of data.dips" [value]="dip">
+        {{dip.title | titlecase}}
+        <span>(+ £{{dip?.price | number: '1.2'}})</span>
+        <mat-icon svgIcon="chilli" *ngIf="dip.spicy"></mat-icon>
+      </mat-checkbox>
+    </div>
   </div>
 
   <div class="item_number__content" fxLayout="row" fxLayoutAlign="center center">
-    <button [disabled]="!sizeSelected" (click)="remove()" mat-icon-button color="accent">
+    <button [disabled]="!sizeSelected" (click)="remove()" mat-icon-button color="primary">
       <mat-icon>remove_circle</mat-icon>
     </button>
     <h3>{{numberOfItems}}</h3>
-    <button [disabled]="!sizeSelected" (click)="add()" mat-icon-button color="accent">
+    <button [disabled]="!sizeSelected" (click)="add()" mat-icon-button color="primary">
       <mat-icon>add_circle</mat-icon>
     </button>
   </div>
 </div>
 
 <div mat-dialog-actions fxLayoutAlign="end">
-  <button [disabled]="!sizeSelected" mat-stroked-button (click)="onAddClick()" color="accent">
+  <button [disabled]="!sizeSelected" mat-stroked-button (click)="onAddClick()" color="primary">
     <span>Add for £{{totalPrice | number: '1.2'}}</span>
   </button>
 </div>

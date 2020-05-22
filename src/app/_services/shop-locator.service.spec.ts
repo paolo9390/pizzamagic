@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ThemeService } from './theme.service';
+import { ShopLocatorService } from './shop-locator.service';
 
-describe('ThemeService', () => {
+describe('ShopLocatorService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: ThemeService = TestBed.get(ThemeService);
+    const service: ShopLocatorService = TestBed.get(ShopLocatorService);
     expect(service).toBeTruthy();
   });
 });

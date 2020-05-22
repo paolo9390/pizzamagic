@@ -1,16 +1,23 @@
-.user-small-box, .user-large-box {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 16px;
-    padding: 16px;
-    border-radius: 8px;
-  }
-  
-  .tab-icon {
-    margin-right: 8px;
-  }
+.user-small-box,
+.user-large-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 16px;
+  padding: 16px;
+  border-radius: 8px;
+}
 
-  .config-content {
-      margin-left: 1em;
+.tab-icon {
+  margin-right: 8px;
+}
+
+.config-content {
+  margin-left: 1em;
+}
+
+.account {
+  .title {
+    font-size: xx-large;
   }
+}

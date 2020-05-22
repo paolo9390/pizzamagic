@@ -1,21 +1,35 @@
-import { ShoppingItem } from '../models/shopping-item';
-import { ShoppingAction, ShoppingActionTypes } from '../actions/shopping.actions';
+import { ShoppingState } from '../models/shopping';
+import { ShoppingActions, ShoppingActionTypes } from '../actions/shopping.actions';
 
-const initialState: ShoppingItem[] = [];
+const initialState: ShoppingState = {
+    list: []
+};
 
-export function shoppingReducer(state: ShoppingItem[] = initialState, action: ShoppingAction) {
+export function shoppingReducer(
+    state: ShoppingState = initialState, 
+    action: ShoppingActions) {
+        console.log(state)
     switch (action.type) {
         case ShoppingActionTypes.ADD_ITEM:
-            return [...state, action.payload];
+            return {
+                ...state,
+                list: [...state.list, action.payload]
+          };
         case ShoppingActionTypes.EDIT_ITEM:
-            return state.map(shopping => {
-                if (shopping.product === action.payload.product) {
-                    return Object.assign({}, shopping, action.payload)
-                }
-                return shopping;
-            });
+            return {
+                ...state,
+                list: state.list.map(shoppingItem => {
+                    if (shoppingItem.product === action.payload.product) {
+                        return Object.assign({}, shoppingItem, action.payload)
+                    }
+                    return shoppingItem;
+                })
+            }
         case ShoppingActionTypes.DELETE_ITEM:
-            return state.filter(item => item !== action.payload);
+            return {
+                ...state,
+                list: state.list.filter(item => item !== action.payload)
+            };
         default: 
             return state;
     }

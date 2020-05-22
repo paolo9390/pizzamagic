@@ -28,12 +28,12 @@ export class ThemeService {
 
   setBodyCss(isDarkTheme) {
     if (isDarkTheme) {
-      this.document.body.classList.add('dark-primary-body');
+      this.document.body.classList.add('dark-body');
       localStorage.setItem('pizzamagic-theme', 'dark');
       this.onThemeChange(this.darkTheme);
     }
     else {
-      this.document.body.classList.remove('dark-primary-body');
+      this.document.body.classList.remove('dark-body');
       localStorage.removeItem('pizzamagic-theme');
       this.onThemeChange(this.primaryTheme);
     }

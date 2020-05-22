@@ -18,12 +18,11 @@ import { shoppingReducer } from 'src/app/_store/reducers/shopping.reducer';
     FlexLayoutModule,
     MatDialogModule,
     MatIconModule,
-    MatExpansionModule,
     MatCardModule,
     MatCheckboxModule,
     MatRadioModule,
     MatButtonModule,
-    StoreModule.forRoot({shopping: shoppingReducer})
+    StoreModule.forFeature('shopping', shoppingReducer)
   ],
   entryComponents: [OrderProductComponent, OrderDComponent]
 })

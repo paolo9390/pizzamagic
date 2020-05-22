@@ -4,7 +4,7 @@ import { Pizza, PizzaBase, Topping, PizzaSize } from '../../../_interfaces/pizza
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../_store/models/app-state';
 import { AddItemAction } from '../../../_store/actions/shopping.actions';
-import { ShoppingItem, Product } from '../../../_store/models/shopping-item';
+import { ShoppingItem, Product } from '../../../_store/models/shopping';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 @Component({

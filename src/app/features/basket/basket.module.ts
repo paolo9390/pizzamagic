@@ -17,7 +17,7 @@ import { shoppingReducer } from '../../_store/reducers/shopping.reducer';
     MatButtonModule,
     MatListModule,
     MatIconModule,
-    StoreModule.forRoot({shopping: shoppingReducer})
+    StoreModule.forFeature('shopping', shoppingReducer)
   ],
   exports: [
     BasketComponent

@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { OverlayContainer } from '@angular/cdk/overlay';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -20,6 +19,8 @@ import { SideOrdersModule } from './features/side-orders/side-orders.module';
 import { DessertDrinkModule } from './features/dessert-drink/dessert-drink.module';
 import { KidsMealModule } from './features/kids-meal/kids-meal.module';
 import { CheckoutModule } from './features/checkout/checkout.module';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { CheckoutModule } from './features/checkout/checkout.module';
     SideOrdersModule,
     DessertDrinkModule,
     KidsMealModule,
-    CheckoutModule
+    CheckoutModule,
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],
   providers: [
     LoaderService,
@@ -50,8 +52,4 @@ import { CheckoutModule } from './features/checkout/checkout.module';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { 
-  constructor(overlayContainer: OverlayContainer) {
-    overlayContainer.getContainerElement().classList.add('dark-theme');
-  }
-}
+export class AppModule {}

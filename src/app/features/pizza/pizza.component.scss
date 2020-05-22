@@ -16,10 +16,14 @@ mat-card-title>mat-icon {
 
 mat-card:hover {
   cursor: pointer;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.11), 0 6px 6px rgba(0,0,0,0.11);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.11), 0 6px 6px rgba(0, 0, 0, 0.11);
 }
 
 .base-price {
   font-weight: 400;
   font-size: larger;
+}
+
+.cards_container {
+  margin: 0.5em;
 }

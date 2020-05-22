@@ -48,11 +48,11 @@
 
   <div fxFlex="75%">
     <section class="content">
-      <mat-tab-group color="primary" mat-align-tabs="end">
+      <mat-tab-group color="accent">
           <mat-tab label="House Specials">
   
-            <div fxLayout="row" fxLayoutAlign="space-between stretch" layout-wrap>
-              <mat-card (click)="addPizza(pizza)" class="card" fxFlex="32%" fxFlex.lt-lg="48%" fxFlex.lt-sm="100%" *ngFor="let pizza of housespecialPizzas">
+            <div class="cards_container" fxLayout="row" fxLayoutAlign="space-between stretch" layout-wrap>
+              <mat-card (click)="addPizza(pizza)" class="card" fxFlex="32%" fxFlex.lt-md="48%" fxFlex.lt-sm="100%" *ngFor="let pizza of housespecialPizzas">
                 <img mat-card-image [src]="img">
                 <mat-card-header>
                   <mat-card-title>
@@ -70,8 +70,9 @@
   
           <mat-tab label="Vegetarian">
   
-            <div fxLayout="row" fxLayoutAlign="space-between stretch" layout-wrap>
-              <mat-card (click)="addPizza(pizza)" class="card" fxFlex="32%" fxFlex.lt-lg="48%" fxFlex.lt-sm="100%" *ngFor="let pizza of vegeterianPizzas">
+            <div class="cards_container" fxLayout="row" fxLayoutAlign="space-between stretch" layout-wrap>
+              
+              <mat-card (click)="addPizza(pizza)" class="card" fxFlex="32%" fxFlex.lt-md="48%" fxFlex.lt-sm="100%" *ngFor="let pizza of vegeterianPizzas">
                 <img mat-card-image [src]="img">
                 <mat-card-header>
                   <mat-card-title>

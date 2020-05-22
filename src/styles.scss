@@ -12,8 +12,8 @@
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$primary: mat-palette($mat-brown, 900, 500, 200);
-$accent: mat-palette($mat-blue, 900, 700, 500);
+$primary: mat-palette($mat-blue, 900, 700, 500);
+$accent: mat-palette($mat-brown, 900, 500, 200);
 
 // The warn palette is optional (defaults to red).
 $warn: mat-palette($mat-red, A700, A200, A100);
@@ -28,15 +28,16 @@ $theme: mat-light-theme($primary, $accent, $warn);
 
 
 // Define an alternate dark theme.
-$dark-primary: mat-palette($mat-gray);
-$dark-accent:  mat-palette($mat-pink);
-$dark-warn:    mat-palette($mat-light-blue, A200, A100, A400);
+$dark-primary: mat-palette($mat-light-blue, A200, A100, A400);
+$dark-accent:    mat-palette($mat-amber);
+$dark-body:    mat-palette($mat-gray);
+$dark-warn:  mat-palette($mat-pink);
 $dark-theme:   mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 
-.dark-theme {
+.color-scheme-dark {
     @include angular-material-theme($dark-theme);
-    background-color: mat-color($dark-primary, 900);
-    color: mat-color($primary, 200);
+    background-color: mat-color($dark-body, 900);
+    color: mat-color($dark-body, 200);
 
     .primary-color {
         color: mat-color($dark-primary);
@@ -52,12 +53,12 @@ $dark-theme:   mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 
     .primary-background {
         background-color: mat-color($dark-primary, 900);
-        color: mat-color($dark-primary, 200);
+        color: mat-color($dark-primary, 50);
     }
 
     .warn-background {
         background-color: mat-color($dark-warn, 900);
-        color: mat-color($dark-primary, 200);
+        color: mat-color($dark-warn, 200);
     }
 
     .accent-background {
@@ -67,42 +68,80 @@ $dark-theme:   mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 
 }
 
-.primary-body {
-    background-color: mat-color($primary, 900);
-    color: mat-color($primary, 200);
+.color-scheme-light {
+    @include angular-material-theme($theme);.primary-body {
+        background-color: mat-color($primary, 900);
+        color: mat-color($primary, 200);
+    }
+    
+    .dark-body {
+        background-color: mat-color($dark-accent, 900);
+        color: mat-color($dark-accent, 200);
+    }
+    
+    .primary-background {
+        background-color: mat-color($primary, 900);
+        color: mat-color($primary, 100);
+    }
+    
+    .warn-background {
+        background-color: mat-color($warn, 900);
+        color: mat-color($warn, 50);
+    }
+    
+    .accent-background {
+        background-color: mat-color($accent);
+        color: mat-color($accent, 50);
+    }
+    
+    .warn-color {
+        color: mat-color($warn);
+    }
+    
+    .accent-color {
+        color: mat-color($accent);
+    }
+    
+    .primary-color {
+        color: mat-color($primary);
+    }
 }
 
-.dark-primary-body {
-    background-color: mat-color($dark-primary, 900);
-    color: mat-color($dark-primary, 200);
-}
+// .dark-theme {
+//     @include angular-material-theme($dark-theme);
+//     background-color: mat-color($dark-accent, 900);
+//     color: mat-color($dark-accent, 200);
 
-.primary-background {
-    background-color: mat-color($primary, 900);
-    color: mat-color($primary, 100);
-}
+//     .primary-color {
+//         color: mat-color($dark-primary);
+//     }
 
-.warn-background {
-    background-color: mat-color($warn, 900);
-    color: mat-color($warn, 50);
-}
+//     .warn-color {
+//         color: mat-color($dark-warn);
+//     }
 
-.accent-background {
-    background-color: mat-color($accent);
-    color: mat-color($accent, 50);
-}
+//     .accent-color {
+//         color: mat-color($dark-accent);
+//     }
 
-.warn-color {
-    color: mat-color($warn);
-}
+//     .primary-background {
+//         background-color: mat-color($dark-primary, 900);
+//         color: mat-color($dark-primary, 50);
+//     }
 
-.accent-color {
-    color: mat-color($accent);
-}
+//     .warn-background {
+//         background-color: mat-color($dark-warn, 900);
+//         color: mat-color($dark-warn, 200);
+//     }
 
-.primary-color {
-    color: mat-color($primary);
-}
+//     .accent-background {
+//         background-color: mat-color($dark-accent, 800);
+//         color: mat-color($dark-primary, 200);
+//     }
+
+// }
+
+
 
 /* You can add global styles to this file, and also import other style files */
 

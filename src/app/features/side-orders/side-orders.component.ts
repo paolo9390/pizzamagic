@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { SideOrdersService } from '../../_services/side-orders.service';
 import { SideOrder, Dip } from '../../_interfaces/side-order';
 import { MatDialog } from '@angular/material';
@@ -12,9 +12,14 @@ import { OrderDComponent } from '../order-product/order-d/order-d.component';
 })
 export class SideOrdersComponent implements OnInit {
 
+  @ViewChildren ('checkBox') checkBox: QueryList<any>;
+  dietaryTypes: string[] = ['vegeterian', 'chicken', 'vegan'];
+  filtered: string[] = [];
+
   img: string = '/assets/img/sides/fries.jpg';
   dipimg: string = '/assets/img/sides/dips.jpg';
   sideOrders: SideOrder[];
+  filteredSides: SideOrder[];
   dips: Dip[];
   panelOpenState = false;
 
@@ -22,7 +27,10 @@ export class SideOrdersComponent implements OnInit {
     public dialog: MatDialog) { }
 
   ngOnInit() {
-    this.sideService.getSideOrders().subscribe(sides => this.sideOrders = sides);
+    this.sideService.getSideOrders().subscribe(sides => {
+      this.sideOrders = sides;
+      this.filteredSides = sides;
+    });
     this.sideService.getDips().subscribe(dips => this.dips = dips);
   }
 
@@ -53,5 +61,28 @@ export class SideOrdersComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });
+  }
+
+  filterSides() {
+    this.filteredSides = [];
+    this.filtered = []; // resetting each Time new event is fire.
+
+    // filtering only checked vlaue and assign to checked variable.
+    const checked = this.checkBox.filter(checkbox => checkbox.checked);
+
+    // then, we make object array of checked, and value by checked variable  
+    checked.forEach(data => {
+        this.filtered.push(data.value)
+    })
+
+    if (this.filtered.length > 0) {
+      this.sideOrders.forEach(side => {
+        if (this.filtered.some(f => f === side.type)) {
+          this.filteredSides.push(side);
+        }
+      });
+    } else {
+      this.filteredSides = this.sideOrders;
+    }
   }
 }

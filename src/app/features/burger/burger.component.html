@@ -31,12 +31,12 @@
               Dietary
             </mat-panel-title>
           </mat-expansion-panel-header>
-
           <div fxLayout="column">
-            <mat-checkbox>Vegan</mat-checkbox>
-            <mat-checkbox>Vegeterian</mat-checkbox>
-            <mat-checkbox>Pesceterian</mat-checkbox>
-            <mat-checkbox>Gluten free</mat-checkbox>
+            <div *ngFor="let type of dietaryTypes">
+              <mat-checkbox (change)="filterBurgers()" #checkBox [value]="type">
+                {{type | titlecase}}
+              </mat-checkbox>
+            </div>
           </div>
         </mat-expansion-panel>
       </mat-accordion>
@@ -47,7 +47,7 @@
   <div fxFlex="75%">
     <section class="content">
       <div fxLayout="row" fxLayoutAlign="space-between stretch" layout-wrap>
-        <mat-card class="card" fxFlex.gt-xs="48%" fxFlex.lt-sm="100%" *ngFor="let burger of burgers">
+        <mat-card class="card" fxFlex.gt-xs="48%" fxFlex.lt-sm="100%" *ngFor="let burger of filteredBurgers">
           <mat-card-header>
             <mat-card-title>
               {{burger?.title}}
@@ -59,7 +59,7 @@
             <p>{{burger?.description}}</p>
           </mat-card-content>
           <mat-card-actions fxLayoutAlign="end">
-            <button mat-raised-button color="warn" (click)="addBurger(burger)">
+            <button mat-raised-button color="accent" (click)="addBurger(burger)">
               <mat-icon>add</mat-icon>
               <span class="mat-typography">£ {{burger?.price_size[0]?.price | number:'1.2'}}</span>
             </button>

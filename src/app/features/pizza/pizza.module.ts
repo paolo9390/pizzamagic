@@ -30,7 +30,7 @@ import { shoppingReducer } from '../../_store/reducers/shopping.reducer';
     MenuModule,
     FormsModule,
     ReactiveFormsModule,
-    StoreModule.forRoot({shopping: shoppingReducer})
+    StoreModule.forFeature('shopping', shoppingReducer)
   ],
   entryComponents: [OrderPizzaComponent]
 })

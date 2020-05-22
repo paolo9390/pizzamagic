@@ -12,7 +12,7 @@ h1 > mat-icon {
 }
 
 h2 {
-    max-width: 50%;
+    max-width: 70%;
 }
 
 .find-div {
@@ -20,5 +20,14 @@ h2 {
 }
 
 mat-form-field {
+    width: 95%;
+}
+
+.message-img {
     width: 100%;
+}
+
+mat-card:hover {
+  cursor: pointer;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.11), 0 6px 6px rgba(0, 0, 0, 0.11);
 }

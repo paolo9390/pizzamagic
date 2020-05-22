@@ -8,7 +8,8 @@ import { MatIconRegistry } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../_store/models/app-state';
-import { ShoppingItem } from 'src/app/_store/models/shopping-item';
+import { ShoppingItem } from '../../_store/models/shopping';
+import { ShopLocation } from '../../_interfaces/pizza-magic.shop';
 
 @Component({
   selector: 'app-header',
@@ -24,6 +25,7 @@ export class HeaderComponent implements OnInit {
 
   shoppingCart: Observable<ShoppingItem[]>;
   basketTotal: number = 0;
+  shopLocation: Observable<ShopLocation>;
 
   constructor(private userService: UserService,
     private authService: AuthService,
@@ -38,8 +40,9 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.userService.currentUser.subscribe(user => this.user = user);
+    this.shopLocation = this.store.select(store => store.favourite.shop);
 
-    this.shoppingCart = this.store.select(store => store.shopping);
+    this.shoppingCart = this.store.select(store => store.shopping.list);
     this.shoppingCart.subscribe(shopping => {
       this.basketTotal = 0;
       if (shopping && shopping.length > 0) {

@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { StoreModule } from '@ngrx/store';
 import { shoppingReducer } from '../../_store/reducers/shopping.reducer';
+import { favouriteReducer } from '../../_store/reducers/favourite.reducer';
 
 
 @NgModule({
@@ -19,7 +20,7 @@ import { shoppingReducer } from '../../_store/reducers/shopping.reducer';
     MatMenuModule,
     MatBadgeModule,
     FlexLayoutModule,
-    StoreModule.forRoot({shopping: shoppingReducer})
+    StoreModule.forRoot({shopping: shoppingReducer, favourite: favouriteReducer})
   ],
   exports: [HeaderComponent]
 })
