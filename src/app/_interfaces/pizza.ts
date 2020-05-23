@@ -36,6 +36,7 @@ export interface Topping {
 
 export interface PizzaMenu {
     pizzas: Pizza[];
+    crusts: PizzaBase[];
     bases: PizzaBase[];
     sizes: PizzaSize[];
     toppings: Topping[];

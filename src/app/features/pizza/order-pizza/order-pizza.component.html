@@ -15,7 +15,7 @@
     <mat-step [stepControl]="sizeFormGroup">
       <form [formGroup]="sizeFormGroup">
         <ng-template matStepLabel>
-          Size/Crust
+          Choose Size
           <span fxHide.lt-sm>
             (Choose Your Individual Pizza Size and Crust)
           </span>
@@ -33,7 +33,41 @@
           <button mat-button color="accent" [disabled]="!sizeFormGroup.valid" matStepperNext>Next</button>
         </div>
       </form>
+    </mat-step>
+    
+    <mat-step *ngIf="crusts?.length > 0">
+        <ng-template matStepLabel>
+          Modify your {{sizeSelected?.type | titlecase}} Crust (Optional)
+        </ng-template>
+        
+        <div class="panel-content">
+          <mat-radio-group [formControl]="crustFormControl" (change)="updateCrust($event)" fxLayout="column">
+            <mat-radio-button *ngFor="let crust of crusts" [value]="crust">{{crust.title | titlecase}}
+              (+ £{{crust.price | number:'1.2'}})
+            </mat-radio-button>
+          </mat-radio-group>
+          <button mat-button (click)="resetCrust()" color="accent">Reset Crust</button>
+        </div>
+        <div class="actions" fxLayoutAlign="end end">
+          <button mat-button color="warn" matStepperPrevious>Previous</button>
+          <button mat-button color="accent" matStepperNext>Next</button>
+        </div>
+    </mat-step>
 
+    <mat-step *ngIf="data.pizza?.optional?.length > 0">
+        <ng-template matStepLabel>
+          Options Available
+        </ng-template>
+        
+        <div class="panel-content" fxLayout="column">
+          <mat-checkbox (change)="addOption($event)" *ngFor="let option of data.pizza.optional" [value]="option">
+            {{option | titlecase}}
+          </mat-checkbox>
+        </div>
+        <div class="actions" fxLayoutAlign="end end">
+          <button mat-button color="warn" matStepperPrevious>Previous</button>
+          <button mat-button color="accent" matStepperNext>Next</button>
+        </div>
     </mat-step>
     <mat-step>
         <ng-template matStepLabel>

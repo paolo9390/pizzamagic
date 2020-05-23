@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../../_store/models/app-state';
 import { AddItemAction } from '../../../_store/actions/shopping.actions';
 import { ShoppingItem, Product } from '../../../_store/models/shopping';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-order-pizza',
@@ -21,17 +21,23 @@ export class OrderPizzaComponent implements OnInit {
     name: string;
     title: string;
   } = null;
+  
 
   bases: PizzaBase[] = [];
+  crusts: PizzaBase[] = [];
 
   sizeSelected: PizzaSize;
+  crustSelected: PizzaBase;
   basesSelected: PizzaBase[] = [];
+
+  optionsSelected: string[] = [];
   extraToppings: Topping[] = [];
   pizzaPrice: number = 0;
   totalPrice: number = 0;
   numberOfItems: number = 1;
 
   sizeFormGroup: FormGroup;
+  crustFormControl = new FormControl('', []);
 
 
   constructor(
@@ -68,6 +74,7 @@ export class OrderPizzaComponent implements OnInit {
     this.basesSelected.forEach(base => {
       extras.push(base.title)
     });
+
     this.extraToppings.forEach(extra => {
       extras.push(extra.title)
     });
@@ -75,9 +82,10 @@ export class OrderPizzaComponent implements OnInit {
     const product: Product = {
       name: this.data.pizza.name,
       title: `${this.sizeSelected.size}"  ${this.data.pizza.title}`,
-      description: `${this.sizeSelected.type}`,
+      description: this.crustSelected ? this.crustSelected.title : this.sizeSelected.type,
       notes: '',
-      extras: extras
+      extras: extras,
+      optional: this.optionsSelected
     }
 
     const shopping: ShoppingItem = {
@@ -101,6 +109,18 @@ export class OrderPizzaComponent implements OnInit {
     this.resetBases();
   }
 
+  updateCrust(evt: any): void {
+    const crust: PizzaBase = evt.value;
+    this.crustSelected = crust;
+    this.calculateTotal();
+  }
+
+  resetCrust(): void {
+    this.crustSelected = null;
+    this.crustFormControl.reset();
+    this.calculateTotal();
+  }
+
   addBase(evt: any): void {
     const base: PizzaBase = evt.source.value;
     if (evt.checked) {
@@ -112,6 +132,23 @@ export class OrderPizzaComponent implements OnInit {
       }
     }
     this.calculateTotal();
+  }
+
+  addOption(evt: any): void {
+    const option: string = evt.source.value;
+    if (evt.checked) {
+      this.optionsSelected.push(option);
+      if (option.includes('base')) this.defaultSauce = {
+        name: this.keying(option),
+        title: option
+      }
+    } else {
+      const index = this.optionsSelected.indexOf(option);
+      if (index > -1) {
+        this.optionsSelected.splice(index, 1);
+        if (option.includes('base')) this.resetDefaultSauce();
+      }
+    }
   }
 
   addTopping(evt: any): void {
@@ -130,6 +167,7 @@ export class OrderPizzaComponent implements OnInit {
   calculateTotal(): void {
     let extraTotal: number = 0;
     let basesTotal: number = 0;
+    let crustTotal: number = 0;
 
     // check all bases additions
     this.basesSelected.forEach(base => {
@@ -139,8 +177,10 @@ export class OrderPizzaComponent implements OnInit {
     this.extraToppings.forEach(() => {
       extraTotal = extraTotal + this.sizeSelected.price_per_topping
     });
+    // any modified crust total
+    crustTotal = this.crustSelected ? this.crustSelected.price : 0; 
     // add all to total
-    this.totalPrice = this.pizzaPrice + extraTotal + basesTotal;
+    this.totalPrice = this.pizzaPrice + crustTotal + extraTotal + basesTotal;
   }
   
   resetDefaultSauce(): void {
@@ -148,7 +188,7 @@ export class OrderPizzaComponent implements OnInit {
       name: 'tomato_base',
       title: 'tomato base'
     };
-    
+
     // set current base
     if (this.data && this.data.pizza.default_sauce) {
       this.defaultSauce = {
@@ -162,6 +202,7 @@ export class OrderPizzaComponent implements OnInit {
   resetBases(): void {
     // reset first
     this.bases = [];
+    this.crusts = [];
 
     // add other bases to options
     this.data.bases.forEach(base => {
@@ -174,29 +215,40 @@ export class OrderPizzaComponent implements OnInit {
       } 
     });
 
-    this.removeNotAvailableBasesFromTotal();
+    // add other crusts to options
+    this.data.crusts.forEach(crust => {
+      // check if the sauce crusts are allowed on that crust type before adding them to array
+      for (var type of crust.for) {
+        if (type === this.sizeSelected.type) this.crusts.push(crust);
+      }
+    });
+
+    this.checkCrustCompatibility();
   }
 
-  removeNotAvailableBasesFromTotal(): void {
-    // ie calzone from deep pan 
-    this.basesSelected.forEach(base => {
-        const index = this.bases.indexOf(base);
-        if (index > -1) {
-        } else {
-          this.basesSelected.splice(index, 1);
-        }
-    });
-    this.calculateTotal();
+  checkCrustCompatibility() {
+    if (this.crustSelected) {
+      // ie calzone on deep pan is wrong 
+      for (var type of this.crustSelected.for) {
+        if (type !== this.sizeSelected.type) this.resetCrust();
+      }
+    }
   }
 
   trim(val: string): string {
     return val.replace(/\_/g, ' ');
   }
 
+
+  keying(val: string): string {
+    return val.replace(/\ /g, '_');
+  }
+
 }
 
 export interface OrderPizzaData {
   pizza: Pizza;
+  crusts: PizzaBase[];
   bases: PizzaBase[];
   sizes: PizzaSize[];
   toppings: Topping[];

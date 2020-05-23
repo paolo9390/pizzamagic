@@ -28,6 +28,8 @@ export class UserComponent implements OnInit {
   ngOnInit() {
     this.userService.getUser().subscribe(user => this.user = user);
     this.isDarkTheme = this.colorSchemeService.isDarkTheme;
+
+    this.userService.getUserPreferences().subscribe(res => console.log(res))
   }
 
   toggleDarkTheme(checked: boolean) {

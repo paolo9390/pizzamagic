@@ -20,6 +20,7 @@ export class PizzaComponent implements OnInit {
   vegeterianPizzas: Pizza[] = [];
   housespecialPizzas: Pizza[] = [];
   pizzabases: PizzaBase[];
+  pizzacrusts: PizzaBase[];
   pizzasizes: PizzaSize[];
   basePrice: number;
   baseMargheritaPrice: number;
@@ -34,6 +35,7 @@ export class PizzaComponent implements OnInit {
       if (menu) {
         this.menu = menu;
         this.pizzas = menu.pizzas;
+        this.pizzacrusts = menu.crusts;
         this.pizzabases = menu.bases;
         this.pizzasizes = menu.sizes;
         this.toppings = menu.toppings;
@@ -61,6 +63,7 @@ export class PizzaComponent implements OnInit {
       maxHeight: '90%',
       data: {
         pizza: pizza,
+        crusts: this.pizzacrusts,
         bases: this.pizzabases,
         sizes: this.pizzasizes,
         toppings: this.toppings

@@ -8,7 +8,6 @@ const initialState: ShoppingState = {
 export function shoppingReducer(
     state: ShoppingState = initialState, 
     action: ShoppingActions) {
-        console.log(state)
     switch (action.type) {
         case ShoppingActionTypes.ADD_ITEM:
             return {

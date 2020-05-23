@@ -35,4 +35,8 @@ export class UserService {
    getUser(): Observable<User> {
     return this.http.get<User>(`${globals.HTTP_API_URL}/user/me`);
    }
+
+   getUserPreferences(): Observable<any> {
+    return this.http.get<any>(`${globals.HTTP_API_URL}/favourites`);
+   }
 }
