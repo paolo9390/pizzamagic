@@ -24,6 +24,70 @@
         </div>
 
     </form>
-    <button mat-raised-button color="accent" (click)="login()">Login</button>
+    <button mat-raised-button color="primary" (click)="login()">Login</button>
+  </div>
+
+  <div class="content" fxLayout="column" fxLayoutAlign="space-between center">
+    <h2>
+      <mat-icon>auth</mat-icon>Register
+    </h2>
+
+    <form [formGroup]="registerForm">
+        <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="space-between" layout-wrap>
+
+          <mat-form-field appearance="fill" fxFlex="48%">
+            <mat-label>Name</mat-label>
+            <input formControlName="name" matInput placeholder="Name">
+            <mat-icon matSuffix>perm_identity</mat-icon>
+            <mat-error *ngIf="this.registerForm.controls.name.invalid">Name required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" fxFlex="48%">
+            <mat-label>Surname</mat-label>
+            <input formControlName="surname" matInput placeholder="Surname">
+            <mat-icon matSuffix>perm_identity</mat-icon>
+            <mat-error *ngIf="this.registerForm.controls.surname.invalid">Surname required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" fxFlex="48%">
+            <mat-label>Postcode</mat-label>
+            <input formControlName="postcode" matInput placeholder="Postcode">
+            <mat-icon matSuffix>location_on</mat-icon>
+            <mat-error *ngIf="this.registerForm.controls.postcode.invalid">postcode required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" fxFlex="48%">
+            <mat-label>Full address</mat-label>
+            <input formControlName="address" matInput placeholder="Address">
+            <mat-icon matSuffix>location_on</mat-icon>
+            <mat-error *ngIf="this.registerForm.controls.address.invalid">Full address required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" fxFlex="48%">
+            <mat-label>Phone number</mat-label>
+            <input formControlName="phone" matInput placeholder="Phone">
+            <mat-icon matSuffix>phone</mat-icon>
+            <mat-error *ngIf="this.registerForm.controls.phone.invalid">Phone number required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" fxFlex="48%">
+            <mat-label>Email</mat-label>
+            <input formControlName="email" matInput placeholder="Email">
+            <mat-icon matSuffix>email</mat-icon>
+            <mat-error *ngIf="this.registerForm.controls.email.invalid">{{getErrorMessage()}}</mat-error>
+          </mat-form-field>
+    
+          <mat-form-field appearance="fill" fxFlex="48%">
+            <mat-label>Enter your password</mat-label>
+            <input formControlName="password"  matInput [type]="hide ? 'password' : 'text'">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error *ngIf="this.registerForm.controls.password.invalid">Enter your password</mat-error>
+          </mat-form-field>
+        </div>
+
+    </form>
+    <button mat-raised-button color="primary" (click)="register()">Register</button>
   </div>
 </section>

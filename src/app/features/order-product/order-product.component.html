@@ -45,18 +45,21 @@
   </div>
 
   <div class="item_number__content" fxLayout="row" fxLayoutAlign="center center">
-    <button [disabled]="!sizeSelected" (click)="remove()" mat-icon-button color="primary">
+    <button [disabled]="!sizeSelected" (click)="remove()" mat-icon-button color="accent">
       <mat-icon>remove_circle</mat-icon>
     </button>
     <h3>{{numberOfItems}}</h3>
-    <button [disabled]="!sizeSelected" (click)="add()" mat-icon-button color="primary">
+    <button [disabled]="!sizeSelected" (click)="add()" mat-icon-button color="accent">
       <mat-icon>add_circle</mat-icon>
     </button>
   </div>
 </div>
 
-<div mat-dialog-actions fxLayoutAlign="end">
-  <button [disabled]="!sizeSelected" mat-stroked-button (click)="onAddClick()" color="primary">
+<div mat-dialog-actions fxLayoutAlign="space-between end" fxLayout.lt-sm="column">
+  <button fxFlex="40%" fxHide.lt-sm mat-stroked-button (click)="onNoClick()" color="accent">
+    Cancel
+  </button>
+  <button fxFlex="50%" [disabled]="!sizeSelected" mat-flat-button (click)="onAddClick()" color="accent">
     <span>Add for £{{totalPrice | number: '1.2'}}</span>
   </button>
 </div>

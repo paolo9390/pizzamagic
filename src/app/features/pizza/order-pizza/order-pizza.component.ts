@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { Pizza, PizzaBase, Topping, PizzaSize } from '../../../_interfaces/pizza';
+import { Pizza, PizzaBase, Topping, PizzaSize, PizzaCrust } from '../../../_interfaces/pizza';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../_store/models/app-state';
 import { AddItemAction } from '../../../_store/actions/shopping.actions';
@@ -24,10 +24,10 @@ export class OrderPizzaComponent implements OnInit {
   
 
   bases: PizzaBase[] = [];
-  crusts: PizzaBase[] = [];
+  crusts: PizzaCrust[] = [];
 
   sizeSelected: PizzaSize;
-  crustSelected: PizzaBase;
+  crustSelected: PizzaCrust;
   basesSelected: PizzaBase[] = [];
 
   optionsSelected: string[] = [];
@@ -110,7 +110,7 @@ export class OrderPizzaComponent implements OnInit {
   }
 
   updateCrust(evt: any): void {
-    const crust: PizzaBase = evt.value;
+    const crust: PizzaCrust = evt.value;
     this.crustSelected = crust;
     this.calculateTotal();
   }
@@ -138,10 +138,12 @@ export class OrderPizzaComponent implements OnInit {
     const option: string = evt.source.value;
     if (evt.checked) {
       this.optionsSelected.push(option);
-      if (option.includes('base')) this.defaultSauce = {
-        name: this.keying(option),
-        title: option
-      }
+      if (option.includes('base')) {
+        this.defaultSauce = {
+          name: this.keying(option),
+          title: option
+        }
+      } 
     } else {
       const index = this.optionsSelected.indexOf(option);
       if (index > -1) {
@@ -189,6 +191,8 @@ export class OrderPizzaComponent implements OnInit {
       title: 'tomato base'
     };
 
+    
+
     // set current base
     if (this.data && this.data.pizza.default_sauce) {
       this.defaultSauce = {
@@ -196,7 +200,6 @@ export class OrderPizzaComponent implements OnInit {
         title: this.trim(this.data.pizza.default_sauce)
       };
     }
-
   }
 
   resetBases(): void {
@@ -207,12 +210,7 @@ export class OrderPizzaComponent implements OnInit {
     // add other bases to options
     this.data.bases.forEach(base => {
       // do not readd the base that is defaulted on that pizza
-      if (base.name !== this.defaultSauce.name) {
-        // check if the sauce bases are allowed on that crust type before adding them to array
-        for (var type of base.for) {
-          if (type === this.sizeSelected.type) this.bases.push(base);
-        }
-      } 
+      if (base.name !== this.defaultSauce.name) this.bases.push(base);
     });
 
     // add other crusts to options
@@ -248,7 +246,7 @@ export class OrderPizzaComponent implements OnInit {
 
 export interface OrderPizzaData {
   pizza: Pizza;
-  crusts: PizzaBase[];
+  crusts: PizzaCrust[];
   bases: PizzaBase[];
   sizes: PizzaSize[];
   toppings: Topping[];

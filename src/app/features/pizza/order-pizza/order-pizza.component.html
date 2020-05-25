@@ -20,7 +20,7 @@
             (Choose Your Individual Pizza Size and Crust)
           </span>
         </ng-template>
-        
+
         <div class="panel-content">
           <mat-radio-group formControlName="sizeCtrl" (change)="selectSize($event)" fxLayout="column">
             <mat-radio-button *ngFor="let size of data.sizes" [value]="size">{{size.size}} {{size.type | titlecase}}
@@ -28,65 +28,68 @@
             </mat-radio-button>
           </mat-radio-group>
         </div>
-  
+
         <div class="actions" fxLayoutAlign="end end">
           <button mat-button color="accent" [disabled]="!sizeFormGroup.valid" matStepperNext>Next</button>
         </div>
       </form>
     </mat-step>
-    
+
     <mat-step *ngIf="crusts?.length > 0">
-        <ng-template matStepLabel>
-          Modify your {{sizeSelected?.type | titlecase}} Crust (Optional)
-        </ng-template>
-        
-        <div class="panel-content">
-          <mat-radio-group [formControl]="crustFormControl" (change)="updateCrust($event)" fxLayout="column">
-            <mat-radio-button *ngFor="let crust of crusts" [value]="crust">{{crust.title | titlecase}}
-              (+ £{{crust.price | number:'1.2'}})
-            </mat-radio-button>
-          </mat-radio-group>
-          <button mat-button (click)="resetCrust()" color="accent">Reset Crust</button>
-        </div>
-        <div class="actions" fxLayoutAlign="end end">
-          <button mat-button color="warn" matStepperPrevious>Previous</button>
-          <button mat-button color="accent" matStepperNext>Next</button>
-        </div>
-    </mat-step>
+      <ng-template matStepLabel>
+        Modify your {{sizeSelected?.type | titlecase}} Crust (Optional)
+      </ng-template>
 
+      <div class="panel-content">
+        <mat-radio-group [formControl]="crustFormControl" (change)="updateCrust($event)" fxLayout="column">
+          <mat-radio-button *ngFor="let crust of crusts" [value]="crust">{{crust.title | titlecase}}
+            (+ £{{crust.price | number:'1.2'}})
+          </mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <div class="actions" fxLayoutAlign="end end">
+        <button mat-button color="warn" matStepperPrevious>Previous</button>
+        <button mat-button *ngIf="crustSelected" (click)="resetCrust()">Reset Crust</button>
+        <button mat-button color="accent" matStepperNext>Next</button>
+      </div>
+    </mat-step>
+    
     <mat-step *ngIf="data.pizza?.optional?.length > 0">
-        <ng-template matStepLabel>
-          Options Available
-        </ng-template>
-        
-        <div class="panel-content" fxLayout="column">
-          <mat-checkbox (change)="addOption($event)" *ngFor="let option of data.pizza.optional" [value]="option">
-            {{option | titlecase}}
-          </mat-checkbox>
-        </div>
-        <div class="actions" fxLayoutAlign="end end">
-          <button mat-button color="warn" matStepperPrevious>Previous</button>
-          <button mat-button color="accent" matStepperNext>Next</button>
-        </div>
-    </mat-step>
-    <mat-step>
-        <ng-template matStepLabel>
-          {{defaultSauce?.title | titlecase}}
-          <span fxHide.lt-sm>
-            (Modify The Base For Your Pizza - Optional)
-          </span>
+      <ng-template matStepLabel>
+        Options Included
+      </ng-template>
 
-        </ng-template>
-        
-        <div class="panel-content" fxLayout="column">
-          <mat-checkbox (change)="addBase($event)" *ngFor="let base of bases" [value]="base">{{base.title | titlecase}}
-            (+ £{{base.price | number:'1.2'}})</mat-checkbox>
-        </div>
-        <div class="actions" fxLayoutAlign="end end">
-          <button mat-button color="warn" matStepperPrevious>Previous</button>
-          <button mat-button color="accent" matStepperNext>Next</button>
-        </div>
+      <div class="panel-content" fxLayout="column">
+        <mat-checkbox (change)="addOption($event)" *ngFor="let option of data.pizza.optional" [value]="option">
+          {{option | titlecase}}
+        </mat-checkbox>
+      </div>
+      <div class="actions" fxLayoutAlign="end end">
+        <button mat-button color="warn" matStepperPrevious>Previous</button>
+        <button mat-button color="accent" matStepperNext>Next</button>
+      </div>
     </mat-step>
+
+    <mat-step>
+      <ng-template matStepLabel>
+        {{defaultSauce?.title | titlecase}}
+        <span fxHide.lt-sm>
+          (Modify The Base For Your Pizza - Optional)
+        </span>
+
+      </ng-template>
+
+      <div class="panel-content" fxLayout="column">
+        <mat-checkbox (change)="addBase($event)" *ngFor="let base of bases" [value]="base">{{base.title | titlecase}}
+          <span *ngIf="base.price > 0">(+ £{{base.price | number:'1.2'}})</span>
+        </mat-checkbox>
+      </div>
+      <div class="actions" fxLayoutAlign="end end">
+        <button mat-button color="warn" matStepperPrevious>Previous</button>
+        <button mat-button color="accent" matStepperNext>Next</button>
+      </div>
+    </mat-step>
+
     <mat-step>
       <ng-template matStepLabel>Add any additional Toppings</ng-template>
       <span class="mat-caption"> (+ £{{sizeSelected?.price_per_topping | number: '1.2'}} each)</span>
@@ -105,8 +108,11 @@
   </mat-vertical-stepper>
 </div>
 
-<div mat-dialog-actions fxLayoutAlign="end">
-  <button [disabled]="!sizeSelected" mat-stroked-button (click)="onAddClick()" color="primary">
-    <span>Add for £{{totalPrice | number: '1.2'}}</span>
+<div mat-dialog-actions fxLayoutAlign="space-between end" fxLayout.lt-sm="column">
+  <button fxFlex="40%" fxHide.lt-sm mat-stroked-button (click)="onNoClick()" color="primary">
+    Cancel
+  </button>
+  <button fxFlex="50%" [disabled]="!sizeSelected" mat-flat-button (click)="onAddClick()" color="primary">
+    Add for £{{totalPrice | number: '1.2'}}
   </button>
 </div>

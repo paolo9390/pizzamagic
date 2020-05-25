@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Pizza, PizzaBase, PizzaSize, Topping, PizzaMenu } from '../../_interfaces/pizza';
+import { Pizza, PizzaBase, PizzaSize, Topping, PizzaMenu, PizzaCrust } from '../../_interfaces/pizza';
 import { PizzaService } from '../../_services/pizza.service';
 import { MatDialog } from '@angular/material';
 import { OrderPizzaComponent } from './order-pizza/order-pizza.component';
@@ -20,7 +20,7 @@ export class PizzaComponent implements OnInit {
   vegeterianPizzas: Pizza[] = [];
   housespecialPizzas: Pizza[] = [];
   pizzabases: PizzaBase[];
-  pizzacrusts: PizzaBase[];
+  pizzacrusts: PizzaCrust[];
   pizzasizes: PizzaSize[];
   basePrice: number;
   baseMargheritaPrice: number;
@@ -60,7 +60,8 @@ export class PizzaComponent implements OnInit {
 
   addPizza(pizza): void {
     const dialogRef = this.dialog.open(OrderPizzaComponent, {
-      maxHeight: '90%',
+      maxWidth: '100vw',
+      panelClass: 'full-screen-dialog',
       data: {
         pizza: pizza,
         crusts: this.pizzacrusts,

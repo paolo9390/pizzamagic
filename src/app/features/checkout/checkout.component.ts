@@ -34,4 +34,12 @@ export class CheckoutComponent implements OnInit {
     
   }
 
+  removeItem(item: ShoppingItem): void {
+
+  }
+
+  addItem(item: ShoppingItem): void {
+
+  }
+
 }

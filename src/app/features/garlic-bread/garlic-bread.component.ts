@@ -24,7 +24,8 @@ export class GarlicBreadComponent implements OnInit {
 
   addGarlicBread(bread): void {
     const dialogRef = this.dialog.open(OrderProductComponent, {
-      maxHeight: '90%',
+      maxWidth: '100vw',
+      panelClass: 'full-screen-dialog',
       data: {
         product: bread,
         type: 'garlic-bread'

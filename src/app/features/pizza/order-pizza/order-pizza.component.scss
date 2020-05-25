@@ -44,8 +44,22 @@ mat-checkbox mat-icon {
 }
 
 @media (max-width:420px) {
+    .mat-dialog-content {
+        max-height: 100vh;
+    }
+    
     .panel-content {
       font-size: 12px;
       margin-left: -10px;
     }
-  }
+
+    .actions button {
+        font-size: 10px;
+    }
+}
+
+.mat-dialog-actions button {
+    margin: 0.2em;
+    width: 100%;
+    font-size: 16px;
+}

@@ -1,85 +1,112 @@
 <section>
-  <div class="content account" fxLayout="column" fxLayoutAlign="space-between start">
-    
+  <div class="user-panel account" fxLayout="column" fxLayoutAlign="space-between">
+
     <h2 class="title">ACCOUNT</h2>
-    <mat-tab-group dynamicHeight>
-      <mat-tab>
-        <ng-template mat-tab-label>
-          <mat-icon class="tab-icon">face</mat-icon>
-          Profile
-        </ng-template>
-        <div>
-          <mat-card>
-            <mat-card-header>
-              <mat-card-title>
-                <mat-icon class="align-icon" mat-list-icon>perm_identity</mat-icon>{{user?.name}}
-              </mat-card-title>
-              <mat-card-subtitle>Full Name</mat-card-subtitle>
-            </mat-card-header>
-            <mat-list>
-              <mat-list-item>
-                <mat-icon mat-list-icon>email</mat-icon>
-                <div mat-line>{{user?.email}}</div>
-                <div mat-line> Email </div>
-              </mat-list-item>
-              <mat-list-item>
-                <mat-icon mat-list-icon>phone</mat-icon>
-                <div mat-line>{{user?.phone}}</div>
-                <div mat-line> Phone number </div>
-              </mat-list-item>
-              <mat-list-item>
-                <mat-icon mat-list-icon>my_location</mat-icon>
-                <div mat-line>{{user?.address}}</div>
-                <div mat-line> Full Address </div>
-              </mat-list-item>
-            </mat-list>
-          </mat-card>
+
+    <section>
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+        <h3>
+          <mat-icon class="align-icon" mat-list-icon>perm_identity</mat-icon>Profile
+        </h3>
+        <button (click)="editProfile()" mat-flat-button [color]="editMode ? 'warn' : 'accent'">{{editMode ? 'Save' : 'Edit'}}</button>
+      </div>
+
+      <form [formGroup]="userForm" *ngIf="user">
+        <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-between" layout-wrap>
+
+          <mat-form-field appearance="outline" fxFlex="48%">
+            <mat-label>Name</mat-label>
+            <input formControlName="name" matInput placeholder="Name">
+            <mat-icon matSuffix>perm_identity</mat-icon>
+            <mat-error *ngIf="this.userForm.controls.name.invalid">Name required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" fxFlex="48%">
+            <mat-label>Surname</mat-label>
+            <input formControlName="surname" matInput placeholder="Surname">
+            <mat-icon matSuffix>perm_identity</mat-icon>
+            <mat-error *ngIf="this.userForm.controls.surname.invalid">Surname required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" fxFlex="48%">
+            <mat-label>Phone number</mat-label>
+            <input formControlName="phone" matInput placeholder="Phone">
+            <mat-icon matSuffix>phone</mat-icon>
+            <mat-error *ngIf="this.userForm.controls.phone.invalid">Phone number required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" fxFlex="48%">
+            <mat-label>Email</mat-label>
+            <input formControlName="email" matInput placeholder="Email">
+            <mat-icon matSuffix>email</mat-icon>
+            <mat-error *ngIf="this.userForm.controls.email.invalid">Please type a correct email</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" fxFlex="48%">
+            <mat-label>Postcode</mat-label>
+            <input formControlName="postcode" matInput placeholder="Postcode">
+            <mat-icon matSuffix>location_on</mat-icon>
+            <mat-error *ngIf="this.userForm.controls.postcode.invalid">postcode required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" fxFlex="48%">
+            <mat-label>Full address</mat-label>
+            <input formControlName="address" matInput placeholder="Address">
+            <mat-icon matSuffix>location_on</mat-icon>
+            <mat-error *ngIf="this.userForm.controls.address.invalid">Full address required</mat-error>
+          </mat-form-field>
         </div>
-      </mat-tab>
+      </form>
+    </section>
 
-      <mat-tab>
-        <ng-template mat-tab-label>
-          <mat-icon class="tab-icon">account_balance_wallet</mat-icon>
-          Wallet
-        </ng-template>
-        <div>
-          <mat-card>
-            <mat-card-header>
-              <mat-card-title>
-                <mat-icon class="align-icon">account_balance_wallet</mat-icon> Wallet
-              </mat-card-title>
-              <mat-card-subtitle>Add/edit payment methods</mat-card-subtitle>
-            </mat-card-header>
 
-            <mat-card-content>
-              <span>Edit your wallet here</span>
-            </mat-card-content>
-          </mat-card>
+    <section>
+      <h3>
+        <mat-icon class="align-icon" mat-list-icon>favorite_border</mat-icon>Preferences
+      </h3>
+
+      <form [formGroup]="preferencesForm" *ngIf="shops">
+        <div *ngIf="preferences" fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-between" layout-wrap>
+          <mat-form-field appearance="outline" fxFlex="48%">
+            <mat-label>Favorite Shop</mat-label>
+            <mat-icon matPrefix>storefront</mat-icon>
+            <mat-select formControlName="favourite_shop">
+              <mat-option *ngFor="let shop of shops" [value]="shop">
+                {{shop.name | titlecase}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" fxFlex="48%">
+            <mat-label>Order Method</mat-label>
+            <mat-icon matPrefix>restaurant_menu</mat-icon>
+            <mat-select formControlName="fulfillment_method">
+              <mat-option value="delivery">
+                Delivery
+              </mat-option>
+              <mat-option value="collection">
+                Collection
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
-      </mat-tab>
 
-      <mat-tab>
-        <ng-template mat-tab-label>
-          <mat-icon class="tab-icon">settings</mat-icon>
-          Settings
-        </ng-template>
-        <div>
-          <mat-card>
-            <mat-card-header>
-              <mat-card-title>
-                <mat-icon class="align-icon">settings</mat-icon> Settings
-              </mat-card-title>
-            </mat-card-header>
+      </form>
+    </section>
 
-            <mat-card-content class="config-content">
-              <h3 class="mat-typography">Theme Configuration</h3>
-              <mat-slide-toggle [checked]="isDarkTheme | async" (change)="toggleDarkTheme($event.checked)">
-                <span>{{(isDarkTheme | async) ? 'Dark' : 'Light'}}</span>
-              </mat-slide-toggle>
-            </mat-card-content>
-          </mat-card>
-        </div>
-      </mat-tab>
-    </mat-tab-group>
+    <section>
+      <h3>
+        <mat-icon class="align-icon" mat-list-icon>settings</mat-icon>Settings
+      </h3>
+
+      <div>
+        <h4>
+          <mat-icon class="align-icon">palette</mat-icon> Theme Settings
+        </h4>
+        <mat-slide-toggle [checked]="isDarkTheme | async" (change)="toggleDarkTheme($event.checked)">
+          <span>{{(isDarkTheme | async) ? 'Dark' : 'Light'}}</span>
+        </mat-slide-toggle>
+      </div>
+    </section>
   </div>
 </section>

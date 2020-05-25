@@ -36,7 +36,8 @@ export class SideOrdersComponent implements OnInit {
 
   addSide(side): void {
     const dialogRef = this.dialog.open(OrderProductComponent, {
-      maxHeight: '90%',
+      maxWidth: '100vw',
+      panelClass: 'full-screen-dialog',
       data: {
         product: side,
         type: 'side-order',
@@ -51,7 +52,8 @@ export class SideOrdersComponent implements OnInit {
 
   addProduct(d): void {
     const dialogRef = this.dialog.open(OrderDComponent, {
-      maxHeight: '90%',
+      maxWidth: '100vw',
+      panelClass: 'full-screen-dialog',
       data: {
         d: d,
         type: 'dips'

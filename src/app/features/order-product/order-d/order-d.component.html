@@ -1,36 +1,42 @@
 <h1 mat-dialog-title fxLayoutAlign="space-between">
-    <span>{{data.d.title | titlecase}}</span>
-    <button mat-icon-button (click)="onNoClick()">
-      <mat-icon>close</mat-icon>
-    </button>
-  </h1>
-  
-  <div mat-dialog-content>
-    <section class="description">
-      <img mat-card-image [src]="img">
-      <p>{{data.d.description}}</p>
-    </section>
-  
-  
-    <div *ngIf="data.d.options" class="panel-content">
-      <h4 class="primary-color"><strong>Please choose an option:</strong></h4>
-      <mat-radio-group (change)="onChangeOption($event)" [(ngModel)]="optionSelected" fxLayout="column">
-        <mat-radio-button *ngFor="let option of data.d.options" [value]="option">
-          {{option}}
-        </mat-radio-button>
-      </mat-radio-group>
-    </div>
-  
-    <div class="item_number__content" fxLayout="row" fxLayoutAlign="center center">
-      <button (click)="remove()" mat-icon-button color="accent"><mat-icon>remove_circle</mat-icon></button>
-      <h3>{{numberOfItems}}</h3>
-      <button (click)="add()" mat-icon-button color="accent"><mat-icon>add_circle</mat-icon></button>
-    </div>
+  <span>{{data.d.title | titlecase}}</span>
+  <button mat-icon-button (click)="onNoClick()">
+    <mat-icon>close</mat-icon>
+  </button>
+</h1>
+
+<div mat-dialog-content>
+  <section class="description">
+    <img mat-card-image [src]="img">
+    <p>{{data.d.description}}</p>
+  </section>
+
+
+  <div *ngIf="data.d.options" class="panel-content">
+    <h4 class="primary-color"><strong>Please choose an option:</strong></h4>
+    <mat-radio-group (change)="onChangeOption($event)" [(ngModel)]="optionSelected" fxLayout="column">
+      <mat-radio-button *ngFor="let option of data.d.options" [value]="option">
+        {{option}}
+      </mat-radio-button>
+    </mat-radio-group>
   </div>
-  
-  <div mat-dialog-actions fxLayoutAlign="end">
-    <button [disabled]="!totalPrice" mat-stroked-button (click)="onAddClick()" color="accent">
-      <span>Add for £{{totalPrice | number: '1.2'}}</span>
+
+  <div class="item_number__content" fxLayout="row" fxLayoutAlign="center center">
+    <button (click)="remove()" mat-icon-button color="primary">
+      <mat-icon>remove_circle</mat-icon>
+    </button>
+    <h3>{{numberOfItems}}</h3>
+    <button (click)="add()" mat-icon-button color="primary">
+      <mat-icon>add_circle</mat-icon>
     </button>
   </div>
-  
+</div>
+
+<div mat-dialog-actions fxLayoutAlign="space-between end" fxLayout.lt-sm="column">
+  <button fxFlex="40%" fxHide.lt-sm mat-stroked-button (click)="onNoClick()" color="primary">
+    Cancel
+  </button>
+  <button fxFlex="50%" [disabled]="!totalPrice" mat-flat-button (click)="onAddClick()" color="primary">
+    <span>Add for £{{totalPrice | number: '1.2'}}</span>
+  </button>
+</div>

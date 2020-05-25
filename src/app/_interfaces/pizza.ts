@@ -11,11 +11,17 @@ export interface Pizza {
     optional?: string[];
 }
 
-export interface PizzaBase {
+export interface PizzaCrust {
     name: string;
     title: string;
     price: number;
     for: string[];
+}
+
+export interface PizzaBase {
+    name: string;
+    title: string;
+    price: number;
 }
 
 export interface PizzaSize {
@@ -36,7 +42,7 @@ export interface Topping {
 
 export interface PizzaMenu {
     pizzas: Pizza[];
-    crusts: PizzaBase[];
+    crusts: PizzaCrust[];
     bases: PizzaBase[];
     sizes: PizzaSize[];
     toppings: Topping[];

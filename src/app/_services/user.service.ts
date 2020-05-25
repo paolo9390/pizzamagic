@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { User, PizzaMagicUser } from '../_interfaces/user';
+import { User, PizzaMagicUser, UserPreferences } from '../_interfaces/user';
 import { HttpClient } from '@angular/common/http';
 import * as globals from './globals.service';
 
@@ -36,7 +36,7 @@ export class UserService {
     return this.http.get<User>(`${globals.HTTP_API_URL}/user/me`);
    }
 
-   getUserPreferences(): Observable<any> {
-    return this.http.get<any>(`${globals.HTTP_API_URL}/favourites`);
+   getUserPreferences(): Observable<UserPreferences> {
+    return this.http.get<UserPreferences>(`${globals.HTTP_API_URL}/favourites`);
    }
 }

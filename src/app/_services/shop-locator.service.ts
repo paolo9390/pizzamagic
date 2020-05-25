@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { PizzaMagicShop, ShopLocation } from '../_interfaces/pizza-magic.shop';
 import { Observable } from 'rxjs';
+import * as globals from './globals.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,14 +15,16 @@ export class ShopLocatorService {
       postcode: 'CH60 0AG',
       address: 'Pizza Magic, 62 Telegraph Road, Heswall, Wirral, England',
       longitude: -3.09219,
-      latitude: 53.325727
+      latitude: 53.325727,
+      phone: '01513429222'
     },
     {
       name: 'West Kirby',
       postcode: 'CH48 0RF',
       address: 'Pizza Magic, 134 Banks Road, West Kirby, Wirral, England',
       longitude: -3.183624,
-      latitude: 53.368929
+      latitude: 53.368929,
+      phone: '01516253212'
     }
   ];
 
@@ -81,4 +84,8 @@ export class ShopLocatorService {
       return this.roundToDecimal(dist);
     }
   }
+
+  getAllShops(): Observable<PizzaMagicShop[]> {
+    return this.http.get<PizzaMagicShop[]>(`${globals.HTTP_API_URL}/shops`);
+   }
 }

@@ -31,7 +31,8 @@ export class BurgerComponent implements OnInit {
 
   addBurger(burger): void {
     const dialogRef = this.dialog.open(OrderProductComponent, {
-      maxHeight: '90%',
+      maxWidth: '100vw',
+      panelClass: 'full-screen-dialog',
       data: {
         product: burger,
         type: 'burger'

@@ -36,7 +36,8 @@ export class DessertDrinkComponent implements OnInit {
 
   addProduct(d): void {
     const dialogRef = this.dialog.open(OrderDComponent, {
-      maxHeight: '90%',
+      maxWidth: '100vw',
+      panelClass: 'full-screen-dialog',
       data: {
         d: d,
         type: this.mode

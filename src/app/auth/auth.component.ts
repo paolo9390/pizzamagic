@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../_services/auth.service';
-import { PizzaMagicUser } from '../_interfaces/user';
+import { PizzaMagicUser, User } from '../_interfaces/user';
 import { UserService } from '../_services/user.service';
 import { MatSnackBar } from '@angular/material';
 
@@ -15,6 +15,7 @@ export class AuthComponent implements OnInit {
 
   title: string = 'Login to ORDER NOW';
   loginForm: FormGroup;
+  registerForm: FormGroup;
   isSubmitted = false;
   hide = true;
   authErr: string;
@@ -27,14 +28,26 @@ export class AuthComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm  =  this.formBuilder.group({
-        email: ['', [Validators.required,
-        Validators.email]],
-        password: ['', Validators.required]
+      email: ['', [Validators.required,
+      Validators.email]],
+      password: ['', Validators.required]
     });
+
     this.authErr = '';
+
+    this.registerForm  =  this.formBuilder.group({
+      name: ['', Validators.required],
+      surname: ['', Validators.required],
+      email: ['', [Validators.required,
+      Validators.email]],
+      password: ['', Validators.required],
+      phone: ['', Validators.required],
+      postcode: ['', Validators.required],
+      address: ['', Validators.required]
+    });
   }
 
-  login(){
+  login() {
     this.isSubmitted = true;
     if(this.loginForm.invalid){
       return;
@@ -57,6 +70,24 @@ export class AuthComponent implements OnInit {
         this.openSnackBar(this.authErr, 'ok');
       }
     );
+  }
+
+  register() {
+    if(this.registerForm.invalid){
+      return;
+    }
+
+    this.authService.register(this.registerForm.value).subscribe(
+      res => {
+        console.log(res)
+      },
+      err => {
+        console.error(err);
+        this.authErr = err.error.error;
+        this.openSnackBar(this.authErr, 'ok');
+      }
+    );
+    
   }
 
   openSnackBar(message: string, action: string) {

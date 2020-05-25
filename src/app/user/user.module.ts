@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserComponent } from './user.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatIconModule, MatCardModule, MatListModule, MatTabsModule, MatSlideToggleModule, MatToolbarModule } from '@angular/material';
+import { MatIconModule, MatListModule, MatSlideToggleModule, MatFormFieldModule, MatDividerModule, MatInputModule, MatSelectModule, MatButtonModule } from '@angular/material';
 import { StoreModule } from '@ngrx/store';
 import { favouriteReducer } from '../_store/reducers/favourite.reducer';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 
 
@@ -15,11 +15,14 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     FlexLayoutModule,
     MatIconModule,
-    MatCardModule,
     MatListModule,
-    MatTabsModule,
-    MatToolbarModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatDividerModule,
+    MatButtonModule,
     MatSlideToggleModule,
+    ReactiveFormsModule,
     FormsModule,
     StoreModule.forFeature('favourite', favouriteReducer),
   ]

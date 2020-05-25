@@ -124,6 +124,7 @@ export interface AnyProduct {
   toppings?: string[];
   price_size?: PriceSize[];
   spicy?: boolean;
+  extras?: string[];
 }
 
 export interface PriceSize {

@@ -1,4 +1,4 @@
-<mat-toolbar [ngStyle]="{'background': selectedMenu.background}">
+<mat-toolbar fxHide.lt-sm [ngStyle]="{'background': selectedMenu.background}">
   <mat-toolbar-row>
     <div class="selected_menu">
       <img [src]="selectedMenu?.img">
@@ -7,7 +7,8 @@
   </mat-toolbar-row>
 </mat-toolbar>
 
-<div class="mat-typography">
+
+<div fxHide.lt-sm class="mat-typography">
   <section class="menu-section" layout-wrap fxLayout.gt-sm="row" fxLayoutAlign="space-between stretch">
     <button (click)="navigateTo(menu.route)" [ngStyle]="{'background-color': menu?.background}" mat-flat-button
       *ngFor="let menu of menus" fxFlex="16%" fxFlex.lt-lg="32%" fxFlex.lt-md="48%" fxFlex.lt-sm="100%">
@@ -20,6 +21,12 @@
   </section>
 </div>
 
+
+<nav fxHide.gt-xs mat-tab-nav-bar>
+  <a mat-tab-link *ngFor="let menu of constmenus"
+     (click)="selectedMenu = menu; navigateTo(menu.route);"
+     [active]="selectedMenu == menu"> {{menu?.name}} </a>
+</nav>
 <div class="basket-wrapper" fxHide.lt-lg>
   <app-basket class="basket"></app-basket>
 </div>
