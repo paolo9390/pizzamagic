@@ -1,4 +1,6 @@
 export interface GarlicBread {
+    _id: number;
+    popular?: boolean;
     name: string;
     title: string;
     description: string;

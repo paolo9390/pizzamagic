@@ -2,9 +2,11 @@
 
 <div>
   <section>
-    <!-- <app-loader></app-loader> -->
+    <app-loader></app-loader>
     <app-header></app-header>
-    <router-outlet></router-outlet>
+    <section [class.loading]="loading">
+      <router-outlet></router-outlet>
+    </section>
     <app-footer></app-footer>
 
   </section>

@@ -1,7 +1,8 @@
 import { ShoppingState } from './shopping';
+import { Basket } from './basket';
 import { FavouriteState } from './favourite';
 
 export interface AppState {
-    readonly shopping: ShoppingState;
+    readonly basket: Basket;
     readonly favourite: FavouriteState;
 }

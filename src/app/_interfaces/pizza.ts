@@ -1,4 +1,6 @@
 export interface Pizza {
+    _id: number;
+    popular?: boolean;
     name: string;
     title: string;
     description: string;

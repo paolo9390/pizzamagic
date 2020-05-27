@@ -1,11 +1,21 @@
-.mat-toolbar-row {
-  height: 150px;
+.title {
+  font-size: xx-large;
 }
 
-mat-toolbar-row>app-title {
-  margin-top: 0.5em;
+mat-button-toggle-group {
+  width: 100%;
 }
 
-card-icon {
-    background-size: cover;
+mat-form-field, mat-nav-list {
+  width: 100%;
+}
+
+.checkout_user__preferences > div {
+  margin-top: 1em;
+} 
+
+@media (min-width:450px) {
+  .basket-section {
+      padding-top: 72px;
+  }
 }

@@ -3,6 +3,7 @@ import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/c
 import { LoaderService } from '../_services/loader.service';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
+import * as globals from '../_services/globals.service';
 
 
 @Injectable()
@@ -11,7 +12,7 @@ export class LoaderInterceptor implements HttpInterceptor {
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         
-        const isApiUrl = request.url.startsWith('http://localhost:5000');
+        const isApiUrl = request.url.startsWith(`${globals.HTTP_API_URL}`);
 
         if (isApiUrl) this.loader.show();
 

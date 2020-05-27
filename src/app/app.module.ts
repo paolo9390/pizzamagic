@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderModule } from './_shared/header/header.module';
 import { FooterModule } from './_shared/footer/footer.module';
+import { LoaderModule } from './_shared/loader/loader.module';
 import { HomeModule } from './home/home.module';
 import { AuthModule } from './auth/auth.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -33,6 +34,7 @@ import { environment } from '../environments/environment';
     HttpClientModule,
     HeaderModule,
     FooterModule,
+    LoaderModule,
     HomeModule,
     AuthModule,
     UserModule,

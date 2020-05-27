@@ -4,8 +4,8 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { Dip } from '../../_interfaces/side-order';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../_store/models/app-state';
-import { AddItemAction } from '../../_store/actions/shopping.actions';
-import { ShoppingItem, Product } from '../../_store/models/shopping';
+import { AddItemAction } from '../../_store/actions/basket.actions';
+import { MenuItem, ProductModifier } from '../../_store/models/basket';
 
 @Component({
   selector: 'app-order-product',
@@ -32,32 +32,35 @@ export class OrderProductComponent implements OnInit {
   }
 
   onAddClick(): void {
-    this.store.dispatch(new AddItemAction(this.initializeItem()));
+    this.store.dispatch(new AddItemAction(this.initializeMenuItem()));
 
     this.dialogRef.close();
   }
 
-  initializeItem(): ShoppingItem {
-    let extras: string[] = [];
-
-    this.extraDips.forEach(extra => {
-      extras.push(extra.title)
+  initializeMenuItem(): MenuItem {
+    let extras: ProductModifier[] = [];
+    
+    this.extraDips.forEach(dip => {
+      extras.push({
+        name: dip.name,
+        description: dip.title,
+        quantity: 1,
+        top_level: false
+      })
     });
-    const product: Product = {
+    const item: MenuItem = {
+      menu_item_id: this.data.product._id,
       name: this.data.product.name,
       title: `${this.data.product.title} ${this.extraSelected}`,
       description: this.sizeSelected.size,
-      notes: '',
-      extras: extras
-    }
-
-    const shopping: ShoppingItem = {
-      amount: this.numberOfItems,
+      quantity: this.numberOfItems,
       price: this.totalPrice,
-      product: product,
-      type: this.data.type
+      type: this.data.type,
+      top_level: true,
+      notes: '',
+      product_modifier: extras
     }
-    return shopping;
+    return item;
   }
 
   onNoClick(): void {
@@ -118,6 +121,7 @@ export interface OrderData {
 }
 
 export interface AnyProduct {
+  _id: number;
   name: string;
   title: string;
   description?: string;

@@ -4,7 +4,8 @@ import { BasketComponent } from './basket.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatCardModule, MatButtonModule, MatIconModule, MatListModule } from '@angular/material';
 import { StoreModule } from '@ngrx/store';
-import { shoppingReducer } from '../../_store/reducers/shopping.reducer';
+import { basketReducer } from '../../_store/reducers/basket.reducer';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -17,7 +18,8 @@ import { shoppingReducer } from '../../_store/reducers/shopping.reducer';
     MatButtonModule,
     MatListModule,
     MatIconModule,
-    StoreModule.forFeature('shopping', shoppingReducer)
+    RouterModule,
+    StoreModule.forFeature('basket', basketReducer)
   ],
   exports: [
     BasketComponent

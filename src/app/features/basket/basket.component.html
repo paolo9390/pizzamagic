@@ -1,21 +1,21 @@
 <mat-card class="mat-typography" *ngIf="(shoppingCart | async)?.length > 0">
   <mat-card-header fxLayout="column" fxLayoutAlign="strech">
-    <button mat-raised-button color="primary">Go to Checkout</button>
+    <button *ngIf="!isCheckout" mat-raised-button color="primary" [routerLink]="['/checkout']">Go to Checkout</button>
+    <mat-card-title *ngIf="isCheckout">Your Magic Order</mat-card-title>
   </mat-card-header>
   <mat-card-content>
       <div class="list" *ngFor="let item of shoppingCart | async" fxLayout="column">
         <div fxLayout="row" fxLayoutAlign="space-between">
           <span fxFlex="75%">
             <button mat-icon-button color="warn" (click)="removeItem(item)"><mat-icon>remove_circle_outline</mat-icon></button>
-            {{item.amount}} 
+            {{item.quantity}} 
             <button mat-icon-button color="warn" (click)="addItem(item)"><mat-icon>add_circle_outline</mat-icon></button>
-            {{ item.product.title | titlecase}} <span class="mat-caption description" *ngFor="let option of item.product.optional">({{option | titlecase}})</span>
+            {{ item.title | titlecase}} <span *ngIf="item?.description" class="mat-caption description">({{item?.description | titlecase}})</span>
            </span>
           <span>£ {{item.price | number:'1.2'}}</span>
         </div>
 
-        <span class="mat-caption description">{{item.product.description | titlecase}}</span>
-        <span class="mat-caption description" *ngFor="let extra of item.product.extras">{{extra | titlecase}}</span>
+        <span class="mat-caption description" *ngFor="let extra of item.product_modifier">{{extra?.description | titlecase}}</span>
       </div>
       <mat-divider></mat-divider>
   </mat-card-content>

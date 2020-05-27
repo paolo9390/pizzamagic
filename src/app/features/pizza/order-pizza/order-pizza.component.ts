@@ -3,9 +3,9 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Pizza, PizzaBase, Topping, PizzaSize, PizzaCrust } from '../../../_interfaces/pizza';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../_store/models/app-state';
-import { AddItemAction } from '../../../_store/actions/shopping.actions';
-import { ShoppingItem, Product } from '../../../_store/models/shopping';
+import { AddItemAction } from '../../../_store/actions/basket.actions';
 import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
+import { MenuItem, ProductModifier } from '../../../_store/models/basket';
 
 @Component({
   selector: 'app-order-pizza',
@@ -64,43 +64,59 @@ export class OrderPizzaComponent implements OnInit {
   }
 
   onAddClick(): void {
-    this.store.dispatch(new AddItemAction(this.initializeItem()));
-
+    this.store.dispatch(new AddItemAction(this.initializeMenuItem()));
     this.dialogRef.close();
   }
 
-  initializeItem(): ShoppingItem {
-    let extras: string[] = [];
+  initializeMenuItem(): MenuItem {
+    let extras: ProductModifier[] = [];
+    
     this.basesSelected.forEach(base => {
-      extras.push(base.title)
+      extras.push({
+        name: base.name,
+        description: base.title,
+        quantity: 1,
+        top_level: false
+      })
     });
 
     this.extraToppings.forEach(extra => {
-      extras.push(extra.title)
+      extras.push({
+        name: extra.name,
+        description: extra.title,
+        quantity: 1,
+        top_level: false
+      })
     });
 
-    const product: Product = {
+    this.optionsSelected.forEach(option => {
+      extras.push({
+        name: option,
+        description: option,
+        quantity: 1,
+        top_level: false
+      })
+    });
+
+    const item: MenuItem = {
+      menu_item_id: this.data.pizza._id,
       name: this.data.pizza.name,
       title: `${this.sizeSelected.size}"  ${this.data.pizza.title}`,
       description: this.crustSelected ? this.crustSelected.title : this.sizeSelected.type,
-      notes: '',
-      extras: extras,
-      optional: this.optionsSelected
-    }
-
-    const shopping: ShoppingItem = {
-      amount: this.numberOfItems,
+      quantity: this.numberOfItems,
       price: this.totalPrice,
-      product: product,
-      type: 'pizza'
+      type: 'pizza',
+      top_level: true,
+      notes: '',
+      product_modifier: extras
     }
-    return shopping;
+    return item;
   }
 
   selectSize(evt: any): void {
     this.sizeSelected = evt.value;
 
-    if (this.data.pizza.name === 'margherita') {
+    if (this.data.pizza.name === 'margherita' || this.data.pizza.name === 'create_own' ) {
       this.pizzaPrice = this.sizeSelected.margherita_price;
     } else {
       this.pizzaPrice = this.sizeSelected.price;

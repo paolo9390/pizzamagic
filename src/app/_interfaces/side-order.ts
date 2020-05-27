@@ -1,4 +1,6 @@
 export interface SideOrder {
+    _id: number;
+    popular?: boolean;
     name: string;
     title: string;
     spicy: boolean;

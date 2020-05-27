@@ -7,7 +7,7 @@ import { MenuModule } from '../menu/menu.module';
 import { OrderPizzaComponent } from './order-pizza/order-pizza.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
-import { shoppingReducer } from '../../_store/reducers/shopping.reducer';
+import { basketReducer } from '../../_store/reducers/basket.reducer';
 
 
 
@@ -30,7 +30,7 @@ import { shoppingReducer } from '../../_store/reducers/shopping.reducer';
     MenuModule,
     FormsModule,
     ReactiveFormsModule,
-    StoreModule.forFeature('shopping', shoppingReducer)
+    StoreModule.forFeature('basket', basketReducer)
   ],
   entryComponents: [OrderPizzaComponent]
 })

@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../_store/models/app-state';
-import { ShoppingItem } from 'src/app/_store/models/shopping';
 import { Observable } from 'rxjs';
-import { DeleteItemAction, EditItemAction } from 'src/app/_store/actions/shopping.actions';
+import { DeleteItemAction, EditItemAction } from '../../_store/actions/basket.actions';
+import { MenuItem } from '../../_store/models/basket';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-basket',
@@ -11,16 +12,17 @@ import { DeleteItemAction, EditItemAction } from 'src/app/_store/actions/shoppin
   styleUrls: ['./basket.component.scss']
 })
 export class BasketComponent implements OnInit {
+  @Input() isCheckout: boolean;
 
-  shoppingCart: Observable<ShoppingItem[]>;
-  shopping: ShoppingItem[];
+  shoppingCart: Observable<MenuItem[]>;
+  shopping: MenuItem[];
   total: number;
 
   constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
     // current shopping cart
-    this.shoppingCart = this.store.select(store => store.shopping.list);
+    this.shoppingCart = this.store.select(store => store.basket.list);
     this.shoppingCart.subscribe(shopping => {
       if (shopping.length > 0) {
         this.shopping = shopping;
@@ -30,39 +32,50 @@ export class BasketComponent implements OnInit {
         });
       }
     })
-
   }
 
   trim(val: string): string {
     return val.replace(/\-|\_/g, ' ');
   }
 
-  removeItem(item: ShoppingItem): void {
-    const amount = item.amount > 0 ? item.amount - 1 : item.amount;
-    const price = item.price - (item.price/item.amount);
+  removeItem(item: MenuItem): void {
+    const quantity = item.quantity > 0 ? item.quantity - 1 : item.quantity;
+    const price = item.price - (item.price/item.quantity);
     
-    let newItem: ShoppingItem = {
-      amount: amount,
+    let newItem: MenuItem = {
+      menu_item_id: item.menu_item_id,
+      name: item.name,
+      title: item.title,
+      description: item.description,
+      quantity: quantity,
       price: price,
-      product: item.product,
-      type: item.type
+      type: item.type,
+      top_level: item.top_level,
+      notes: item.notes,
+      product_modifier: item.product_modifier
     }
 
-    if (item.amount > 1) this.store.dispatch(new EditItemAction(newItem));
+    if (item.quantity > 1) this.store.dispatch(new EditItemAction(newItem));
     else this.store.dispatch(new DeleteItemAction(item));
   }
 
-  addItem(item: ShoppingItem): void {
-    const amount = item.amount > 0 ? item.amount + 1 : item.amount;
-    const price = item.price + (item.price/item.amount);
+  addItem(item: MenuItem): void {
+    const quantity = item.quantity > 0 ? item.quantity + 1 : item.quantity;
+    const price = item.price + (item.price/item.quantity);
     
-    let newItem: ShoppingItem = {
-      amount: amount,
+    let newItem: MenuItem = {
+      menu_item_id: item.menu_item_id,
+      name: item.name,
+      title: item.title,
+      description: item.description,
+      quantity: quantity,
       price: price,
-      product: item.product,
-      type: item.type
+      type: item.type,
+      top_level: item.top_level,
+      notes: item.notes,
+      product_modifier: item.product_modifier
     }
 
-    if (item.amount < 10) this.store.dispatch(new EditItemAction(newItem));
+    if (item.quantity < 10) this.store.dispatch(new EditItemAction(newItem));
   }
 }

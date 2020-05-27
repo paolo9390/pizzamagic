@@ -24,7 +24,7 @@
         <div class="panel-content">
           <mat-radio-group formControlName="sizeCtrl" (change)="selectSize($event)" fxLayout="column">
             <mat-radio-button *ngFor="let size of data.sizes" [value]="size">{{size.size}} {{size.type | titlecase}}
-              - £{{(data.pizza.name === 'margherita' ? size.margherita_price : size.price) | number: '1.2'}}
+              - £{{(data.pizza.name === 'margherita' || data.pizza.name === 'create_own' ? size.margherita_price : size.price) | number: '1.2'}}
             </mat-radio-button>
           </mat-radio-group>
         </div>

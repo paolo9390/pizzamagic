@@ -66,6 +66,11 @@ $dark-theme:   mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
         color: mat-color($dark-primary, 200);
     }
 
+    footer {
+        background-color: mat-color($dark-body, 800);
+        color: mat-color($dark-body, 100);
+    }
+
 }
 
 .color-scheme-light {
@@ -105,43 +110,12 @@ $dark-theme:   mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
     .primary-color {
         color: mat-color($primary);
     }
+
+    footer {
+        background-color: mat-color($dark-body, 100);
+        color: mat-color($dark-body, 800);
+    }
 }
-
-// .dark-theme {
-//     @include angular-material-theme($dark-theme);
-//     background-color: mat-color($dark-accent, 900);
-//     color: mat-color($dark-accent, 200);
-
-//     .primary-color {
-//         color: mat-color($dark-primary);
-//     }
-
-//     .warn-color {
-//         color: mat-color($dark-warn);
-//     }
-
-//     .accent-color {
-//         color: mat-color($dark-accent);
-//     }
-
-//     .primary-background {
-//         background-color: mat-color($dark-primary, 900);
-//         color: mat-color($dark-primary, 50);
-//     }
-
-//     .warn-background {
-//         background-color: mat-color($dark-warn, 900);
-//         color: mat-color($dark-warn, 200);
-//     }
-
-//     .accent-background {
-//         background-color: mat-color($dark-accent, 800);
-//         color: mat-color($dark-primary, 200);
-//     }
-
-// }
-
-
 
 /* You can add global styles to this file, and also import other style files */
 
@@ -202,3 +176,7 @@ pizza-magic-root {
         border-radius: 0;
     }
 }
+
+.spacer {
+    flex: 1 1 auto;
+  }

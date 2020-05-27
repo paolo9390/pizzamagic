@@ -62,7 +62,12 @@
                 </mat-card-header>
                 <mat-card-content>
                   <p>{{pizza?.description}}</p>
-                  <p class="base-price">£ {{basePrice}}</p>
+                  <div class="base-price" fxLayoutAlign="space-between">
+                    <span>£ {{(pizza.name === 'create_own' ? baseMargheritaPrice : basePrice) | number: '1.2'}}</span>
+                    <span class="accent-color" *ngIf="pizza?.popular">
+                      <mat-icon class="align-icon" color="accent">star</mat-icon> Popular 
+                    </span>
+                  </div>
                 </mat-card-content>
               </mat-card>
             </div>
@@ -82,7 +87,12 @@
                 </mat-card-header>
                 <mat-card-content>
                   <p>{{pizza?.description}}</p>
-                  <p class="base-price">£ {{(pizza.name === 'margherita' ? baseMargheritaPrice : basePrice) | number: '1.2'}}</p>
+                  <div class="base-price" fxLayoutAlign="space-between">
+                    <span>£ {{(pizza.name === 'margherita' ? baseMargheritaPrice : basePrice) | number: '1.2'}}</span>
+                    <span class="accent-color" *ngIf="pizza?.popular">
+                      <mat-icon class="align-icon" color="accent">star</mat-icon> Popular 
+                    </span>
+                  </div>
                 </mat-card-content>
               </mat-card>
             </div>

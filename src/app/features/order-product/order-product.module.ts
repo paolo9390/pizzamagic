@@ -6,7 +6,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatDialogModule, MatIconModule, MatCardModule, MatButtonModule, MatRadioModule, MatCheckboxModule, MatExpansionModule } from '@angular/material';
 import { OrderDComponent } from './order-d/order-d.component';
 import { StoreModule } from '@ngrx/store';
-import { shoppingReducer } from 'src/app/_store/reducers/shopping.reducer';
+import { basketReducer } from 'src/app/_store/reducers/basket.reducer';
 
 
 
@@ -22,7 +22,7 @@ import { shoppingReducer } from 'src/app/_store/reducers/shopping.reducer';
     MatCheckboxModule,
     MatRadioModule,
     MatButtonModule,
-    StoreModule.forFeature('shopping', shoppingReducer)
+    StoreModule.forFeature('basket', basketReducer)
   ],
   entryComponents: [OrderProductComponent, OrderDComponent]
 })

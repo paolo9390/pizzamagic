@@ -26,4 +26,13 @@ export interface PizzaMagicUser {
 export interface UserPreferences {
     favourite_shop: PizzaMagicShop;
     fulfillment_method: string;
+    address_book: Address[];
+}
+
+export interface Address {
+    user_id?: string;
+    postcode: string;
+    address: string;
+    phone: string;
+    notes?: string;
 }

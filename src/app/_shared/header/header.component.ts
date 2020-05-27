@@ -8,7 +8,7 @@ import { MatIconRegistry } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../_store/models/app-state';
-import { ShoppingItem } from '../../_store/models/shopping';
+import { MenuItem } from '../../_store/models/basket';
 import { ShopLocation } from '../../_interfaces/pizza-magic.shop';
 
 @Component({
@@ -23,7 +23,7 @@ export class HeaderComponent implements OnInit {
   logo: string = '/assets/img/pizzamagic-white.png';
   user: PizzaMagicUser;
 
-  shoppingCart: Observable<ShoppingItem[]>;
+  shoppingCart: Observable<MenuItem[]>;
   basketTotal: number = 0;
   shopLocation: Observable<ShopLocation>;
 
@@ -42,12 +42,12 @@ export class HeaderComponent implements OnInit {
     this.userService.currentUser.subscribe(user => this.user = user);
     this.shopLocation = this.store.select(store => store.favourite.shop);
 
-    this.shoppingCart = this.store.select(store => store.shopping.list);
+    this.shoppingCart = this.store.select(store => store.basket.list);
     this.shoppingCart.subscribe(shopping => {
       this.basketTotal = 0;
       if (shopping && shopping.length > 0) {
         shopping.forEach(item => {
-          this.basketTotal = this.basketTotal + item.amount
+          this.basketTotal = this.basketTotal + item.quantity
         });
       }
     })

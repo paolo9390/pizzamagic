@@ -27,6 +27,20 @@ section {
 }
 
 .user-panel {
-  max-width: 650px;
+  max-width: 850px;
   margin: 0 auto;
+}
+
+.address_book__container {
+  margin-top: 0.5em;
+  width: 100%;
+}
+
+.address_book__container div {
+  margin-bottom: 1em;
+}
+
+.address_book__container p {
+  margin-left: 2em;
+  color: gray;
 }

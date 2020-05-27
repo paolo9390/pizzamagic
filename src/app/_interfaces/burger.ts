@@ -1,4 +1,6 @@
 export interface Burger {
+    _id: number;
+    popular?: boolean;
     name: string;
     title: string;
     type: string;

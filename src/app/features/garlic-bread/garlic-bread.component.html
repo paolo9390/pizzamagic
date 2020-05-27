@@ -53,6 +53,7 @@
             <mat-card-title>
               {{bread?.title | titlecase}}
               <mat-icon svgIcon="chilli" *ngIf="bread?.spicy"></mat-icon>
+              <mat-icon *ngIf="bread?.popular" color="accent">star</mat-icon> 
             </mat-card-title>
           </mat-card-header>
           <img mat-card-image [src]="img">

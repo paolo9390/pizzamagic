@@ -1,5 +1,5 @@
 export interface ShoppingItem {
-    amount: number;
+    quantity: number;
     type: string;
     price: number;
     product: Product;

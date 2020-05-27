@@ -5,7 +5,7 @@ import { MatToolbarModule, MatIconModule, MatButtonModule, MatMenuModule, MatBad
 import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { StoreModule } from '@ngrx/store';
-import { shoppingReducer } from '../../_store/reducers/shopping.reducer';
+import { basketReducer } from '../../_store/reducers/basket.reducer';
 import { favouriteReducer } from '../../_store/reducers/favourite.reducer';
 
 
@@ -20,7 +20,7 @@ import { favouriteReducer } from '../../_store/reducers/favourite.reducer';
     MatMenuModule,
     MatBadgeModule,
     FlexLayoutModule,
-    StoreModule.forRoot({shopping: shoppingReducer, favourite: favouriteReducer})
+    StoreModule.forRoot({basket: basketReducer, favourite: favouriteReducer})
   ],
   exports: [HeaderComponent]
 })

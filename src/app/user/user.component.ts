@@ -50,7 +50,8 @@ export class UserComponent implements OnInit {
       const shop = this.shops.find(({ name }) => name === userPreferences.favourite_shop.name);
       this.preferences = {
         favourite_shop: shop,
-        fulfillment_method: userPreferences.fulfillment_method
+        fulfillment_method: userPreferences.fulfillment_method,
+        address_book: userPreferences.address_book
       }
       this.createPrefForm(this.preferences);
     })
@@ -98,5 +99,8 @@ export class UserComponent implements OnInit {
     this.editMode = false;
   }
   
+  addAddress(): void {
+    
+  }
 
 }

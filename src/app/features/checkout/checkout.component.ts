@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { AppState } from '../../_store/models/app-state';
-import { ShoppingItem } from 'src/app/_store/models/shopping';
-import { Observable } from 'rxjs';
-import { DeleteItemAction, EditItemAction } from 'src/app/_store/actions/shopping.actions';
+import { UserService } from '../../_services/user.service';
+import { ShopLocatorService } from '../../_services/shop-locator.service';
+import { forkJoin } from 'rxjs';
+import { UserPreferences, User, Address } from '../../_interfaces/user';
+import { PizzaMagicShop } from '../../_interfaces/pizza-magic.shop';
 
 @Component({
   selector: 'app-checkout',
@@ -13,33 +13,53 @@ import { DeleteItemAction, EditItemAction } from 'src/app/_store/actions/shoppin
 export class CheckoutComponent implements OnInit {
 
 
-  shoppingCart: Observable<ShoppingItem[]>;
-  shopping: ShoppingItem[];
-  total: number;
+  user: User;
+  preferences: UserPreferences;
+  shops: PizzaMagicShop[];
+  selectedShop: PizzaMagicShop;
+  selectedAddress: Address;
+  selectedFavouriteMethod: string;
+  isEditAddress: boolean = false;
 
-  constructor(private store: Store<AppState>) { }
+  preferredMethod: string = 'delivery';
+
+  constructor(private userService: UserService,
+    private shopService: ShopLocatorService) { }
 
   ngOnInit() {
-    // current shopping cart
-    this.shoppingCart = this.store.select(store => store.shopping.list);
-    this.shoppingCart.subscribe(shopping => {
-      if (shopping.length > 0) {
-        this.shopping = shopping;
-        this.total = 0;
-        shopping.forEach(item => {
-          this.total+= item.price;
-        });
+    this.userService.getUser().subscribe(user => {
+      this.user = user;
+      this.selectedAddress = {
+        address: this.user.address,
+        postcode: this.user.postcode,
+        phone: this.user.phone
+      }
+    });
+
+    const shopObs = this.shopService.getAllShops();
+    const userPreferenceObs = this.userService.getUserPreferences();
+    forkJoin(userPreferenceObs, shopObs).subscribe(objects => {
+      delete objects[0].favourite_shop._id;
+      const userPreferences: UserPreferences = objects[0];
+      this.shops = objects[1];
+
+      const shop = this.shops.find(({ name }) => name === userPreferences.favourite_shop.name);
+      this.preferences = {
+        favourite_shop: shop,
+        fulfillment_method: userPreferences.fulfillment_method,
+        address_book: userPreferences.address_book
       }
     })
     
   }
 
-  removeItem(item: ShoppingItem): void {
-
+  selectAddress(address: Address): void {
+    this.selectedAddress = address;
+    this.isEditAddress = false;
   }
 
-  addItem(item: ShoppingItem): void {
-
+  editAddress(): void {
+    this.isEditAddress = true;
   }
 
 }

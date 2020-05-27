@@ -2,8 +2,8 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { AppState } from '../../../_store/models/app-state';
 import { Store } from '@ngrx/store';
-import { AddItemAction } from '../../../_store/actions/shopping.actions';
-import { ShoppingItem, Product } from '../../../_store/models/shopping';
+import { AddItemAction } from '../../../_store/actions/basket.actions';
+import { ProductModifier, MenuItem } from 'src/app/_store/models/basket';
 
 @Component({
   selector: 'app-order-d',
@@ -30,27 +30,26 @@ export class OrderDComponent implements OnInit {
   }
 
   onAddClick(): void {
-    this.store.dispatch(new AddItemAction(this.initializeItem()));
+    this.store.dispatch(new AddItemAction(this.initializeMenuItem()));
     
     this.dialogRef.close();
   }
 
-  initializeItem(): ShoppingItem {
-    const product: Product = {
+  initializeMenuItem(): MenuItem {
+    let extras: ProductModifier[] = [];
+    const item: MenuItem = {
+      menu_item_id: this.data.d._id,
       name: this.dSelected.name,
       title: this.dSelected.title,
       description: this.optionSelected,
-      notes: '',
-      extras: []
-    }
-
-    const shopping: ShoppingItem = {
-      amount: this.numberOfItems,
+      quantity: this.numberOfItems,
       price: this.totalPrice,
-      product: product,
-      type: this.data.type
+      type: this.data.type,
+      top_level: true,
+      notes: '',
+      product_modifier: extras
     }
-    return shopping;
+    return item;
   }
 
   calculateTotal() {
@@ -99,6 +98,7 @@ export interface OrderData {
 }
 
 export interface AnyProduct {
+  _id?: number;
   name: string;
   title: string;
   description?: string;

@@ -1,64 +1,76 @@
-<mat-toolbar color="primary">
-  <mat-toolbar-row>
-    <app-title title="CHECKOUT"></app-title>
-  </mat-toolbar-row>
-</mat-toolbar>
+<section>
+  <div class="content">
+    <h2 class="title">CHECKOUT</h2>
 
-<section class="content" fxLayoutAlign="space-around" fxLayout="column">
+    <section fxLayout="row" fxLayoutAlign="space-between" fxLayout.lt-md="column">
+      <section class="checkout_user__preferences" fxLayout="column" fxFlex="55%" fxFlexOrder.lt-md="2">
+        <div fxLayoutAlign="space-between center">
+          <h3>
+            <mat-icon class="align-icon" mat-list-icon>storefront</mat-icon> Pizza Magic Heswall
+          </h3>
+          <button mat-stroked-button color="accent">Edit</button>
+        </div>
 
-  <div fxLayout="row" fxLayoutAlign="space-between">
-    <mat-card class="card" fxFlex="48%" matRipple>
-      <mat-card-header>
-            <div mat-card-avatar class="card-icon">
-                <mat-icon>store</mat-icon>
-            </div>
-        <mat-card-title>
-          Collection
-        </mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-          <p>Collection time between 20 to 30 minutes</p>
-      </mat-card-content>
-    </mat-card>
-    <mat-card class="card" fxFlex="48%" matRipple>
-      <mat-card-header>
-            <div mat-card-avatar class="card-icon">
-                <mat-icon>local_taxi</mat-icon>
-            </div>
-        <mat-card-title>
-          Delivery
-        </mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-          <p>Delivery time between 40 to 60 minutes</p>
-      </mat-card-content>
-    </mat-card>
+        <div>
+          <mat-button-toggle-group [(ngModel)]="preferredMethod" vertical="true">
+            <mat-button-toggle value="delivery" selected="true">
+              <span [ngClass]="{'mat-h2': preferredMethod === 'delivery'}">Delivery (30-25 min)</span>
+            </mat-button-toggle>
+            <mat-button-toggle value="collection">
+              <span [ngClass]="{'mat-h2': preferredMethod === 'collection'}">Collection (10-25 min)</span>
+            </mat-button-toggle>
+          </mat-button-toggle-group>
+        </div>
+
+        <div>
+          <div fxLayout="row" fxLayoutAlign="space-between center">
+            <h3>
+              <mat-icon class="align-icon" mat-list-icon>maps</mat-icon>Delivery Details
+            </h3>
+            <button *ngIf="!isEditAddress" mat-stroked-button color="accent" (click)="editAddress()">Edit</button>
+          </div>
+          <mat-card class="mat-typography" *ngIf="selectedAddress && !isEditAddress">
+            <mat-list>
+              <mat-list-item>
+                <mat-icon mat-list-icon>local_taxi</mat-icon>
+                <div mat-line class="mat-h1">{{selectedAddress?.address}}</div>
+                <div mat-line>{{selectedAddress?.postcode}} - {{selectedAddress?.phone}}</div>
+              </mat-list-item>
+            </mat-list>
+          </mat-card>
+        </div>
+
+        <div>
+          <div *ngIf="isEditAddress && preferences">
+            <mat-nav-list>
+              <mat-list-item (click)="selectAddress(address)" *ngFor="let address of preferences?.address_book">
+                <p matLine>
+                  <mat-icon class="align-icon">my_location</mat-icon>{{address?.address}}
+                </p>
+                <p matLine> {{address?.postcode}} - {{address?.phone}}</p>
+              </mat-list-item>
+            </mat-nav-list>
+            <button mat-button color="accent">Add new address</button>
+          </div>
+        </div>
+
+
+
+        <div>
+          <h3>
+            <mat-icon class="align-icon" mat-list-icon>notes</mat-icon>Additional Notes
+          </h3>
+          <mat-form-field appearance="fill">
+            <mat-label>Notes</mat-label>
+            <textarea matInput></textarea>
+          </mat-form-field>
+        </div>
+      </section>
+
+
+      <section fxFlex="40%" fxFlexOrder.lt-md="1" class="basket-section">
+        <app-basket [isCheckout]="true"></app-basket>
+      </section>
+    </section>
   </div>
-
-  <div class="mat-typography" *ngIf="(shoppingCart | async)?.length > 0">
-    <div class="list" *ngFor="let item of shoppingCart | async" fxLayout="column">
-      <div fxLayout="row" fxLayoutAlign="space-between">
-        <span fxFlex="75%">
-          <button mat-icon-button color="primary" (click)="removeItem(item)">
-            <mat-icon>remove_circle_outline</mat-icon>
-          </button>
-          {{item.amount}}
-          <button mat-icon-button color="primary" (click)="addItem(item)">
-            <mat-icon>add_circle_outline</mat-icon>
-          </button>
-          {{ item.product.title | titlecase}}
-        </span>
-        <span>£ {{item.price | number:'1.2'}}</span>
-      </div>
-
-      <span class="mat-caption description">{{item.product.description | titlecase}}</span>
-      <span class="mat-caption description" *ngFor="let extra of item.product.extras">{{extra | titlecase}}</span>
-    </div>
-    <mat-divider></mat-divider>
-    <div class="mat-body-2" fxLayoutAlign="space-around">
-      <span fxFlex="78%">Total</span>
-      <span>£ {{total | number: '1.2'}}</span>
-    </div>
-  </div>
-
 </section>

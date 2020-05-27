@@ -61,9 +61,11 @@
 
 
     <section>
-      <h3>
-        <mat-icon class="align-icon" mat-list-icon>favorite_border</mat-icon>Preferences
-      </h3>
+      <div>
+        <h3>
+          <mat-icon class="align-icon" mat-list-icon>favorite_border</mat-icon>Preferences
+        </h3>
+      </div>
 
       <form [formGroup]="preferencesForm" *ngIf="shops">
         <div *ngIf="preferences" fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-between" layout-wrap>
@@ -92,6 +94,28 @@
         </div>
 
       </form>
+    </section>
+
+    <section>
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+        <h3>
+          <mat-icon class="align-icon" mat-list-icon>map</mat-icon>Address Book
+        </h3>
+        <button (click)="addAddress()" mat-icon-button color="accent"><mat-icon>add</mat-icon></button>
+      </div>
+
+      <div *ngIf="preferences">
+        <div class="address_book__container" *ngFor="let address of preferences?.address_book" fxLayout="row" fxLayoutAlign="space-between center"> 
+          <span fxLayout="column">
+            <span><mat-icon class="align-icon">my_location</mat-icon>{{address?.address}}</span>
+            <p> {{address?.postcode}} - {{address?.phone}}</p>
+          </span>
+          <span>
+            <button mat-icon-button color="warn"><mat-icon>cancel</mat-icon></button>
+          </span>
+        </div>
+      </div>
+
     </section>
 
     <section>

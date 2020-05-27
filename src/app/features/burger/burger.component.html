@@ -52,6 +52,7 @@
             <mat-card-title>
               {{burger?.title}}
               <mat-icon svgIcon="chilli" *ngIf="burger?.spicy"></mat-icon>
+              <mat-icon *ngIf="burger?.popular" color="accent">star</mat-icon> 
             </mat-card-title>
           </mat-card-header>
           <img mat-card-image [src]="img">
