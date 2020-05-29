@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ShopLocatorService } from '../_services/shop-locator.service';
 import { FormControl, Validators } from '@angular/forms';
-import { ShopLocation } from '../_interfaces/pizza-magic.shop';
+import { ShopLocation, PizzaMagicShop } from '../_interfaces/pizza-magic.shop';
 import { Store } from '@ngrx/store';
 import { AppState } from '../_store/models/app-state';
 import { Observable } from 'rxjs';
@@ -34,8 +34,9 @@ export class HomeComponent implements OnInit {
   ];
 
   postcodeCtrl = new FormControl('', [Validators.required, Validators.pattern(/([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})$/)]);
-  shops: ShopLocation[];
-  shopLocation: Observable<ShopLocation>;
+  shops: PizzaMagicShop[];
+  shopsLocation: ShopLocation[];
+  shop: Observable<PizzaMagicShop>;
 
   position: any;
 
@@ -43,17 +44,18 @@ export class HomeComponent implements OnInit {
     private store: Store<AppState>) { }
 
   ngOnInit() {
-    this.shopLocation = this.store.select(store => store.favourite.shop)
+    this.shop = this.store.select(store => store.favourite.shop);
+    this.shoplocator.getAllShops().subscribe(shops => this.shops = shops);
   }
 
 
   locateShop() {
     if (this.postcodeCtrl.valid) {
-      this.shops = [];
+      this.shopsLocation = [];
       const postcode = this.postcodeCtrl.value;
       this.shoplocator.findAddressByPostcode(postcode).subscribe(response => {
         if (response && response['status'] === 200) {
-          this.shops = this.shoplocator.locate(response['result'].latitude, response['result'].longitude);
+          this.shopsLocation = this.shoplocator.locate(response['result'].latitude, response['result'].longitude);
         }
       })
     }
@@ -66,8 +68,8 @@ export class HomeComponent implements OnInit {
   }
 
   setPosition(position) {
-    this.shops = [];
-    this.shops = this.shoplocator.locate(position.coords.latitude, position.coords.longitude);
+    this.shopsLocation = [];
+    this.shopsLocation = this.shoplocator.locate(position.coords.latitude, position.coords.longitude);
   }
 
   getErrorMessage() {
@@ -79,7 +81,8 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  selectShop(shop: ShopLocation) {
+  selectShop(shopLocation: ShopLocation) {
+    const shop = this.shops.find(s => s.name.toLowerCase() == shopLocation.name.toLowerCase());
     this.store.dispatch(new SetFavouriteShopAction(shop));
   }
 }

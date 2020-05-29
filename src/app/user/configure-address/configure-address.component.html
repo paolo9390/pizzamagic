@@ -1,0 +1,57 @@
+<h1 mat-dialog-title fxLayoutAlign="space-between">
+  <span>{{data.mode | titlecase}} Address</span>
+  <button mat-icon-button (click)="onNoClick()">
+    <mat-icon>close</mat-icon>
+  </button>
+</h1>
+
+<div mat-dialog-content>
+
+  <form [formGroup]="addressForm">
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="space-between" layout-wrap>
+
+      <mat-form-field appearance="fill" fxFlex="48%">
+        <mat-label>Address line 1</mat-label>
+        <input formControlName="address_line1" matInput placeholder="Address line 1">
+        <mat-icon matSuffix>location_on</mat-icon>
+        <mat-error *ngIf="this.addressForm.controls.address_line1.invalid">Address line 1 required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" fxFlex="48%">
+        <mat-label>Address line 2</mat-label>
+        <input formControlName="address_line2" matInput placeholder="Address line 2">
+        <mat-icon matSuffix>location_on</mat-icon>
+        <mat-error *ngIf="this.addressForm.controls.address_line2.invalid">Address line 2 required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" fxFlex="48%">
+        <mat-label>Postcode</mat-label>
+        <input formControlName="postcode" matInput placeholder="Postcode">
+        <mat-icon matSuffix>location_on</mat-icon>
+        <mat-error *ngIf="this.addressForm.controls.postcode.invalid">postcode required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" fxFlex="48%">
+        <mat-label>Phone number</mat-label>
+        <input formControlName="phone" matInput placeholder="Phone">
+        <mat-icon matSuffix>phone</mat-icon>
+        <mat-error *ngIf="this.addressForm.controls.phone.invalid">Phone number required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" fxFlex="100%">
+        <mat-label>Notes</mat-label>
+        <textarea formControlName="notes" matInput></textarea>
+      </mat-form-field>
+    </div>
+  </form>
+
+
+  <div mat-dialog-actions fxLayoutAlign="space-between end" fxLayout.lt-sm="column">
+    <button fxFlex="40%" fxFlexOrder.lt-sm="2" mat-stroked-button (click)="onNoClick()" color="accent">
+      Cancel
+    </button>
+    <button fxFlex="50%" fxFlexOrder.lt-sm="1" [disabled]="this.addressForm.invalid" mat-flat-button (click)="onAddClick()" color="accent">
+      <span>{{data.mode | titlecase}}</span>
+    </button>
+  </div>
+</div>

@@ -3,8 +3,6 @@ import { PizzaMagicShop } from './pizza-magic.shop';
 export interface User {
     name: string;
     surname: string;
-    postcode: string;
-    address: string;
     email: string;
     password: string;
     role?: string;
@@ -24,12 +22,14 @@ export interface PizzaMagicUser {
 }
 
 export interface UserPreferences {
+    _id?: string;
     favourite_shop: PizzaMagicShop;
     fulfillment_method: string;
-    address_book: Address[];
+    favourite_address: Address;
 }
 
 export interface Address {
+    _id?: string;
     user_id?: string;
     postcode: string;
     address: string;

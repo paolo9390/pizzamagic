@@ -1,5 +1,8 @@
-import { ShopLocation } from '../../_interfaces/pizza-magic.shop';
+import { PizzaMagicShop } from '../../_interfaces/pizza-magic.shop';
+import { Address } from '../../_interfaces/user';
 
 export interface FavouriteState { 
-    shop: ShopLocation
+    shop: PizzaMagicShop;
+    fulfillment_method: string;
+    address: Address;
 }

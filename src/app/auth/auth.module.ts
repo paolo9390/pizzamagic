@@ -4,6 +4,8 @@ import { AuthComponent } from './auth.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatIconModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatSnackBarModule } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
+import { StoreModule } from '@ngrx/store';
+import { favouriteReducer } from '../_store/reducers/favourite.reducer';
 
 
 
@@ -17,7 +19,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatFormFieldModule,
     MatInputModule,
     MatSnackBarModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    StoreModule.forRoot({favourite: favouriteReducer})
   ],
   exports: [
     AuthComponent

@@ -19,7 +19,7 @@ export class AuthService {
     return this.http.post<any>(`${globals.HTTP_API_URL}/user/me/logout`, {})
   }
 
-  register(body): Observable<User> {
-    return this.http.post<User>(`${globals.HTTP_API_URL}/user/register`, body)
+  register(body): Observable<UserAuthenticated> {
+    return this.http.post<UserAuthenticated>(`${globals.HTTP_API_URL}/user/register`, body)
   }
 }

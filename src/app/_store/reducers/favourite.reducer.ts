@@ -2,12 +2,9 @@ import { FavouriteAction, FavouriteActionTypes } from '../actions/favourite.acti
 import { FavouriteState } from '../models/favourite';
 
 const initialState: FavouriteState = {
-    shop: {
-        name: '',
-        address: '',
-        postcode: '',
-        distance: 0
-    }
+    shop: null,
+    address: null,
+    fulfillment_method: 'delivery'
 };
 
 export function favouriteReducer(
@@ -16,6 +13,10 @@ export function favouriteReducer(
     switch (action.type) {
         case FavouriteActionTypes.SET_FAVOURITE_SHOP:
             return {...state, shop: action.payload};
+        case FavouriteActionTypes.SET_FAVOURITE_ADDRESS:
+            return {...state, address: action.payload};
+        case FavouriteActionTypes.SET_FAVOURITE_METHOD:
+            return {...state, fulfillment_method: action.payload};
         case FavouriteActionTypes.RESET_FAVOURITE_SHOP:
             return Object.assign({}, state.shop = undefined)
         default: 

@@ -31,7 +31,7 @@
             <mat-card-footer fxLayout="column" fxLayoutAlign="space-around" *ngIf="shops">
               <mat-list>
                 <mat-divider></mat-divider>
-                <mat-list-item matRipple (click)="selectShop(shop)" *ngFor="let shop of shops">
+                <mat-list-item matRipple (click)="selectShop(shop)" *ngFor="let shop of shopsLocation">
                   <mat-icon mat-list-icon>store</mat-icon>
                   <div mat-line>{{shop?.name | uppercase}} - {{shop?.distance}}m</div>
                 </mat-list-item>

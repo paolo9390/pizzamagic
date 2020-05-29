@@ -41,16 +41,16 @@
         </div>
 
         <div>
-          <div *ngIf="isEditAddress && preferences">
+          <div *ngIf="isEditAddress && address_book">
             <mat-nav-list>
-              <mat-list-item (click)="selectAddress(address)" *ngFor="let address of preferences?.address_book">
+              <mat-list-item (click)="selectAddress(address)" *ngFor="let address of address_book">
                 <p matLine>
                   <mat-icon class="align-icon">my_location</mat-icon>{{address?.address}}
                 </p>
                 <p matLine> {{address?.postcode}} - {{address?.phone}}</p>
               </mat-list-item>
             </mat-nav-list>
-            <button mat-button color="accent">Add new address</button>
+            <button mat-button color="accent" (click)="addAddress()">Add new address</button>
           </div>
         </div>
 

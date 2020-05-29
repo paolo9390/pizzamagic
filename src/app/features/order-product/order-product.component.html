@@ -56,10 +56,10 @@
 </div>
 
 <div mat-dialog-actions fxLayoutAlign="space-between end" fxLayout.lt-sm="column">
-  <button fxFlex="40%" fxHide.lt-sm mat-stroked-button (click)="onNoClick()" color="accent">
+  <button fxFlex="40%" fxFlexOrder.lt-sm="2" mat-stroked-button (click)="onNoClick()" color="accent">
     Cancel
   </button>
-  <button fxFlex="50%" [disabled]="!sizeSelected" mat-flat-button (click)="onAddClick()" color="accent">
+  <button fxFlex="50%" fxFlexOrder.lt-sm="1" [disabled]="!sizeSelected" mat-flat-button (click)="onAddClick()" color="accent">
     <span>Add for £{{totalPrice | number: '1.2'}}</span>
   </button>
 </div>

@@ -1,14 +1,15 @@
 <section>
   <div class="user-panel account" fxLayout="column" fxLayoutAlign="space-between">
-
     <h2 class="title">ACCOUNT</h2>
+
 
     <section>
       <div fxLayout="row" fxLayoutAlign="space-between center">
-        <h3>
-          <mat-icon class="align-icon" mat-list-icon>perm_identity</mat-icon>Profile
-        </h3>
-        <button (click)="editProfile()" mat-flat-button [color]="editMode ? 'warn' : 'accent'">{{editMode ? 'Save' : 'Edit'}}</button>
+        <h2>
+          <mat-icon>perm_identity</mat-icon>Profile
+        </h2>
+        <button (click)="editProfile()" mat-flat-button
+          [color]="editMode ? 'warn' : 'accent'">{{editMode ? 'Save' : 'Edit'}}</button>
       </div>
 
       <form [formGroup]="userForm" *ngIf="user">
@@ -41,87 +42,80 @@
             <mat-icon matSuffix>email</mat-icon>
             <mat-error *ngIf="this.userForm.controls.email.invalid">Please type a correct email</mat-error>
           </mat-form-field>
-
-          <mat-form-field appearance="outline" fxFlex="48%">
-            <mat-label>Postcode</mat-label>
-            <input formControlName="postcode" matInput placeholder="Postcode">
-            <mat-icon matSuffix>location_on</mat-icon>
-            <mat-error *ngIf="this.userForm.controls.postcode.invalid">postcode required</mat-error>
-          </mat-form-field>
-
-          <mat-form-field appearance="outline" fxFlex="48%">
-            <mat-label>Full address</mat-label>
-            <input formControlName="address" matInput placeholder="Address">
-            <mat-icon matSuffix>location_on</mat-icon>
-            <mat-error *ngIf="this.userForm.controls.address.invalid">Full address required</mat-error>
-          </mat-form-field>
         </div>
       </form>
     </section>
 
 
     <section>
-      <div>
-        <h3>
-          <mat-icon class="align-icon" mat-list-icon>favorite_border</mat-icon>Preferences
-        </h3>
+
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+        <h2>
+          <mat-icon>favorite_border</mat-icon>Preferences
+        </h2>
+        <button (click)="updatePreferences()" mat-flat-button color="accent">Edit</button>
       </div>
 
-      <form [formGroup]="preferencesForm" *ngIf="shops">
-        <div *ngIf="preferences" fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-between" layout-wrap>
-          <mat-form-field appearance="outline" fxFlex="48%">
-            <mat-label>Favorite Shop</mat-label>
-            <mat-icon matPrefix>storefront</mat-icon>
-            <mat-select formControlName="favourite_shop">
-              <mat-option *ngFor="let shop of shops" [value]="shop">
-                {{shop.name | titlecase}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
+      <div>
+        <div class="preferences_container" fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-between" layout-wrap>
+            <div fxFlex="48%">
+              <mat-icon class="align-icon">storefront</mat-icon>
+              <span class="pref_title">Favourite Shop: </span>
+              <span>{{(preferences && preferences.favourite_shop ? preferences?.favourite_shop?.name : 'Not Selected') | titlecase}}</span>
+            </div>
 
-          <mat-form-field appearance="outline" fxFlex="48%">
-            <mat-label>Order Method</mat-label>
-            <mat-icon matPrefix>restaurant_menu</mat-icon>
-            <mat-select formControlName="fulfillment_method">
-              <mat-option value="delivery">
-                Delivery
-              </mat-option>
-              <mat-option value="collection">
-                Collection
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
+            <div fxFlex="48%">
+              <mat-icon class="align-icon">restaurant</mat-icon> 
+              <span class="pref_title">Preferred order method: </span>
+              <span>{{(preferences && preferences.fulfillment_method ? preferences?.fulfillment_method : 'Not Selected') | titlecase}}</span>
+            </div>
+
+            <div fxFlex="100%">
+              <mat-icon class="align-icon">home</mat-icon> 
+              <span class="pref_title">Favourite Address: </span>
+              <span>
+                {{(preferences && preferences.favourite_address ? preferences?.favourite_address?.address : 'Not Selected') | titlecase}}
+                {{(preferences && preferences.favourite_address ? preferences?.favourite_address?.postcode : '') | uppercase}}
+              </span>
+            </div>
         </div>
+      </div>
 
-      </form>
     </section>
+
 
     <section>
       <div fxLayout="row" fxLayoutAlign="space-between center">
-        <h3>
-          <mat-icon class="align-icon" mat-list-icon>map</mat-icon>Address Book
-        </h3>
-        <button (click)="addAddress()" mat-icon-button color="accent"><mat-icon>add</mat-icon></button>
+        <h2>
+          <mat-icon>map</mat-icon>Address Book
+        </h2>
+        <button (click)="configureAddress('add')" mat-icon-button color="accent">
+          <mat-icon>add</mat-icon>
+        </button>
       </div>
 
-      <div *ngIf="preferences">
-        <div class="address_book__container" *ngFor="let address of preferences?.address_book" fxLayout="row" fxLayoutAlign="space-between center"> 
-          <span fxLayout="column">
-            <span><mat-icon class="align-icon">my_location</mat-icon>{{address?.address}}</span>
+      <div *ngIf="address_book">
+        <div class="address_book__container" *ngFor="let address of address_book" fxLayout="row"
+          fxLayoutAlign="space-between center">
+          <span (click)="configureAddress('edit', address)" fxLayout="column">
+            <span>
+              <mat-icon class="align-icon">my_location</mat-icon>{{address?.address}}
+            </span>
             <p> {{address?.postcode}} - {{address?.phone}}</p>
           </span>
           <span>
-            <button mat-icon-button color="warn"><mat-icon>cancel</mat-icon></button>
+            <button (click)="deleteAddress(address)" mat-icon-button color="warn">
+              <mat-icon>cancel</mat-icon>
+            </button>
           </span>
         </div>
       </div>
-
     </section>
 
     <section>
-      <h3>
-        <mat-icon class="align-icon" mat-list-icon>settings</mat-icon>Settings
-      </h3>
+      <h2>
+        <mat-icon>settings</mat-icon>Settings
+      </h2>
 
       <div>
         <h4>

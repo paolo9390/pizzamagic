@@ -22,6 +22,12 @@
   }
 }
 
+h2>mat-icon {
+  font-size: larger;
+  vertical-align: sub;
+  margin-right: 0.5em;
+}
+
 section {
   margin: 1em;
 }
@@ -31,7 +37,8 @@ section {
   margin: 0 auto;
 }
 
-.address_book__container {
+.address_book__container,
+.preferences_container {
   margin-top: 0.5em;
   width: 100%;
 }
@@ -40,7 +47,21 @@ section {
   margin-bottom: 1em;
 }
 
+.preferences_container div {
+  margin-bottom: 2em;
+}
+
+.pref_title {
+  font-size: smaller;
+  color: #9E9E9E;
+}
+
 .address_book__container p {
   margin-left: 2em;
+  color: gray;
+}
+
+.address_book__container>span:hover {
+  cursor: pointer;
   color: gray;
 }

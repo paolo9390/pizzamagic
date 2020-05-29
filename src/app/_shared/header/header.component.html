@@ -6,9 +6,9 @@
       </h3>
     </a>
 
-    <div>
-      <button fxHide.lt-sm mat-button *ngIf="(shopLocation | async)?.name !== ''">
-        <mat-icon class="align-icon">location_on</mat-icon> {{(shopLocation | async)?.name}}
+    <div fxLayoutAlign="space-around">
+      <button fxHide.lt-sm mat-button *ngIf="(shop | async)">
+        <mat-icon class="align-icon">location_on</mat-icon> {{(shop | async)?.name | titlecase}}
       </button>
       <button [routerLink]="['checkout']" *ngIf="basketTotal > 0" mat-icon-button color="primary">
         <mat-icon [matBadge]="basketTotal" matBadgeColor="accent">shopping_basket</mat-icon>

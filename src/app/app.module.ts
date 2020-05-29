@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { HeaderModule } from './_shared/header/header.module';
 import { FooterModule } from './_shared/footer/footer.module';
 import { LoaderModule } from './_shared/loader/loader.module';
@@ -31,6 +32,7 @@ import { environment } from '../environments/environment';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    FlexLayoutModule,
     HttpClientModule,
     HeaderModule,
     FooterModule,

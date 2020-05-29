@@ -1,13 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../_services/user.service';
-import { User, UserPreferences } from '../_interfaces/user';
-import { Observable, forkJoin } from 'rxjs';
+import { User, UserPreferences, Address } from '../_interfaces/user';
+import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../_store/models/app-state';
 import { ColorSchemeService } from '../core/services/color-scheme.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ShopLocatorService } from '../_services/shop-locator.service';
 import { PizzaMagicShop } from '../_interfaces/pizza-magic.shop';
+import { MatDialog, MatSnackBar } from '@angular/material';
+import { ConfigureAddressComponent } from './configure-address/configure-address.component';
+import { ConfigurePreferencesComponent } from './configure-preferences/configure-preferences.component';
 
 @Component({
   selector: 'app-user',
@@ -17,8 +20,8 @@ import { PizzaMagicShop } from '../_interfaces/pizza-magic.shop';
 export class UserComponent implements OnInit {
 
   user: User;
+  address_book: Address[];
   userForm: FormGroup;
-  preferencesForm: FormGroup;
   panelOpenState = false;
   isDarkTheme: Observable<boolean>;
   colorSheme: string;
@@ -29,6 +32,8 @@ export class UserComponent implements OnInit {
   constructor(private userService: UserService,
     private colorSchemeService: ColorSchemeService,
     private formBuilder: FormBuilder,
+    private dialog: MatDialog,
+    private _snackBar: MatSnackBar,
     private shopService: ShopLocatorService,
     private store: Store<AppState>) { }
 
@@ -39,27 +44,23 @@ export class UserComponent implements OnInit {
       this.user = user;
       if (user) this.createUserForm(user);
     });
-
-    const shopObs = this.shopService.getAllShops();
-    const userPreferenceObs = this.userService.getUserPreferences();
-    forkJoin(userPreferenceObs, shopObs).subscribe(objects => {
-      delete objects[0].favourite_shop._id;
-      const userPreferences: UserPreferences = objects[0];
-      this.shops = objects[1];
-
-      const shop = this.shops.find(({ name }) => name === userPreferences.favourite_shop.name);
-      this.preferences = {
-        favourite_shop: shop,
-        fulfillment_method: userPreferences.fulfillment_method,
-        address_book: userPreferences.address_book
-      }
-      this.createPrefForm(this.preferences);
-    })
+    this.getAddressBook();
+    this.getPreferences();
+    this.shopService.getAllShops().subscribe(shops => this.shops = shops);
   }
 
-  toggleDarkTheme(checked: boolean) {
+  getPreferences(): void {
+    this.userService.getUserPreferences().subscribe(pref => this.preferences = pref);
+  }
+
+  getAddressBook(): void {
+    this.userService.getAddressBook().subscribe(address_book => {
+      this.address_book = address_book;
+    });
+  }
+
+  toggleDarkTheme(checked: boolean): void {
     this.colorSchemeService.setDarkTheme(checked);
-    
   }
 
   createUserForm(user: User): void {
@@ -68,39 +69,70 @@ export class UserComponent implements OnInit {
       surname: [user.surname, Validators.required],
       email: [user.email, [Validators.required,
       Validators.email]],
-      phone: [user.phone, Validators.required],
-      postcode: [user.postcode, Validators.required],
-      address: [user.address, Validators.required]
+      phone: [user.phone, Validators.required]
     });
     this.userForm.disable();
   }
 
-  createPrefForm(preferences: UserPreferences): void {
-    this.preferencesForm = this.formBuilder.group({
-      favourite_shop: [preferences.favourite_shop],
-      fulfillment_method: [preferences.fulfillment_method]
-    });
-    this.preferencesForm.disable();
-  }
-  
   editProfile(): void {
     if (!this.editMode) {
       this.userForm.enable();
-      this.preferencesForm.enable();
       this.editMode = true;
     }
     else { this.saveChanges() }
   }
 
   saveChanges(): void {
-    console.log(this.userForm.value);
     this.userForm.disable();
-    this.preferencesForm.disable();
     this.editMode = false;
   }
-  
-  addAddress(): void {
+
+  updatePreferences(): void {
+    const dialogRef = this.dialog.open(ConfigurePreferencesComponent, {
+      maxWidth: '100vw',
+      panelClass: 'full-screen-dialog',
+      data: {
+        preferences: this.preferences,
+        addressBook: this.address_book,
+        shops: this.shops
+      },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.getPreferences();
+      }
+    });
     
   }
+  
+  configureAddress(mode: string, address?: Address): void {
+    const dialogRef = this.dialog.open(ConfigureAddressComponent, {
+      maxWidth: '100vw',
+      panelClass: 'full-screen-dialog',
+      data: {
+        mode: mode,
+        addressBook: address
+      },
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.getAddressBook();
+      }
+    });
+  }
+
+  deleteAddress(address: Address): void {
+    this.userService.deleteAddress(address._id).subscribe(() => {
+      this.getAddressBook();
+      this.openSnackBar('Address deleted successfully.', 'ok');
+    });
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 4000,
+    });
+  }
 }

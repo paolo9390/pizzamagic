@@ -10,3 +10,18 @@ app-header {
     filter: opacity(30%);
     pointer-events: none;
 }
+
+.pizza-magic-body {
+    top: 64px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+}
+
+@media (max-width: 599px) {
+    .pizza-magic-body {
+        top: 56px;
+    }
+}
