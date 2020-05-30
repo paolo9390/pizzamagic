@@ -8,8 +8,7 @@
         <h2>
           <mat-icon>perm_identity</mat-icon>Profile
         </h2>
-        <button (click)="editProfile()" mat-flat-button
-          [color]="editMode ? 'warn' : 'accent'">{{editMode ? 'Save' : 'Edit'}}</button>
+        <button *ngIf="!editMode" (click)="editProfile()" mat-flat-button color="accent">Edit</button>
       </div>
 
       <form [formGroup]="userForm" *ngIf="user">
@@ -42,8 +41,24 @@
             <mat-icon matSuffix>email</mat-icon>
             <mat-error *ngIf="this.userForm.controls.email.invalid">Please type a correct email</mat-error>
           </mat-form-field>
+          
         </div>
       </form>
+      <div *ngIf="editMode" fxLayout="column" fxLayoutAlign="space-around center">
+        <h4>You must supply your current password.</h4>
+        <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px" fxLayout.lt-sm="column">
+          <mat-form-field appearance="outline">
+            <mat-label>Current Password</mat-label>
+            <input type="password" matInput [formControl]="password" required>
+            <mat-error *ngIf="password.invalid">Enter your current password.</mat-error>
+          </mat-form-field>
+          <div class="save_profile__buttons" fxLayoutGap="10px">
+            <button (click)="editProfile()" mat-flat-button color="warn">Save</button>
+            <button (click)="cancelChanges()" mat-stroked-button color="warn">Cancel</button>
+          </div>
+        </div>
+        <span class="warn-color" *ngIf="errorInSaving">{{saveError}}</span>
+      </div>
     </section>
 
 

@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../_store/models/app-state';
 import { ColorSchemeService } from '../core/services/color-scheme.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { ShopLocatorService } from '../_services/shop-locator.service';
 import { PizzaMagicShop } from '../_interfaces/pizza-magic.shop';
 import { MatDialog, MatSnackBar } from '@angular/material';
@@ -22,6 +22,9 @@ export class UserComponent implements OnInit {
   user: User;
   address_book: Address[];
   userForm: FormGroup;
+  password = new FormControl('', [Validators.required]);
+  errorInSaving: boolean;
+  saveError: string = '';
   panelOpenState = false;
   isDarkTheme: Observable<boolean>;
   colorSheme: string;
@@ -39,14 +42,63 @@ export class UserComponent implements OnInit {
 
   ngOnInit() {
     this.isDarkTheme = this.colorSchemeService.isDarkTheme;
-    
+    this.getUser();
+
+    this.getAddressBook();
+    this.getPreferences();
+    this.shopService.getAllShops().subscribe(shops => this.shops = shops);
+  }
+
+  getUser(): void {
     this.userService.getUser().subscribe(user => {
       this.user = user;
       if (user) this.createUserForm(user);
     });
-    this.getAddressBook();
-    this.getPreferences();
-    this.shopService.getAllShops().subscribe(shops => this.shops = shops);
+  }
+
+  updateUser(): void {
+    const name = this.userForm.controls.name.value;
+    const surname = this.userForm.controls.surname.value;
+    const phone = this.userForm.controls.phone.value;
+    const password = this.password.value;
+    this.userService.updateUser(name, surname, phone, password).subscribe(user => {
+      this.saveError = '';
+      this.errorInSaving = false;
+      this.disableForm();
+      this.editMode = false;
+    }, err => {
+      this.errorInSaving = true;
+      this.saveError = err.error.error;
+    })
+  }
+
+  enableForm(): void {
+    this.userForm.enable();
+    this.userForm.controls.email.disable();
+  }
+
+  disableForm(): void {
+    this.userForm.disable();
+    this.password.reset();
+  }
+
+  editProfile(): void {
+    if (!this.editMode) {
+      this.enableForm();
+      this.editMode = true;
+    }
+    else { this.saveChanges() }
+  }
+
+  saveChanges(): void {
+    if (this.userForm.valid && this.password.valid) {
+      this.updateUser();
+    }
+  }
+
+  cancelChanges(): void {
+    this.disableForm();
+    this.editMode = false;
   }
 
   getPreferences(): void {
@@ -72,19 +124,6 @@ export class UserComponent implements OnInit {
       phone: [user.phone, Validators.required]
     });
     this.userForm.disable();
-  }
-
-  editProfile(): void {
-    if (!this.editMode) {
-      this.userForm.enable();
-      this.editMode = true;
-    }
-    else { this.saveChanges() }
-  }
-
-  saveChanges(): void {
-    this.userForm.disable();
-    this.editMode = false;
   }
 
   updatePreferences(): void {

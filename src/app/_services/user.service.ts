@@ -31,6 +31,18 @@ export class UserService {
     localStorage.setItem('pizzamagic-user', JSON.stringify(user));
   }
 
+  updateUserValue(): void {
+    const userStored: PizzaMagicUser = JSON.parse(localStorage.getItem('pizzamagic-user'));
+    this.user$.subscribe(user => {
+      const updatedUser: PizzaMagicUser = {
+        token: userStored.token,
+        name: user.name,
+        email: user.email
+      }
+      this.setUserValue(updatedUser);
+    })
+  }
+
   resetUser(): void {
     this.currentUserSubject.next(null);
     localStorage.removeItem('pizzamagic-user');
@@ -45,6 +57,20 @@ export class UserService {
       )
     }
     return this.user$;
+  }
+
+  updateUser(name: string, surname: string, phone: string, password: string): Observable<User> {
+    const body = {
+      name: name, 
+      surname: surname, 
+      phone: phone, 
+      password: password
+    }
+    this.user$ = this.http.patch<User>(`${globals.HTTP_API_URL}/user/me/update`, body).pipe(
+      shareReplay(1)
+    );
+    this.updateUserValue();
+    return this.user$
   }
 
   getUserPreferences(): Observable<UserPreferences> {
