@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {  Address } from '../_interfaces/user';
 import { UserService } from '../_services/user.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '../_store/models/app-state';
 import { PizzaMagicShop } from '../_interfaces/pizza-magic.shop';
 import { SetFavouriteShopAction, SetFavouriteAddressAction, SetFavouriteMethodAction } from '../_store/actions/favourite.actions';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -12,13 +13,15 @@ import { SetFavouriteShopAction, SetFavouriteAddressAction, SetFavouriteMethodAc
   styleUrls: ['./auth.component.scss']
 })
 export class AuthComponent implements OnInit {
+  @Input() isCheckout: boolean;
 
   title: string = 'Sign up or log in';
   authAction: 'login' | 'register';
 
   constructor(
     protected userService: UserService,
-    protected store: Store<AppState>) { }
+    protected store: Store<AppState>,
+    private router?: Router) { }
 
   ngOnInit() {
   }
@@ -48,6 +51,7 @@ export class AuthComponent implements OnInit {
         this.selectFulfillmentMethod(pref.fulfillment_method);
       }
     })
+    if (!this.isCheckout) this.router.navigateByUrl('/home');
   }
 
   resetAuthAction(): void {

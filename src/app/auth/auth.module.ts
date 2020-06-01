@@ -24,6 +24,7 @@ import { RegisterComponent } from './register/register.component';
     StoreModule.forRoot({favourite: favouriteReducer})
   ],
   exports: [
+    AuthComponent,
     LoginComponent,
     RegisterComponent
   ]

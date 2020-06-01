@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { AuthService } from '../../_services/auth.service';
 import { UserService } from '../../_services/user.service';
 import { AppState } from '../../_store/models/app-state';
@@ -20,7 +19,6 @@ export class LoginComponent extends AuthComponent implements OnInit {
   hide = true;
   
   constructor(private formBuilder: FormBuilder,
-    private router: Router,
     private authService: AuthService,
     _userService: UserService,
     _store: Store<AppState>) {
@@ -56,7 +54,6 @@ export class LoginComponent extends AuthComponent implements OnInit {
           this.userService.setUserValue(pmUser);
           this.setUserPreferences();
         }
-        this.router.navigateByUrl('/home');
       },
       err => {
         console.error(err);

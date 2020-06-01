@@ -9,6 +9,7 @@ import { BasketModule } from '../basket/basket.module';
 import { FormsModule } from '@angular/forms';
 import { basketReducer } from '../../_store/reducers/basket.reducer';
 import { favouriteReducer } from '../../_store/reducers/favourite.reducer';
+import { AuthModule } from '../../auth/auth.module';
 
 
 
@@ -29,6 +30,7 @@ import { favouriteReducer } from '../../_store/reducers/favourite.reducer';
     MatInputModule,
     MatButtonToggleModule,
     TitleModule,
+    AuthModule,
     BasketModule,
     FormsModule,
     StoreModule.forRoot({basket: basketReducer, favourite: favouriteReducer})

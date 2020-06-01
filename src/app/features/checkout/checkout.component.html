@@ -3,7 +3,11 @@
     <h2 class="title">CHECKOUT</h2>
 
     <section fxLayout="row" fxLayoutAlign="space-between" fxLayout.lt-md="column">
-      <section class="checkout_user__preferences" fxLayout="column" fxFlex="55%" fxFlexOrder.lt-md="2">
+      <section *ngIf="!(user$ | async)" class="checkout_user__preferences" fxLayout="column" fxFlex="55%" fxFlexOrder.lt-md="2">
+        <app-auth isCheckout="true"></app-auth>
+      </section>
+
+      <section *ngIf="(user$ | async)" class="checkout_user__preferences" fxLayout="column" fxFlex="55%" fxFlexOrder.lt-md="2">
         <div fxLayoutAlign="space-between center">
           <h3>
             <mat-icon class="align-icon" mat-list-icon>storefront</mat-icon> Pizza Magic Heswall

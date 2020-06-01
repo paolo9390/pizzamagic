@@ -3,7 +3,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../_services/auth.service';
 import { AuthComponent } from '../auth.component';
 import { PizzaMagicUser } from '../../_interfaces/user';
-import { Router } from '@angular/router';
 import { UserService } from '../../_services/user.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../_store/models/app-state';
@@ -21,7 +20,6 @@ export class RegisterComponent extends AuthComponent implements OnInit {
   hide = true;
 
   constructor(private formBuilder: FormBuilder,
-    private router: Router,
     private authService: AuthService,
     _userService: UserService,
     _store: Store<AppState>) {
@@ -58,7 +56,6 @@ export class RegisterComponent extends AuthComponent implements OnInit {
           this.userService.setUserValue(pmUser);
           this.setUserPreferences();
         }
-        this.router.navigateByUrl('/home');
       },
       err => {
         console.error(err);

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../_services/user.service';
 import { ShopLocatorService } from '../../_services/shop-locator.service';
 import { forkJoin, Observable } from 'rxjs';
-import { UserPreferences, User, Address } from '../../_interfaces/user';
+import { UserPreferences, User, Address, PizzaMagicUser } from '../../_interfaces/user';
 import { PizzaMagicShop, ShopInfo } from '../../_interfaces/pizza-magic.shop';
 import { ConfigureAddressComponent } from 'src/app/user/configure-address/configure-address.component';
 import { MatDialog } from '@angular/material';
@@ -38,6 +38,8 @@ export class CheckoutComponent implements OnInit {
 
 
   user: User;
+  user$: Observable<PizzaMagicUser>;
+  isUserLoggedIn: boolean;
   preferences: UserPreferences;
   address_book: Address[];
   shops: PizzaMagicShop[];
@@ -57,9 +59,35 @@ export class CheckoutComponent implements OnInit {
 
   ngOnInit() {
     // get user 
-    this.userService.getUser().subscribe(user => {
-      this.user = user;
-    });
+    this.user$ = this.userService.currentUser;
+
+    this.user$.subscribe(userLoggedIn => {
+
+      if (userLoggedIn) {
+        this.getAddressBook();
+
+        const shopObs = this.shopService.getAllShops();
+        const userPreferenceObs = this.userService.getUserPreferences();
+        forkJoin(userPreferenceObs, shopObs).subscribe(objects => {
+          delete objects[0].favourite_shop._id;
+    
+          const userPreferences: UserPreferences = objects[0];
+          this.shops = objects[1];
+    
+          
+          const shop = this.shops.find(({ name }) => name === userPreferences.favourite_shop.name);
+          this.preferences = {
+            favourite_shop: shop,
+            fulfillment_method: userPreferences.fulfillment_method,
+            favourite_address: userPreferences.favourite_address
+          }
+    
+          if (userPreferences && userPreferences.favourite_address) {
+            this.selectedAddress = userPreferences.favourite_address
+          } else this.selectedAddress = this.address_book[0];
+        })
+      }
+    })
     
     this.favorite$ = this.store.select(store => store.favourite);
     this.favorite$.subscribe(favorite => {
@@ -69,28 +97,6 @@ export class CheckoutComponent implements OnInit {
     });
     
 
-    this.getAddressBook();
-
-    const shopObs = this.shopService.getAllShops();
-    const userPreferenceObs = this.userService.getUserPreferences();
-    forkJoin(userPreferenceObs, shopObs).subscribe(objects => {
-      delete objects[0].favourite_shop._id;
-
-      const userPreferences: UserPreferences = objects[0];
-      this.shops = objects[1];
-
-      
-      const shop = this.shops.find(({ name }) => name === userPreferences.favourite_shop.name);
-      this.preferences = {
-        favourite_shop: shop,
-        fulfillment_method: userPreferences.fulfillment_method,
-        favourite_address: userPreferences.favourite_address
-      }
-
-      if (userPreferences && userPreferences.favourite_address) {
-        this.selectedAddress = userPreferences.favourite_address
-      } else this.selectedAddress = this.address_book[0];
-    })
   }
 
   getShopInfo(shop_id: number): void {
