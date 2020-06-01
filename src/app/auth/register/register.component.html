@@ -1,0 +1,53 @@
+<div class="content" fxLayout="column" fxLayoutAlign="space-between center">
+  <h2>
+    <mat-icon>auth</mat-icon>Register
+  </h2>
+
+  <form (submit)="register()" [formGroup]="registerForm">
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="space-between" layout-wrap>
+
+      <mat-form-field appearance="fill" fxFlex="48%">
+        <mat-label>Name</mat-label>
+        <input formControlName="name" matInput placeholder="Name">
+        <mat-icon matSuffix>perm_identity</mat-icon>
+        <mat-error *ngIf="this.registerForm.controls.name.invalid">Name required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" fxFlex="48%">
+        <mat-label>Surname</mat-label>
+        <input formControlName="surname" matInput placeholder="Surname">
+        <mat-icon matSuffix>perm_identity</mat-icon>
+        <mat-error *ngIf="this.registerForm.controls.surname.invalid">Surname required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" fxFlex="48%">
+        <mat-label>Phone number</mat-label>
+        <input formControlName="phone" matInput placeholder="Phone">
+        <mat-icon matSuffix>phone</mat-icon>
+        <mat-error *ngIf="this.registerForm.controls.phone.invalid">Phone number required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" fxFlex="48%">
+        <mat-label>Email</mat-label>
+        <input formControlName="email" matInput placeholder="Email">
+        <mat-icon matSuffix>email</mat-icon>
+        <mat-error *ngIf="this.registerForm.controls.email.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" fxFlex="48%">
+        <mat-label>Enter your password</mat-label>
+        <input formControlName="password" matInput [type]="hide ? 'password' : 'text'">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="this.registerForm.controls.password.invalid">Enter your password</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="column" fxLayoutAlign="space-between stretch" fxLayoutGap="10px">
+        <p class="warn-color" *ngIf="authErr">{{authErr}}</p>
+        <button [disabled]="registerForm.invalid" type="submit" mat-raised-button color="primary">Register</button>
+    </div>
+  </form>
+</div>

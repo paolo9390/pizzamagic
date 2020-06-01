@@ -13,13 +13,20 @@
       <button [routerLink]="['checkout']" *ngIf="basketTotal > 0" mat-icon-button color="primary">
         <mat-icon [matBadge]="basketTotal" matBadgeColor="accent">shopping_basket</mat-icon>
       </button>
-      <button mat-button [matMenuTriggerFor]="menu">
-        <mat-icon class="align-icon">face</mat-icon>{{user?.name}}
-      </button>
-      <mat-menu #menu="matMenu">
-        <button [routerLink]="['user']" mat-menu-item>View Profile</button>
-        <button (click)="logout()" mat-menu-item>Logout</button>
-      </mat-menu>
+
+      <!-- user span  -->
+      <span class="user-span">
+        <button *ngIf="!user" mat-stroked-button [routerLink]="['login']" color="primary">Login</button>
+
+        <button *ngIf="user" mat-button [matMenuTriggerFor]="menu">
+          <mat-icon class="align-icon">face</mat-icon>{{user?.name}}
+        </button>
+        <mat-menu #menu="matMenu">
+          <button [routerLink]="['user']" mat-menu-item>View Profile</button>
+          <button (click)="logout()" mat-menu-item>Logout</button>
+        </mat-menu>
+
+      </span>
     </div>
   </mat-toolbar-row>
 
