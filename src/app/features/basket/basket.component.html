@@ -10,17 +10,18 @@
             <button mat-icon-button color="warn" (click)="removeItem(item)"><mat-icon>remove_circle_outline</mat-icon></button>
             {{item.quantity}} 
             <button mat-icon-button color="warn" (click)="addItem(item)"><mat-icon>add_circle_outline</mat-icon></button>
-            {{ item.title | titlecase}} <span *ngIf="item?.description" class="mat-caption description">({{item?.description | titlecase}})</span>
+            <span class="title_span">{{item.title | titlecase}} </span>
+            <span *ngIf="item?.description" class="description">({{item?.description | titlecase}})</span>
            </span>
           <span>£ {{item.price | number:'1.2'}}</span>
         </div>
 
-        <span class="mat-caption description" *ngFor="let extra of item.product_modifier">{{extra?.description | titlecase}}</span>
+        <span class="description" *ngFor="let extra of item.product_modifier">{{extra?.description | titlecase}}</span>
       </div>
       <mat-divider></mat-divider>
   </mat-card-content>
-  <mat-card-actions class="mat-body-2" fxLayoutAlign="space-around">
-      <span fxFlex="78%">Total</span>
-      <span>£ {{total | number: '1.2'}}</span>
+  <mat-card-actions fxLayoutAlign="space-around">
+      <h3 fxFlex="78%">Total</h3>
+      <h3>£ {{total | number: '1.2'}}</h3>
   </mat-card-actions>
 </mat-card>

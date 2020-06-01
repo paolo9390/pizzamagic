@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { SelectivePreloadingStrategyService } from './core/selective-preloading-strategy.service';
 import { HomeComponent } from './home/home.component';
 import { AuthComponent } from './auth/auth.component';
+import { ShopGuard } from './_helpers/shop.guard';
 import { AuthGuard } from './_helpers/auth.guard';
 import { UserComponent } from './user/user.component';
 import { PizzaComponent } from './features/pizza/pizza.component';
@@ -17,7 +18,7 @@ import { CheckoutComponent } from './features/checkout/checkout.component';
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'login', component: AuthComponent},
-  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'home', component: HomeComponent},
   { path: 'user', component: UserComponent, canActivate: [AuthGuard] },
   { path: 'pizza', component: PizzaComponent },
   { path: 'burgers', component: BurgerComponent },
@@ -26,7 +27,7 @@ const routes: Routes = [
   { path: 'desserts', component: DessertDrinkComponent, data: { mode: 'desserts'} },
   { path: 'drinks', component: DessertDrinkComponent, data: { mode: 'drinks'} },
   { path: 'kids-meal', component: KidsMealComponent },
-  { path: 'checkout', component: CheckoutComponent }
+  { path: 'checkout', component: CheckoutComponent, canActivate: [ShopGuard] }
 ];
 
 @NgModule({

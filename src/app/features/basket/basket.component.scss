@@ -2,12 +2,25 @@ mat-card {
     margin-top: 1em;
 }
 
+mat-card-header > button {
+    font-size: larger;
+}
+
+mat-card-header > mat-card-title {
+    font-size: xx-large;
+}
+
 mat-card-content {
     margin-top: 16px;
 }
 
+.title_span {
+    font-size: 16px;
+}
+
 .description {
     font-weight: 200;
+    font-size: 14px;
 }
 
 .list {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { PizzaMagicShop, ShopLocation } from '../_interfaces/pizza-magic.shop';
+import { PizzaMagicShop, ShopLocation, ShopInfo } from '../_interfaces/pizza-magic.shop';
 import { Observable } from 'rxjs';
 import * as globals from './globals.service';
 import { shareReplay } from 'rxjs/operators';
@@ -21,6 +21,10 @@ export class ShopLocatorService {
       )
     }
     return this.shops$;
+  }
+
+  getShopInfoById(shopId: number): Observable<ShopInfo>{
+    return this.http.get<ShopInfo>(`${globals.HTTP_API_URL}/shops/${shopId}`);
   }
 
   findAddressByPostcode(postcode): Observable<any>{

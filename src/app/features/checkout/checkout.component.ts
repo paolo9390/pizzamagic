@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../_services/user.service';
 import { ShopLocatorService } from '../../_services/shop-locator.service';
-import { forkJoin } from 'rxjs';
+import { forkJoin, Observable } from 'rxjs';
 import { UserPreferences, User, Address } from '../../_interfaces/user';
-import { PizzaMagicShop } from '../../_interfaces/pizza-magic.shop';
+import { PizzaMagicShop, ShopInfo } from '../../_interfaces/pizza-magic.shop';
 import { ConfigureAddressComponent } from 'src/app/user/configure-address/configure-address.component';
 import { MatDialog } from '@angular/material';
+import { AppState } from 'src/app/_store/models/app-state';
+import { Store } from '@ngrx/store';
+import { FavouriteState } from 'src/app/_store/models/favourite';
 
 @Component({
   selector: 'app-checkout',
@@ -26,7 +29,11 @@ export class CheckoutComponent implements OnInit {
     // shop choice => store in preference store 
 
 
-
+  shopInfo: ShopInfo;
+  favorite$: Observable<FavouriteState>;
+  favoriteMethod: string;
+  favoriteShop: PizzaMagicShop;
+  favoriteAddress: Address;
 
 
 
@@ -45,12 +52,23 @@ export class CheckoutComponent implements OnInit {
 
   constructor(private userService: UserService,
     private dialog: MatDialog,
-    private shopService: ShopLocatorService) { }
+    private shopService: ShopLocatorService,
+    private store: Store<AppState>) { }
 
   ngOnInit() {
+    // get user 
     this.userService.getUser().subscribe(user => {
       this.user = user;
     });
+    
+    this.favorite$ = this.store.select(store => store.favourite);
+    this.favorite$.subscribe(favorite => {
+      if (favorite && favorite.fulfillment_method) this.favoriteMethod = favorite.fulfillment_method;
+      if (favorite && favorite.shop) this.favoriteShop = favorite.shop;
+      if (favorite && favorite.address) this.favoriteAddress = favorite.address;
+    });
+    
+
     this.getAddressBook();
 
     const shopObs = this.shopService.getAllShops();
@@ -61,6 +79,7 @@ export class CheckoutComponent implements OnInit {
       const userPreferences: UserPreferences = objects[0];
       this.shops = objects[1];
 
+      
       const shop = this.shops.find(({ name }) => name === userPreferences.favourite_shop.name);
       this.preferences = {
         favourite_shop: shop,
@@ -72,7 +91,10 @@ export class CheckoutComponent implements OnInit {
         this.selectedAddress = userPreferences.favourite_address
       } else this.selectedAddress = this.address_book[0];
     })
-    
+  }
+
+  getShopInfo(shop_id: number): void {
+    this.shopService.getShopInfoById(shop_id).subscribe(shopInfo => this.shopInfo = shopInfo)
   }
 
   getAddressBook(): void {
