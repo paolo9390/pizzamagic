@@ -4,27 +4,37 @@
 
     <section fxLayout="row" fxLayoutAlign="space-between" fxLayout.lt-md="column">
       <section *ngIf="!(user$ | async)" class="checkout_user__preferences" fxLayout="column" fxFlex="55%" fxFlexOrder.lt-md="2">
-        <app-auth isCheckout="true"></app-auth>
+        <app-auth></app-auth>
       </section>
 
       <section *ngIf="(user$ | async)" class="checkout_user__preferences" fxLayout="column" fxFlex="55%" fxFlexOrder.lt-md="2">
-        <div fxLayoutAlign="space-between center">
+        <div *ngIf="!isEditShop" fxLayoutAlign="space-between center">
           <h3>
-            <mat-icon class="align-icon" mat-list-icon>storefront</mat-icon> Pizza Magic Heswall
+            <mat-icon class="align-icon" mat-list-icon>storefront</mat-icon> Pizza Magic {{selectedShop?.name | titlecase}}
           </h3>
-          <button mat-stroked-button color="accent">Edit</button>
+          <button mat-stroked-button color="accent" (click)="editShop()">Edit</button>
+        </div>
+        <div>
+          <div *ngIf="isEditShop && shops">
+            <mat-nav-list>
+              <mat-list-item (click)="selectShop(shop)" *ngFor="let shop of shops">
+                <p matLine>
+                  <mat-icon class="align-icon">store</mat-icon>{{shop?.name | titlecase}}
+                </p>
+                <p matLine> {{shop?.address}} - {{shop?.phone}}</p>
+              </mat-list-item>
+            </mat-nav-list>
+          </div>
         </div>
 
         <div>
           <mat-button-toggle-group [(ngModel)]="preferredMethod" vertical="true">
-            <mat-button-toggle value="delivery" selected="true">
-              <span [ngClass]="{'mat-h2': preferredMethod === 'delivery'}">Delivery (30-25 min)</span>
-            </mat-button-toggle>
-            <mat-button-toggle value="collection">
-              <span [ngClass]="{'mat-h2': preferredMethod === 'collection'}">Collection (10-25 min)</span>
+            <mat-button-toggle *ngFor="let method of selectedShop.fulfillment_methods" [value]="method.name">
+              <span [ngClass]="{'mat-h2': preferredMethod === method.name}">{{method?.asap?.display_label}}</span>
             </mat-button-toggle>
           </mat-button-toggle-group>
         </div>
+
 
         <div>
           <div fxLayout="row" fxLayoutAlign="space-between center">
@@ -43,11 +53,10 @@
             </mat-list>
           </mat-card>
         </div>
-
         <div>
-          <div *ngIf="isEditAddress && address_book">
+          <div *ngIf="isEditAddress && addressBook">
             <mat-nav-list>
-              <mat-list-item (click)="selectAddress(address)" *ngFor="let address of address_book">
+              <mat-list-item (click)="selectAddress(address)" *ngFor="let address of addressBook">
                 <p matLine>
                   <mat-icon class="align-icon">my_location</mat-icon>{{address?.address}}
                 </p>
@@ -59,7 +68,6 @@
         </div>
 
 
-
         <div>
           <h3>
             <mat-icon class="align-icon" mat-list-icon>notes</mat-icon>Additional Notes
@@ -69,6 +77,7 @@
             <textarea matInput></textarea>
           </mat-form-field>
         </div>
+
       </section>
 
 

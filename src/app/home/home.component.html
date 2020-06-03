@@ -12,31 +12,7 @@
 
         <div class="find-div" fxLayout="row" fxLayoutAlign="space-between">
           <mat-card>
-            <mat-card-header>
-              <mat-card-subtitle>
-                Enter your postcode to find your local Pizza Magic
-              </mat-card-subtitle>
-            </mat-card-header>
-
-            <mat-card-content fxLayoutAlign="space-around" fxLayout="row">
-              <mat-form-field appearance="outline">
-                <mat-label>Postcode</mat-label>
-                <input [formControl]="postcodeCtrl" matInput placeholder="ie. CH60 0AG">
-                <!-- <mat-icon (click)="getLocation()" matSuffix color="primary">near_me</mat-icon> -->
-                <mat-icon (click)="locateShop()" matSuffix color="primary">near_me</mat-icon>
-                <mat-error *ngIf="postcodeCtrl.invalid">{{getErrorMessage()}}</mat-error>
-              </mat-form-field>
-            </mat-card-content>
-
-            <mat-card-footer fxLayout="column" fxLayoutAlign="space-around" *ngIf="shops">
-              <mat-list>
-                <mat-divider></mat-divider>
-                <mat-list-item matRipple (click)="selectShop(shop)" *ngFor="let shop of shopsLocation">
-                  <mat-icon mat-list-icon>store</mat-icon>
-                  <div mat-line>{{shop?.name | uppercase}} - {{shop?.distance}}m</div>
-                </mat-list-item>
-              </mat-list>
-            </mat-card-footer>
+            <app-shop-locator></app-shop-locator>
           </mat-card>
         </div>
 

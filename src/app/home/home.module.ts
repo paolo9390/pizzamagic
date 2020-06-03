@@ -2,11 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home.component';
 import { FlexLayoutModule } from '@angular/flex-layout'
-import { MatIconModule, MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule, MatListModule, MatDividerModule, MatRippleModule } from '@angular/material';
-import { ReactiveFormsModule } from '@angular/forms';
+import { MatIconModule, MatButtonModule, MatCardModule, MatListModule, MatDividerModule, MatRippleModule } from '@angular/material';
 import { RouterModule } from '@angular/router';
-import { StoreModule } from '@ngrx/store';
-import { favouriteReducer } from '../_store/reducers/favourite.reducer';
+import { ShopLocatorModule } from '../_common/shop-locator/shop-locator.module';
 
 
 @NgModule({
@@ -20,12 +18,8 @@ import { favouriteReducer } from '../_store/reducers/favourite.reducer';
     MatListModule,
     MatRippleModule,
     MatDividerModule,
-    MatFormFieldModule,
-    MatInputModule,
-    ReactiveFormsModule,
     RouterModule,
-    ReactiveFormsModule,
-    StoreModule.forFeature('favourite', favouriteReducer)
+    ShopLocatorModule
   ],
   exports: [HomeComponent]
 })

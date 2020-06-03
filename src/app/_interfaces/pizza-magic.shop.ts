@@ -6,6 +6,8 @@ export interface PizzaMagicShop {
   latitude: number;
   longitude: number;
   phone: string;
+  fulfillment_methods?: ShopFulfillmentMethod[];
+  opening_hours?: OpeningHours[];
 }
 
 export interface ShopInfo {

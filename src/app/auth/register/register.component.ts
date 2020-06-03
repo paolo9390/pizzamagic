@@ -6,6 +6,7 @@ import { PizzaMagicUser } from '../../_interfaces/user';
 import { UserService } from '../../_services/user.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../_store/models/app-state';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -22,8 +23,10 @@ export class RegisterComponent extends AuthComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private authService: AuthService,
     _userService: UserService,
-    _store: Store<AppState>) {
-      super(_userService, _store)
+    _store: Store<AppState>,
+    _router: Router,
+    _route: ActivatedRoute) {
+      super(_userService, _store, _router, _route)
   }
 
   ngOnInit() {

@@ -8,15 +8,24 @@ import { shareReplay } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class ShopLocatorService {
+export class ShopService {
 
   shops$: Observable<PizzaMagicShop[]>;
 
   constructor(private http: HttpClient) {}
 
-  getAllShops(): Observable<PizzaMagicShop[]>{
+  getShops(): Observable<PizzaMagicShop[]>{
     if (!this.shops$) {
       this.shops$ = this.http.get<PizzaMagicShop[]>(`${globals.HTTP_API_URL}/shops`).pipe(
+        shareReplay(1)
+      )
+    }
+    return this.shops$;
+  }
+
+  getAllShops(): Observable<PizzaMagicShop[]>{
+    if (!this.shops$) {
+      this.shops$ = this.http.get<PizzaMagicShop[]>(`${globals.HTTP_API_URL}/shops/all`).pipe(
         shareReplay(1)
       )
     }

@@ -2,11 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../_services/user.service';
 import { User, UserPreferences, Address } from '../_interfaces/user';
 import { Observable } from 'rxjs';
-import { Store } from '@ngrx/store';
-import { AppState } from '../_store/models/app-state';
 import { ColorSchemeService } from '../core/services/color-scheme.service';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { ShopLocatorService } from '../_services/shop-locator.service';
+import { ShopService } from '../_services/shop.service';
 import { PizzaMagicShop } from '../_interfaces/pizza-magic.shop';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { ConfigureAddressComponent } from './configure-address/configure-address.component';
@@ -37,8 +35,7 @@ export class UserComponent implements OnInit {
     private formBuilder: FormBuilder,
     private dialog: MatDialog,
     private _snackBar: MatSnackBar,
-    private shopService: ShopLocatorService,
-    private store: Store<AppState>) { }
+    private shopService: ShopService) { }
 
   ngOnInit() {
     this.isDarkTheme = this.colorSchemeService.isDarkTheme;

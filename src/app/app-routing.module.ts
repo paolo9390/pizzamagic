@@ -6,13 +6,13 @@ import { AuthComponent } from './auth/auth.component';
 import { ShopGuard } from './_helpers/shop.guard';
 import { AuthGuard } from './_helpers/auth.guard';
 import { UserComponent } from './user/user.component';
-import { PizzaComponent } from './features/pizza/pizza.component';
-import { GarlicBreadComponent } from './features/garlic-bread/garlic-bread.component';
-import { BurgerComponent } from './features/burger/burger.component';
-import { SideOrdersComponent } from './features/side-orders/side-orders.component';
-import { DessertDrinkComponent } from './features/dessert-drink/dessert-drink.component';
-import { KidsMealComponent } from './features/kids-meal/kids-meal.component';
-import { CheckoutComponent } from './features/checkout/checkout.component';
+import { PizzaComponent } from './_features/pizza/pizza.component';
+import { GarlicBreadComponent } from './_features/garlic-bread/garlic-bread.component';
+import { BurgerComponent } from './_features/burger/burger.component';
+import { SideOrdersComponent } from './_features/side-orders/side-orders.component';
+import { DessertDrinkComponent } from './_features/dessert-drink/dessert-drink.component';
+import { KidsMealComponent } from './_features/kids-meal/kids-meal.component';
+import { CheckoutComponent } from './_features/checkout/checkout.component';
 
 
 const routes: Routes = [
@@ -20,14 +20,14 @@ const routes: Routes = [
   { path: 'login', component: AuthComponent},
   { path: 'home', component: HomeComponent},
   { path: 'user', component: UserComponent, canActivate: [AuthGuard] },
-  { path: 'pizza', component: PizzaComponent },
-  { path: 'burgers', component: BurgerComponent },
-  { path: 'garlic-bread', component: GarlicBreadComponent },
-  { path: 'side-orders', component: SideOrdersComponent },
-  { path: 'desserts', component: DessertDrinkComponent, data: { mode: 'desserts'} },
-  { path: 'drinks', component: DessertDrinkComponent, data: { mode: 'drinks'} },
-  { path: 'kids-meal', component: KidsMealComponent },
-  { path: 'checkout', component: CheckoutComponent, canActivate: [ShopGuard] }
+  { path: 'pizza', component: PizzaComponent, canActivate: [ShopGuard]  },
+  { path: 'burgers', component: BurgerComponent, canActivate: [ShopGuard]  },
+  { path: 'garlic-bread', component: GarlicBreadComponent, canActivate: [ShopGuard]  },
+  { path: 'side-orders', component: SideOrdersComponent, canActivate: [ShopGuard]  },
+  { path: 'desserts', component: DessertDrinkComponent, data: { mode: 'desserts'}, canActivate: [ShopGuard]  },
+  { path: 'drinks', component: DessertDrinkComponent, data: { mode: 'drinks'}, canActivate: [ShopGuard]  },
+  { path: 'kids-meal', component: KidsMealComponent, canActivate: [ShopGuard]  },
+  { path: 'checkout', component: CheckoutComponent }
 ];
 
 @NgModule({

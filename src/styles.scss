@@ -12,7 +12,7 @@
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
 $primary: mat-palette($mat-blue, 900, 700, 500);
-$accent: mat-palette($mat-brown, 900, 500, 200);
+$accent: mat-palette($mat-brown);
 
 // The warn palette is optional (defaults to red).
 $warn: mat-palette($mat-red, A700, A200, A100);
@@ -70,6 +70,10 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
     color: mat-color($dark-body, 100);
   }
 
+  app-basket mat-card {
+    box-shadow: 0 14px 14px 0 rgba(0, 0, 0, 0.54) !important;
+  }
+
 }
 
 .color-scheme-light {
@@ -115,6 +119,10 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
   footer {
     background-color: mat-color($dark-body, 100);
     color: mat-color($dark-body, 800);
+  }
+
+  app-basket mat-card {
+    box-shadow: 0 14px 14px 0 rgba(0,0,0,0.08) !important;
   }
 }
 

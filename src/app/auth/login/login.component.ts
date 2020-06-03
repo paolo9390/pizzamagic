@@ -6,6 +6,7 @@ import { AppState } from '../../_store/models/app-state';
 import { Store } from '@ngrx/store';
 import { AuthComponent } from '../auth.component';
 import { PizzaMagicUser } from '../../_interfaces/user';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -21,8 +22,10 @@ export class LoginComponent extends AuthComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private authService: AuthService,
     _userService: UserService,
-    _store: Store<AppState>) {
-      super(_userService, _store)
+    _store: Store<AppState>,
+    _router: Router,
+    _route: ActivatedRoute) {
+      super(_userService, _store, _router, _route)
   }
 
   ngOnInit() {

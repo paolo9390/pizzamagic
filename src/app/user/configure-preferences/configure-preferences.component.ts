@@ -4,6 +4,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../_services/user.service';
 import { UserPreferences, Address } from '../../_interfaces/user';
 import { PizzaMagicShop } from '../../_interfaces/pizza-magic.shop';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../_store/models/app-state';
+import { SetFavouriteShopAction, SetFavouriteAddressAction, SetFavouriteMethodAction } from 'src/app/_store/actions/favourite.actions';
 
 @Component({
   selector: 'app-configure-preferences',
@@ -23,6 +26,7 @@ export class ConfigurePreferencesComponent implements OnInit {
     private formBuilder: FormBuilder,
     private _snackBar: MatSnackBar,
     private userService: UserService,
+    private store: Store<AppState>,
     @Inject(MAT_DIALOG_DATA) public data: PreferencesData) { }
 
   ngOnInit() {
@@ -54,10 +58,13 @@ export class ConfigurePreferencesComponent implements OnInit {
   onAddClick(): void {
     if (this.preferencesForm.valid) {
       const shopId = this.preferencesForm.controls.shop.value._id;
+      const shop = this.preferencesForm.controls.shop.value;
       const addressId = this.preferencesForm.controls.address.value._id;
+      const address = this.preferencesForm.controls.address.value;
       const orderMethod = this.preferencesForm.controls.orderMethod.value;
       this.userService.saveFavourites(shopId, orderMethod, addressId, this.favId).subscribe(res => {
           this.openSnackBar(`Preferences updated.`, 'ok');
+          this.setUserPreferences(shop, address, orderMethod);
           this.dialogRef.close(true);
         }, () => {
           this.openSnackBar('Your address could not be updated at this time.', 'ok');
@@ -76,6 +83,23 @@ export class ConfigurePreferencesComponent implements OnInit {
     return val.replace(/\ /g, '');
   }
 
+  setUserPreferences(shop: PizzaMagicShop, address: Address, method: string): void {
+    this.selectShop(shop);
+    this.selectAddress(address);
+    this.selectFulfillmentMethod(method);
+  }
+
+  selectShop(shop: PizzaMagicShop) {
+    this.store.dispatch(new SetFavouriteShopAction(shop));
+  }
+
+  selectAddress(address: Address) {
+    this.store.dispatch(new SetFavouriteAddressAction(address));
+  }
+
+  selectFulfillmentMethod(method: string) {
+    this.store.dispatch(new SetFavouriteMethodAction(method));
+  }
 }
 
 

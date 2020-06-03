@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../_store/models/app-state';
 import { PizzaMagicShop } from '../_interfaces/pizza-magic.shop';
 import { SetFavouriteShopAction, SetFavouriteAddressAction, SetFavouriteMethodAction } from '../_store/actions/favourite.actions';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -13,15 +13,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./auth.component.scss']
 })
 export class AuthComponent implements OnInit {
-  @Input() isCheckout: boolean;
 
-  title: string = 'Sign up or log in';
+  title: string = 'Log in or sign up';
   authAction: 'login' | 'register';
+  returnUrl: string;
 
   constructor(
     protected userService: UserService,
     protected store: Store<AppState>,
-    private router?: Router) { }
+    protected router: Router,
+    protected route: ActivatedRoute) { }
 
   ngOnInit() {
   }
@@ -51,7 +52,10 @@ export class AuthComponent implements OnInit {
         this.selectFulfillmentMethod(pref.fulfillment_method);
       }
     })
-    if (!this.isCheckout) this.router.navigateByUrl('/home');
+
+    // get return url from route parameters or default to '/'
+    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '';
+    if (this.router.url !== '/checkout') this.router.navigateByUrl(this.returnUrl);
   }
 
   resetAuthAction(): void {

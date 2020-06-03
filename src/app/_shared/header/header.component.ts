@@ -4,12 +4,13 @@ import { UserService } from '../../_services/user.service';
 import { PizzaMagicUser } from '../../_interfaces/user';
 import { AuthService } from '../../_services/auth.service';
 import { Router } from '@angular/router';
-import { MatIconRegistry } from '@angular/material';
+import { MatIconRegistry, MatDialog } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../_store/models/app-state';
 import { MenuItem } from '../../_store/models/basket';
 import { PizzaMagicShop } from '../../_interfaces/pizza-magic.shop';
+import { ShopLocatorComponent } from 'src/app/_common/shop-locator/shop-locator.component';
 
 @Component({
   selector: 'app-header',
@@ -31,6 +32,7 @@ export class HeaderComponent implements OnInit {
     private authService: AuthService,
     private store: Store<AppState>,
     private router: Router,
+    public dialog: MatDialog,
     iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer) {
       iconRegistry.addSvgIcon(
@@ -60,6 +62,10 @@ export class HeaderComponent implements OnInit {
         this.userService.resetUser();
       }
     );
+  }
+
+  updateShop(): void {
+    this.dialog.open(ShopLocatorComponent);
   }
 
 }
