@@ -2,7 +2,8 @@ import { Basket } from '../models/basket';
 import { BasketActions, BasketActionTypes } from '../actions/basket.actions';
 
 const initialState: Basket = {
-    list: []
+    list: [],
+    timestamp: `${new Date().getDate()}${new Date().getMonth()+1}${new Date().getFullYear()}`
 };
 
 export function basketReducer(
@@ -29,6 +30,13 @@ export function basketReducer(
                 ...state,
                 list: state.list.filter(item => item !== action.payload)
             };
+        case BasketActionTypes.RESET_BASKET:
+            return {
+                ...state,
+                list: []
+            };
+        case BasketActionTypes.SET_TIMESTAMP:
+            return {...state, timestamp: action.payload};
         default: 
             return state;
     }

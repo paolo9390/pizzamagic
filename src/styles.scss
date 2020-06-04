@@ -42,6 +42,11 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
     color: mat-color($dark-primary);
   }
 
+  .dark-body {
+    background-color: mat-color($dark-body, 900);
+    color: mat-color($dark-body, 200);
+  }
+
   .warn-color {
     color: mat-color($dark-warn);
   }
@@ -51,8 +56,8 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
   }
 
   .primary-background {
-    background-color: mat-color($dark-primary, 900);
-    color: mat-color($dark-primary, 50);
+    background-color: mat-color($dark-primary);
+    color: mat-color($dark-body, 900);
   }
 
   .warn-background {
@@ -85,13 +90,13 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
   }
 
   .dark-body {
-    background-color: mat-color($dark-accent, 900);
-    color: mat-color($dark-accent, 200);
+    background-color: mat-color($dark-body, 900);
+    color: mat-color($dark-body, 200);
   }
 
   .primary-background {
     background-color: mat-color($primary, 900);
-    color: mat-color($primary, 100);
+    color: white;
   }
 
   .warn-background {

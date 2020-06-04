@@ -1,22 +1,25 @@
-<mat-toolbar class="header-toolbar mat-elevation-z6">
-  <mat-toolbar-row fxLayoutAlign="space-between center">
-    <a mat-button [routerLink]="['./']">
-      <h3>
-        <mat-icon svgIcon="magic" class="align-icon"></mat-icon>{{title | lowercase}}
-      </h3>
-    </a>
+<mat-toolbar class="header-toolbar mat-elevation-z6" [ngClass]="{'mat-elevation-z6': this.getCurrentRoute() !== '/home' }" >
+  <mat-toolbar-row [ngClass]="{'primary-background': this.getCurrentRoute() === '/home' }" fxLayoutAlign="space-between center">
+    <div fxLayout="space-around">
+      <a mat-button [routerLink]="['./']">
+        <h3>
+          <mat-icon svgIcon="magic" class="align-icon"></mat-icon>{{title | lowercase}}
+        </h3>
+      </a>
 
-    <div fxLayoutAlign="space-around">
-      <button (click)="updateShop()" fxHide.lt-sm mat-button *ngIf="(shop | async)">
+      <button class="shop-button" (click)="updateShop()" fxHide.lt-sm mat-button *ngIf="(shop | async)">
         <mat-icon class="align-icon">location_on</mat-icon> {{(shop | async)?.name | titlecase}}
       </button>
-      <button [routerLink]="['checkout']" *ngIf="basketTotal > 0" mat-icon-button color="primary">
+    </div>
+    
+    <div fxLayoutAlign="space-around">
+      <button [routerLink]="['checkout']" *ngIf="basketTotal > 0" mat-icon-button [color]="this.getCurrentRoute() === '/home' ? '' : 'primary'">
         <mat-icon [matBadge]="basketTotal" matBadgeColor="accent">shopping_basket</mat-icon>
       </button>
 
       <!-- user span  -->
       <span class="user-span">
-        <button *ngIf="!user" mat-stroked-button [routerLink]="['login']" color="primary">Login</button>
+        <button *ngIf="!user" mat-flat-button [routerLink]="['login']" color="primary">Login</button>
 
         <button *ngIf="user" mat-button [matMenuTriggerFor]="menu">
           <mat-icon class="align-icon">face</mat-icon>{{user?.name}}

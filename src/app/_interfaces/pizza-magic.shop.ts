@@ -20,6 +20,9 @@ export interface ShopFulfillmentMethod {
   name: string;
   label: string;
   asap: ASAP;
+  radius?: number;
+  max_radius?: number;
+  delivery_fee?: number;
 }
 
 export interface ASAP {

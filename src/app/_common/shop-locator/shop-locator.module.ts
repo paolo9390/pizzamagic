@@ -7,10 +7,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { favouriteReducer } from '../../_store/reducers/favourite.reducer';
 import { RouterModule } from '@angular/router';
+import { LocatorDialogComponent } from './locator-dialog/locator-dialog.component';
 
 
 @NgModule({
-  declarations: [ShopLocatorComponent],
+  declarations: [ShopLocatorComponent, LocatorDialogComponent],
   imports: [
     CommonModule,
     FlexLayoutModule,
@@ -26,6 +27,6 @@ import { RouterModule } from '@angular/router';
     StoreModule.forFeature('favourite', favouriteReducer)
   ],
   exports: [ShopLocatorComponent],
-  entryComponents: [ShopLocatorComponent]
+  entryComponents: [LocatorDialogComponent]
 })
 export class ShopLocatorModule { }

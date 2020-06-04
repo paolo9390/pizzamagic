@@ -24,16 +24,15 @@ export class ShopLocatorComponent implements OnInit {
   position: any;
   returnUrl: string;
   
-  constructor(private shopService: ShopService,
-    private store: Store<AppState>,
-    private router: Router,
-    private route: ActivatedRoute) { }
+  constructor(protected shopService: ShopService,
+    protected store: Store<AppState>,
+    protected router: Router,
+    protected route: ActivatedRoute) { }
 
   ngOnInit() {
     this.shop = this.store.select(store => store.favourite.shop);
     this.shopService.getAllShops().subscribe(shops => this.shops = shops);
   }
-
 
   locateShop() {
     if (this.postcodeCtrl.valid) {
@@ -74,6 +73,7 @@ export class ShopLocatorComponent implements OnInit {
   }
 
   selectShop(shopLocation: ShopLocation) {
+    shopLocation
     const shop = this.shops.find(s => s.name.toLowerCase() == shopLocation.name.toLowerCase());
     this.store.dispatch(new SetFavouriteShopAction(shop));
     // get return url from route parameters or default to '/'

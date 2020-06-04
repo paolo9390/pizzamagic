@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material';
 import { AppState } from 'src/app/_store/models/app-state';
 import { Store } from '@ngrx/store';
 import { FavouriteState } from 'src/app/_store/models/favourite';
+import { SetFavouriteShopAction } from 'src/app/_store/actions/favourite.actions';
 
 @Component({
   selector: 'app-checkout',
@@ -21,6 +22,7 @@ export class CheckoutComponent implements OnInit {
   user: User;
   user$: Observable<PizzaMagicUser>;
   isUserLoggedIn: boolean;
+  userDistance: number; // in miles
 
   // preferences vars 
   preferences: UserPreferences;
@@ -95,8 +97,8 @@ export class CheckoutComponent implements OnInit {
       }
 
       if (userPreferences && userPreferences.favourite_address) {
-        this.selectedAddress = userPreferences.favourite_address
-      } else this.selectedAddress = this.addressBook[0];
+        this.selectAddress(userPreferences.favourite_address);
+      }
     })
   }
 
@@ -105,6 +107,8 @@ export class CheckoutComponent implements OnInit {
   selectShop(shop: PizzaMagicShop): void {
     this.selectedShop = shop;
     this.isEditShop = false;
+    this.store.dispatch(new SetFavouriteShopAction(shop));
+    this.verifyDistance();
   }
 
   editShop(): void {
@@ -125,6 +129,16 @@ export class CheckoutComponent implements OnInit {
   selectAddress(address: Address): void {
     this.selectedAddress = address;
     this.isEditAddress = false;
+    this.verifyDistance();
+  }
+
+  verifyDistance(): void {
+    this.shopService.findAddressByPostcode(this.selectedAddress.postcode).subscribe(response => {
+      if (response && response['status'] === 200) {
+        this.userDistance = this.shopService.getDistanceByLatLonShop(this.selectedShop, response['result'].latitude, response['result'].longitude);
+      }
+    })
+
   }
 
   editAddress(): void {

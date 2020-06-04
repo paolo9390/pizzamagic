@@ -10,7 +10,8 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../_store/models/app-state';
 import { MenuItem } from '../../_store/models/basket';
 import { PizzaMagicShop } from '../../_interfaces/pizza-magic.shop';
-import { ShopLocatorComponent } from 'src/app/_common/shop-locator/shop-locator.component';
+import { StorageControllerService } from '../../core/services/storage-controller.service';
+import { LocatorDialogComponent } from '../../_common/shop-locator/locator-dialog/locator-dialog.component';
 
 @Component({
   selector: 'app-header',
@@ -22,8 +23,8 @@ export class HeaderComponent implements OnInit {
   title: string = 'Pizza Magic';
   isDarkTheme: Observable<boolean>;
   logo: string = '/assets/img/pizzamagic-white.png';
-  user: PizzaMagicUser;
 
+  user: PizzaMagicUser;
   shoppingCart: Observable<MenuItem[]>;
   basketTotal: number = 0;
   shop: Observable<PizzaMagicShop>;
@@ -33,6 +34,7 @@ export class HeaderComponent implements OnInit {
     private store: Store<AppState>,
     private router: Router,
     public dialog: MatDialog,
+    private storageController: StorageControllerService,
     iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer) {
       iconRegistry.addSvgIcon(
@@ -53,6 +55,8 @@ export class HeaderComponent implements OnInit {
         });
       }
     })
+    // verify validity of basket
+    this.storageController.verifyBasketValidity();
   }
 
   logout() {
@@ -65,7 +69,11 @@ export class HeaderComponent implements OnInit {
   }
 
   updateShop(): void {
-    this.dialog.open(ShopLocatorComponent);
+    this.dialog.open(LocatorDialogComponent);
+  }
+
+  getCurrentRoute(): string {
+    return this.router.url;
   }
 
 }

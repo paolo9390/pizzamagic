@@ -59,6 +59,11 @@ export class ShopService {
     return shopsLocator;
   }
 
+  // get the distance between a shop and an address by lat and long
+  getDistanceByLatLonShop(shop: PizzaMagicShop, latitude: number, longitude: number): number {
+    return this.distance(shop.latitude, shop.longitude, latitude, longitude);
+  }
+
   trim(val: string): string {
     return val.replace(/\ /g, '');
   }

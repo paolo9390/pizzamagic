@@ -1,16 +1,16 @@
 <section>
   <div class="content">
     <h2 class="title">CHECKOUT</h2>
-
     <section fxLayout="row" fxLayoutAlign="space-between" fxLayout.lt-md="column">
-      <section *ngIf="!(user$ | async)" class="checkout_user__preferences" fxLayout="column" fxFlex="55%" fxFlexOrder.lt-md="2">
+      <section *ngIf="!(user$ | async)" class="checkout_user__preferences" fxLayout="column" fxFlex="55%" fxFlex.lt-md="100%" fxFlexOrder.lt-md="2">
         <app-auth></app-auth>
       </section>
 
-      <section *ngIf="(user$ | async)" class="checkout_user__preferences" fxLayout="column" fxFlex="55%" fxFlexOrder.lt-md="2">
+      <section *ngIf="(user$ | async)" class="checkout_user__preferences" fxLayout="column" fxFlex="55%" fxFlex.lt-md="100%" fxFlexOrder.lt-md="2">
         <div *ngIf="!isEditShop" fxLayoutAlign="space-between center">
           <h3>
             <mat-icon class="align-icon" mat-list-icon>storefront</mat-icon> Pizza Magic {{selectedShop?.name | titlecase}}
+            <small> - {{userDistance}}m</small>
           </h3>
           <button mat-stroked-button color="accent" (click)="editShop()">Edit</button>
         </div>
@@ -27,7 +27,7 @@
           </div>
         </div>
 
-        <div>
+        <div *ngIf="selectedShop">
           <mat-button-toggle-group [(ngModel)]="preferredMethod" vertical="true">
             <mat-button-toggle *ngFor="let method of selectedShop.fulfillment_methods" [value]="method.name">
               <span [ngClass]="{'mat-h2': preferredMethod === method.name}">{{method?.asap?.display_label}}</span>
@@ -81,7 +81,7 @@
       </section>
 
 
-      <section fxFlex="40%" fxFlexOrder.lt-md="1" class="basket-section">
+      <section fxFlex="40%" fxFlex.lt-md="100%" fxFlexOrder.lt-md="1" class="basket-section">
         <app-basket [isCheckout]="true"></app-basket>
       </section>
     </section>

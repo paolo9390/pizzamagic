@@ -21,4 +21,5 @@ export interface ProductModifier {
 
 export interface Basket { 
     list: MenuItem[];
+    timestamp: string;
 }

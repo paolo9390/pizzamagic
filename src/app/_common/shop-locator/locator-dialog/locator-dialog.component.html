@@ -1,0 +1,29 @@
+<h3 mat-dialog-title fxLayoutAlign="space-between center" fxLayoutGap="10px">
+  <span>Find your local Pizza Magic</span>
+  <button mat-icon-button (click)="onNoClick()">
+    <mat-icon>close</mat-icon>
+  </button>
+</h3>
+
+<section mat-dialog-content>
+
+  <div fxLayoutAlign="space-between" fxLayout="row">
+    <mat-form-field appearance="outline">
+      <mat-label>Postcode</mat-label>
+      <input (keydown)="onPress($event)" [formControl]="postcodeCtrl" matInput placeholder="ie. CH60 0AG">
+      <mat-icon (click)="locateShop()" matSuffix color="primary">near_me</mat-icon>
+      <mat-error *ngIf="postcodeCtrl.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+    <button class="search-button" mat-flat-button color="primary" (click)="locateShop()">Search</button>
+  </div>
+
+  <div fxLayout="column" fxLayoutAlign="space-around" *ngIf="shops">
+    <mat-nav-list>
+      <mat-list-item color="primary" (click)="selectShop(shop); this.onNoClick();" *ngFor="let shop of shopsLocation">
+        <p matLine>
+          <mat-icon class="align-icon">store</mat-icon>{{shop?.name | uppercase}} - {{shop?.distance}}m
+        </p>
+      </mat-list-item>
+    </mat-nav-list>
+  </div>
+</section>
