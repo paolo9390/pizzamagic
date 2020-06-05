@@ -54,7 +54,7 @@
           </mat-card>
         </div>
         <div>
-          <div *ngIf="isEditAddress && addressBook">
+          <div *ngIf="isEditAddress">
             <mat-nav-list>
               <mat-list-item (click)="selectAddress(address)" *ngFor="let address of addressBook">
                 <p matLine>

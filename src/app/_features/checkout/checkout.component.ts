@@ -26,26 +26,29 @@ export class CheckoutComponent implements OnInit {
 
   // preferences vars 
   preferences: UserPreferences;
-  favorite$: Observable<FavouriteState>;
-  favoriteMethod: string;
-  selectedFavouriteMethod: string;
+  selectedPreferredMethod: string;
 
   // address vars 
   addressBook: Address[];
-  favoriteAddress: Address;
   selectedAddress: Address;
 
   // shop vars 
   shops: PizzaMagicShop[];
   selectedShop: PizzaMagicShop;
   shopInfo: ShopInfo;
+
+
+  // favorite state
+  favorite$: Observable<FavouriteState>;
+  favoriteMethod: string;
+  favoriteAddress: Address;
   favoriteShop: PizzaMagicShop;
 
 
   // other vars 
   isEditAddress: boolean = false;
   isEditShop: boolean = false;
-  preferredMethod: string = 'delivery';
+  defaultMethod: string = 'delivery';
 
   constructor(private userService: UserService,
     private dialog: MatDialog,
@@ -65,7 +68,6 @@ export class CheckoutComponent implements OnInit {
     this.user$ = this.userService.currentUser;
     this.user$.subscribe(userLoggedIn => {
       if (userLoggedIn) {
-        this.getAddressBook();
         this.getUserPreferences();
       }
     })
@@ -74,21 +76,18 @@ export class CheckoutComponent implements OnInit {
 
   // user functions
   getUserPreferences(): void {
-    const shopObs = this.shopService.getAllShops();
-    const userPreferenceObs = this.userService.getUserPreferences();
-    forkJoin(userPreferenceObs, shopObs).subscribe(objects => {
+    const shops$ = this.shopService.getAllShops();
+    const userPreferences$ = this.userService.getUserPreferences();
+    const userAddressBook$ = this.userService.getAddressBook();
+
+
+    forkJoin(userPreferences$, userAddressBook$, shops$).subscribe(objects => {
 
       const userPreferences: UserPreferences = objects[0];
-
       // assign shops from observable 
-      this.shops = objects[1];
+      this.shops = objects[2];
 
-      // check if a shop was pre-selected  
-      if (this.favoriteShop) {
-        this.selectedShop = this.shops.find(({ name }) => name === this.favoriteShop.name);
-      }
       const shop = this.shops.find(({ name }) => name === userPreferences.favourite_shop.name);
-
       // assigning preferences from obs
       this.preferences = {
         favourite_shop: shop,
@@ -96,9 +95,23 @@ export class CheckoutComponent implements OnInit {
         favourite_address: userPreferences.favourite_address
       }
 
-      if (userPreferences && userPreferences.favourite_address) {
-        this.selectAddress(userPreferences.favourite_address);
+      // check if a shop was pre-selected  
+      if (this.favoriteShop) {
+        this.selectedShop = this.shops.find(({ name }) => name === this.favoriteShop.name);
       }
+
+      
+      // check if the current chose address is avaliable from the addressBook
+      const userAddressBook: Address[] = objects[1];
+      this.addressBook = userAddressBook;
+      userAddressBook.forEach(address => {
+        if (address.postcode.toUpperCase() === this.favoriteAddress.postcode.toUpperCase()) {
+          this.selectAddress(address);
+        }
+      });
+      // if the current postcode isnt found in the address book of the user make user create a new address 
+      if (!this.selectedAddress) this.editAddress();
+
     })
   }
 

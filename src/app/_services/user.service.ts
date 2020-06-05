@@ -15,6 +15,7 @@ export class UserService {
 
   private user$: Observable<User>;
   private preferences$: Observable<UserPreferences>;
+  private addressBook$: Observable<Address[]>;
 
 
   constructor(private http: HttpClient) {
@@ -48,6 +49,7 @@ export class UserService {
     localStorage.removeItem('pizzamagic-user');
     this.user$ = undefined;
     this.preferences$ = undefined;
+    this.addressBook$ = undefined;
   }
 
   getUser(): Observable<User> {
@@ -99,18 +101,26 @@ export class UserService {
   }
 
   getAddressBook(): Observable<Address[]> {
-    return this.http.get<Address[]>(`${globals.HTTP_API_URL}/favourites/address-book`)
+    if (!this.addressBook$) {
+      this.addressBook$ = this.http.get<Address[]>(`${globals.HTTP_API_URL}/favourites/address-book`).pipe(
+        shareReplay(1)
+      )
+    }
+    return this.addressBook$;
   }
 
   addAddress(address: Address): Observable<Address> {
+    this.addressBook$ = undefined;
     return this.http.put<Address>(`${globals.HTTP_API_URL}/favourites/address-book`, address);
   }
 
   updateAddress(address: Address, address_id: string): Observable<Address> {
+    this.addressBook$ = undefined;
     return this.http.patch<Address>(`${globals.HTTP_API_URL}/favourites/address-book/${address_id}`, address);
   }
 
   deleteAddress(address_id: string): Observable<any> {
+    this.addressBook$ = undefined;
     return this.http.delete<any>(`${globals.HTTP_API_URL}/favourites/address-book/${address_id}`);
   }
 }

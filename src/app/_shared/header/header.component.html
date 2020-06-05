@@ -7,8 +7,8 @@
         </h3>
       </a>
 
-      <button class="shop-button" (click)="updateShop()" fxHide.lt-sm mat-button *ngIf="(shop | async)">
-        <mat-icon class="align-icon">location_on</mat-icon> {{(shop | async)?.name | titlecase}}
+      <button class="shop-button" (click)="updateShop()" fxHide.lt-sm mat-button *ngIf="(currentPostcode$ | async)">
+        <mat-icon class="align-icon">location_on</mat-icon> {{(currentPostcode$ | async) | uppercase}}
       </button>
     </div>
     
@@ -19,7 +19,7 @@
 
       <!-- user span  -->
       <span class="user-span">
-        <button *ngIf="!user" mat-flat-button [routerLink]="['login']" color="primary">Login</button>
+        <button *ngIf="!user" mat-button [routerLink]="['login']">Login</button>
 
         <button *ngIf="user" mat-button [matMenuTriggerFor]="menu">
           <mat-icon class="align-icon">face</mat-icon>{{user?.name}}

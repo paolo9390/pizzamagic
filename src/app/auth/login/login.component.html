@@ -15,10 +15,8 @@
       <mat-form-field appearance="fill">
         <mat-label>Enter your password</mat-label>
         <input formControlName="password" matInput [type]="hide ? 'password' : 'text'">
-        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-          [attr.aria-pressed]="hide">
-          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-        </button>
+          <mat-icon class="hide" matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         <mat-error *ngIf="this.loginForm.controls.password.invalid">Enter your password</mat-error>
       </mat-form-field>
     </div>

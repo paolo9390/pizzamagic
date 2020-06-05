@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../_services/auth.service';
 import { UserService } from '../../_services/user.service';
-import { AppState } from '../../_store/models/app-state';
-import { Store } from '@ngrx/store';
 import { AuthComponent } from '../auth.component';
 import { PizzaMagicUser } from '../../_interfaces/user';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -22,10 +20,9 @@ export class LoginComponent extends AuthComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private authService: AuthService,
     _userService: UserService,
-    _store: Store<AppState>,
     _router: Router,
     _route: ActivatedRoute) {
-      super(_userService, _store, _router, _route)
+      super(_userService, _router, _route)
   }
 
   ngOnInit() {
@@ -55,7 +52,7 @@ export class LoginComponent extends AuthComponent implements OnInit {
             name: res.user.name.split(' ')[0]
           };
           this.userService.setUserValue(pmUser);
-          this.setUserPreferences();
+          this.redirectUser();
         }
       },
       err => {

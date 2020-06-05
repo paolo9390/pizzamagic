@@ -27,7 +27,8 @@ export class HeaderComponent implements OnInit {
   user: PizzaMagicUser;
   shoppingCart: Observable<MenuItem[]>;
   basketTotal: number = 0;
-  shop: Observable<PizzaMagicShop>;
+  shop$: Observable<PizzaMagicShop>;
+  currentPostcode$: Observable<string>;
 
   constructor(private userService: UserService,
     private authService: AuthService,
@@ -44,7 +45,9 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.userService.currentUser.subscribe(user => this.user = user);
-    this.shop = this.store.select(store => store.favourite.shop);
+    this.shop$ = this.store.select(store => store.favourite.shop);
+    this.currentPostcode$ = this.store.select(store => store.favourite.address.postcode);
+
 
     this.shoppingCart = this.store.select(store => store.basket.list);
     this.shoppingCart.subscribe(shopping => {

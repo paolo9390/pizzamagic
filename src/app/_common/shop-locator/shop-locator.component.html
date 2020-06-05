@@ -1,4 +1,4 @@
-<div>
+<mat-card>
   <mat-card-header>
     <mat-card-subtitle>
       Enter your postcode to find your local Pizza Magic
@@ -6,21 +6,27 @@
   </mat-card-header>
 
   <mat-card-content fxLayoutAlign="space-around" fxLayout="row">
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline" fxFlex="70%">
       <mat-label>Postcode</mat-label>
       <input (keydown)="onPress($event)" [formControl]="postcodeCtrl" matInput placeholder="ie. CH60 0AG">
       <mat-icon (click)="locateShop()" matSuffix color="primary">near_me</mat-icon>
       <mat-error *ngIf="postcodeCtrl.invalid">{{getErrorMessage()}}</mat-error>
     </mat-form-field>
+    <button class="search-button" mat-flat-button color="primary" (click)="searchNearestShop()">Search</button>
   </mat-card-content>
 
-  <mat-card-footer fxLayout="column" fxLayoutAlign="space-around" *ngIf="shops">
+  <div *ngIf="addressBook">
+    <p class="mat-caption">Or, select a recent address</p>
     <mat-nav-list>
-        <mat-list-item (click)="selectShop(shop)" *ngFor="let shop of shopsLocation">
-        <p matLine>
-            <mat-icon class="align-icon">store</mat-icon>{{shop?.name | uppercase}} - {{shop?.distance}}m
-        </p>
-        </mat-list-item>
+      <mat-list-item (click)="selectAddress(address)" *ngFor="let address of addressBook">
+        <div matLine fxLayout="row" fxLayoutAlign="space-around center">
+          <mat-icon>location_on</mat-icon>
+          <span class="address-span">
+            {{address?.address | titlecase}}, {{address?.postcode | uppercase}}
+          </span>
+          <mat-icon class="align-icon">navigate_next</mat-icon>
+        </div>
+      </mat-list-item>
     </mat-nav-list>
-  </mat-card-footer>
-</div>
+  </div>
+</mat-card>

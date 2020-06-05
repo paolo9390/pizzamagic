@@ -4,8 +4,6 @@ import { AuthComponent } from './auth.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatIconModule, MatButtonModule, MatFormFieldModule, MatInputModule } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
-import { StoreModule } from '@ngrx/store';
-import { favouriteReducer } from '../_store/reducers/favourite.reducer';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 
@@ -20,8 +18,7 @@ import { RegisterComponent } from './register/register.component';
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
-    ReactiveFormsModule,
-    StoreModule.forRoot({favourite: favouriteReducer})
+    ReactiveFormsModule
   ],
   exports: [
     AuthComponent,

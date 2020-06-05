@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ShopService } from '../_services/shop.service';
-import { Store } from '@ngrx/store';
-import { AppState } from '../_store/models/app-state';
 
 @Component({
   selector: 'app-home',
@@ -23,14 +20,23 @@ export class HomeComponent implements OnInit {
       img: '/assets/img/home/pizzas.jpg'
     },
     {
+      title: 'Sides',
+      route: '/side-orders',
+      img: '/assets/img/home/sides.jpg'
+    },
+    {
+      title: 'Burgers',
+      route: '/burgers',
+      img: '/assets/img/home/burgers.jpg'
+    },
+    {
       title: 'Meal Deals',
       route: '/deals',
       img: '/assets/img/home/deals.jpg'
     }
   ];
 
-  constructor(private shoplocator: ShopService,
-    private store: Store<AppState>) { }
+  constructor() { }
 
   ngOnInit() {
   }

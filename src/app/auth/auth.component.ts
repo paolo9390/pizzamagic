@@ -1,10 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {  Address } from '../_interfaces/user';
 import { UserService } from '../_services/user.service';
-import { Store } from '@ngrx/store';
-import { AppState } from '../_store/models/app-state';
-import { PizzaMagicShop } from '../_interfaces/pizza-magic.shop';
-import { SetFavouriteShopAction, SetFavouriteAddressAction, SetFavouriteMethodAction } from '../_store/actions/favourite.actions';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -20,7 +15,6 @@ export class AuthComponent implements OnInit {
 
   constructor(
     protected userService: UserService,
-    protected store: Store<AppState>,
     protected router: Router,
     protected route: ActivatedRoute) { }
 
@@ -31,28 +25,8 @@ export class AuthComponent implements OnInit {
     this.authAction = action;
   }
 
-  selectShop(shop: PizzaMagicShop) {
-    this.store.dispatch(new SetFavouriteShopAction(shop));
-  }
-
-  selectAddress(address: Address) {
-    this.store.dispatch(new SetFavouriteAddressAction(address));
-  }
-
-  selectFulfillmentMethod(method: string) {
-    this.store.dispatch(new SetFavouriteMethodAction(method));
-  }
-
   // set user preferences at login if any are found
-  setUserPreferences(): void {
-    this.userService.getUserPreferences().subscribe(pref => {
-      if (pref) {
-        this.selectShop(pref.favourite_shop)
-        this.selectAddress(pref.favourite_address);
-        this.selectFulfillmentMethod(pref.fulfillment_method);
-      }
-    })
-
+  redirectUser(): void {
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams.returnUrl || '';
     if (this.router.url !== '/checkout') this.router.navigateByUrl(this.returnUrl);

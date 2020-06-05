@@ -1,3 +1,23 @@
-mat-form-field {
-    width: 95%;
+mat-card {
+    border-radius: 15px;
+}
+
+.search-button {
+    height: 50px;
+    font-size: 16px;
+    margin-top: 4px;
+}
+
+.address-span {
+    font-size: 14px;
+}
+
+@media (max-width:420px) {
+    .mat-list-base .mat-list-item .mat-line {
+        white-space: normal;
+    }
+
+    .address-span {
+        margin-left: 10px;
+    }
 }

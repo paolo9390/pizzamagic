@@ -3,10 +3,11 @@ import { ShopService } from '../../_services/shop.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../_store/models/app-state';
 import { ShopLocation, PizzaMagicShop } from '../../_interfaces/pizza-magic.shop';
-import { SetFavouriteShopAction } from '../../_store/actions/favourite.actions';
+import { SetFavouriteShopAction, SetFavouriteAddressAction } from '../../_store/actions/favourite.actions';
 import { FormControl, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
+import { UserService } from '../../_services/user.service';
+import { Address } from '../../_interfaces/user';
 
 @Component({
   selector: 'app-shop-locator',
@@ -19,7 +20,7 @@ export class ShopLocatorComponent implements OnInit {
   postcodeCtrl = new FormControl('', [Validators.required, Validators.pattern(/([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})$/)]);
   shops: PizzaMagicShop[];
   shopsLocation: ShopLocation[];
-  shop: Observable<PizzaMagicShop>;
+  addressBook: Address[];
 
   position: any;
   returnUrl: string;
@@ -27,10 +28,11 @@ export class ShopLocatorComponent implements OnInit {
   constructor(protected shopService: ShopService,
     protected store: Store<AppState>,
     protected router: Router,
-    protected route: ActivatedRoute) { }
+    protected route: ActivatedRoute,
+    protected userService: UserService) { }
 
   ngOnInit() {
-    this.shop = this.store.select(store => store.favourite.shop);
+    this.userService.getAddressBook().subscribe(addressBook => this.addressBook = addressBook);
     this.shopService.getAllShops().subscribe(shops => this.shops = shops);
   }
 
@@ -72,12 +74,43 @@ export class ShopLocatorComponent implements OnInit {
     }
   }
 
-  selectShop(shopLocation: ShopLocation) {
-    shopLocation
+  selectShop(shopLocation: ShopLocation): void {
+    // add postcode and shop to favorite state 
+    const postcode = this.postcodeCtrl.value.toUpperCase();
+    const newAddress: Address = { address: '', postcode: postcode, phone: '' };
     const shop = this.shops.find(s => s.name.toLowerCase() == shopLocation.name.toLowerCase());
     this.store.dispatch(new SetFavouriteShopAction(shop));
+    
+    this.selectAddress(newAddress);
+  }
+
+  searchNearestShop(): void {
+    if (this.postcodeCtrl.valid) {
+      this.shopsLocation = [];
+      const postcode = this.postcodeCtrl.value;
+      this.shopService.findAddressByPostcode(postcode).subscribe(response => {
+        if (response && response['status'] === 200) {
+          this.shopsLocation = this.shopService.locate(response['result'].latitude, response['result'].longitude);
+          let nearestShop: ShopLocation = this.shopsLocation[0];
+          if (this.shopsLocation) {
+            this.shopsLocation.forEach(shop => {
+              if (shop.distance < nearestShop.distance) nearestShop = shop;
+            });
+          }
+          this.selectShop(nearestShop);
+        }
+      })
+    }
+  }
+
+  selectAddress(address: Address): void {
+    this.store.dispatch(new SetFavouriteAddressAction(address));
+    this.redirectUser();
+  }
+
+  redirectUser(): void {
     // get return url from route parameters or default to '/'
-    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '';
+    this.returnUrl = this.route.snapshot.queryParams.returnUrl || 'pizza';
     this.router.navigateByUrl(this.returnUrl);
   }
 

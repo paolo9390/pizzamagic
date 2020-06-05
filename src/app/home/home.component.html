@@ -10,10 +10,8 @@
           {{slogan}}
         </h2>
 
-        <div class="find-div" fxLayout="row" fxLayoutAlign="space-between">
-          <mat-card>
+        <div class="find-div">
             <app-shop-locator></app-shop-locator>
-          </mat-card>
         </div>
 
       </section>
@@ -29,10 +27,8 @@
   <div class="content">
     <h1>ORDER NOW</h1>
     <div fxLayout="row" fxLayoutAlign="space-between stretch" layout-wrap>
-      <mat-card [routerLink]="card?.route" class="card" fxFlex.gt-xs="48%" fxFlex.lt-sm="100%"
-        *ngFor="let card of cards">
-        <img mat-card-image [src]="card.img">
-      </mat-card>
+      <img class="card card-img" [src]="card.img" matRipple [routerLink]="card?.route" fxFlex.gt-xs="48%" fxFlex.lt-sm="100%"
+      *ngFor="let card of cards">
     </div>
 
   </div>

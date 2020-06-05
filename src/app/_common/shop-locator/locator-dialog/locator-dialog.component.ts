@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ShopLocatorComponent } from '../shop-locator.component';
 import { MatDialogRef } from '@angular/material';
-import { ShopService } from 'src/app/_services/shop.service';
+import { ShopService } from '../../../_services/shop.service';
 import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/_store/models/app-state';
+import { AppState } from '../../../_store/models/app-state';
 import { Router, ActivatedRoute } from '@angular/router';
+import { UserService } from '../../../_services/user.service';
 
 @Component({
   selector: 'app-locator-dialog',
@@ -18,8 +19,9 @@ export class LocatorDialogComponent extends ShopLocatorComponent implements OnIn
     _shopService: ShopService,
     _store: Store<AppState>,
     _router: Router,
-    _route: ActivatedRoute) {
-    super(_shopService, _store, _router, _route);
+    _route: ActivatedRoute,
+    _userService: UserService) {
+    super(_shopService, _store, _router, _route, _userService);
   }
 
   ngOnInit() {
