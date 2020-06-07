@@ -1,14 +1,12 @@
 <!--app-root-->
-
-<div>
-  <section class="pizza-magic-body" fxLayoutAlign="space-between" fxLayout="column">
+<section class="pizza-magic-body" fxLayoutAlign="space-between" fxLayout="column">
+  <div>
     <app-loader></app-loader>
     <app-header></app-header>
     <section [class.loading]="loading">
       <router-outlet></router-outlet>
     </section>
+  </div>
 
-    <app-footer></app-footer>
-  </section>
-
-</div>
+  <app-footer></app-footer>
+</section>

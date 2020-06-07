@@ -10,11 +10,14 @@ import { FormsModule } from '@angular/forms';
 import { basketReducer } from '../../_store/reducers/basket.reducer';
 import { favouriteReducer } from '../../_store/reducers/favourite.reducer';
 import { AuthModule } from '../../auth/auth.module';
+import { ShopStepComponent } from './shop-step/shop-step.component';
+import { MethodStepComponent } from './method-step/method-step.component';
+import { DeliveryStepComponent } from './delivery-step/delivery-step.component';
 
 
 
 @NgModule({
-  declarations: [CheckoutComponent],
+  declarations: [CheckoutComponent, ShopStepComponent, MethodStepComponent, DeliveryStepComponent],
   imports: [
     CommonModule,
     FlexLayoutModule,

@@ -8,6 +8,7 @@ import { StoreModule } from '@ngrx/store';
 import { basketReducer } from '../../_store/reducers/basket.reducer';
 import { favouriteReducer } from '../../_store/reducers/favourite.reducer';
 import { ShopLocatorModule } from '../../_common/shop-locator/shop-locator.module';
+import { MethodPickerModule } from 'src/app/_common/method-picker/method-picker.module';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { ShopLocatorModule } from '../../_common/shop-locator/shop-locator.modul
     MatDialogModule,
     FlexLayoutModule,
     ShopLocatorModule,
+    MethodPickerModule,
     StoreModule.forRoot({basket: basketReducer, favourite: favouriteReducer})
   ],
   exports: [HeaderComponent]

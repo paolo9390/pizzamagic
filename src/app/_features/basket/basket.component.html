@@ -19,7 +19,7 @@
           <span class="title_span">{{item.title | titlecase}} </span>
           <span *ngIf="item?.description" class="description">({{item?.description | titlecase}})</span>
         </span>
-        <span>£ {{item.price | number:'1.2'}}</span>
+        <span class="price">£ {{item.price | number:'1.2'}}</span>
       </div>
 
       <span class="description" *ngFor="let extra of item.product_modifier">{{extra?.description | titlecase}}</span>

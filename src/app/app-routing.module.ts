@@ -13,6 +13,7 @@ import { SideOrdersComponent } from './_features/side-orders/side-orders.compone
 import { DessertDrinkComponent } from './_features/dessert-drink/dessert-drink.component';
 import { KidsMealComponent } from './_features/kids-meal/kids-meal.component';
 import { CheckoutComponent } from './_features/checkout/checkout.component';
+import { CheckoutGuard } from './_helpers/checkout.guard';
 
 
 const routes: Routes = [
@@ -27,7 +28,7 @@ const routes: Routes = [
   { path: 'desserts', component: DessertDrinkComponent, data: { mode: 'desserts'}, canActivate: [ShopGuard]  },
   { path: 'drinks', component: DessertDrinkComponent, data: { mode: 'drinks'}, canActivate: [ShopGuard]  },
   { path: 'kids-meal', component: KidsMealComponent, canActivate: [ShopGuard]  },
-  { path: 'checkout', component: CheckoutComponent }
+  { path: 'checkout', component: CheckoutComponent, canActivate: [CheckoutGuard] }
 ];
 
 @NgModule({

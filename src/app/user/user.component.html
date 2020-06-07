@@ -53,8 +53,8 @@
             <mat-error *ngIf="password.invalid">Enter your current password.</mat-error>
           </mat-form-field>
           <div class="save_profile__buttons" fxLayoutGap="10px">
-            <button (click)="editProfile()" mat-flat-button color="warn">Save</button>
-            <button (click)="cancelChanges()" mat-stroked-button color="warn">Cancel</button>
+            <button class="large-button" (click)="editProfile()" mat-flat-button color="primary">Save</button>
+            <button class="large-button" (click)="cancelChanges()" mat-stroked-button color="warn">Cancel</button>
           </div>
         </div>
         <span class="warn-color" *ngIf="errorInSaving">{{saveError}}</span>

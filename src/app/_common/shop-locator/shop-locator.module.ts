@@ -23,7 +23,6 @@ import { LocatorDialogComponent } from './locator-dialog/locator-dialog.componen
     MatCardModule,
     MatListModule,
     RouterModule,
-    ReactiveFormsModule,
     StoreModule.forFeature('favourite', favouriteReducer)
   ],
   exports: [ShopLocatorComponent],

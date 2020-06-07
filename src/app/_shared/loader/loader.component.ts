@@ -9,18 +9,18 @@ import { LoaderService, LoaderState } from '../../_services/loader.service';
 })
 export class LoaderComponent implements OnInit, OnDestroy {
   show = false;
-  subscription: Subscription;
+  loading$: Subscription;
 
   constructor(private loaderService: LoaderService) { }
 
   ngOnInit() {
-    this.subscription = this.loaderService.loaderState
+    this.loading$ = this.loaderService.loaderState
     .subscribe((state: LoaderState) => {
         this.show = state.show;
     });
   }
   
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    if (this.loading$) this.loading$.unsubscribe();
   }
 }

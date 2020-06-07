@@ -54,6 +54,12 @@ export class ShopLocatorComponent implements OnInit {
     }
   }
 
+  onPressHome(event: any): void {
+    if (event.keyCode === 13) {
+      this.searchNearestShop();
+    }
+  }
+
   getLocation() {
     if (window.navigator.geolocation) {
       window.navigator.geolocation.getCurrentPosition(this.setPosition.bind(this));
@@ -75,12 +81,15 @@ export class ShopLocatorComponent implements OnInit {
   }
 
   selectShop(shopLocation: ShopLocation): void {
+    const shop = this.shops.find(s => s.name.toLowerCase() == shopLocation.name.toLowerCase());
+    this.store.dispatch(new SetFavouriteShopAction(shop));
+  }
+
+  selectShopByNewAddress(shopLocation: ShopLocation): void {
     // add postcode and shop to favorite state 
     const postcode = this.postcodeCtrl.value.toUpperCase();
     const newAddress: Address = { address: '', postcode: postcode, phone: '' };
-    const shop = this.shops.find(s => s.name.toLowerCase() == shopLocation.name.toLowerCase());
-    this.store.dispatch(new SetFavouriteShopAction(shop));
-    
+    this.selectShop(shopLocation);
     this.selectAddress(newAddress);
   }
 
@@ -97,10 +106,25 @@ export class ShopLocatorComponent implements OnInit {
               if (shop.distance < nearestShop.distance) nearestShop = shop;
             });
           }
-          this.selectShop(nearestShop);
+          this.selectShopByNewAddress(nearestShop);
         }
       })
     }
+  }
+
+  selectNearestShopByAddress(address: Address): void {
+    this.shopService.findAddressByPostcode(address.postcode).subscribe(response => {
+      if (response && response['status'] === 200) {
+        this.shopsLocation = this.shopService.locate(response['result'].latitude, response['result'].longitude);
+        let nearestShop: ShopLocation = this.shopsLocation[0];
+        if (this.shopsLocation) {
+          this.shopsLocation.forEach(shop => {
+            if (shop.distance < nearestShop.distance) nearestShop = shop;
+          });
+        }
+        this.selectAddress(address);
+      }
+    })
   }
 
   selectAddress(address: Address): void {

@@ -13,7 +13,7 @@ import { LoaderService, LoaderState } from './_services/loader.service';
 })
 export class AppComponent implements OnDestroy {
   title = 'pizzamagic';
-  loadingSubscription: Subscription;
+  loading$: Subscription;
   loading: boolean;
 
   constructor(private colorSchemeService: ColorSchemeService,
@@ -21,7 +21,7 @@ export class AppComponent implements OnDestroy {
     private iconRegistry: MatIconRegistry,
     private sanitizer: DomSanitizer) {
 
-    this.loadingSubscription = this.loaderService.loaderState
+    this.loading$ = this.loaderService.loaderState
     .subscribe((state: LoaderState) => {
         this.loading = state.show;
     });
@@ -34,8 +34,8 @@ export class AppComponent implements OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.loadingSubscription){
-      this.loadingSubscription.unsubscribe();
+    if (this.loading$){
+      this.loading$.unsubscribe();
     }
   }
 }

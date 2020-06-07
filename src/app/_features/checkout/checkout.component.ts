@@ -87,13 +87,19 @@ export class CheckoutComponent implements OnInit {
       // assign shops from observable 
       this.shops = objects[2];
 
-      const shop = this.shops.find(({ name }) => name === userPreferences.favourite_shop.name);
-      // assigning preferences from obs
-      this.preferences = {
-        favourite_shop: shop,
-        fulfillment_method: userPreferences.fulfillment_method,
-        favourite_address: userPreferences.favourite_address
+      if (userPreferences) {
+        const shop = userPreferences.favourite_shop ? this.shops.find(({ name }) => name === userPreferences.favourite_shop.name) : null;
+        // assigning preferences from obs
+        if (shop || userPreferences.fulfillment_method || userPreferences.favourite_address) {
+          this.preferences = {
+            favourite_shop: shop,
+            fulfillment_method: userPreferences.fulfillment_method,
+            favourite_address: userPreferences.favourite_address
+          }
+          this.selectedPreferredMethod = this.preferences.fulfillment_method;
+        }
       }
+      
 
       // check if a shop was pre-selected  
       if (this.favoriteShop) {
@@ -103,15 +109,18 @@ export class CheckoutComponent implements OnInit {
       
       // check if the current chose address is avaliable from the addressBook
       const userAddressBook: Address[] = objects[1];
-      this.addressBook = userAddressBook;
-      userAddressBook.forEach(address => {
-        if (address.postcode.toUpperCase() === this.favoriteAddress.postcode.toUpperCase()) {
-          this.selectAddress(address);
-        }
-      });
-      // if the current postcode isnt found in the address book of the user make user create a new address 
-      if (!this.selectedAddress) this.editAddress();
-
+      if (userAddressBook && userAddressBook.length > 0) {
+        this.addressBook = userAddressBook;
+        userAddressBook.forEach(address => {
+          if (address.postcode.toUpperCase() === this.favoriteAddress.postcode.toUpperCase()) {
+            this.selectAddress(address);
+          }
+        });
+        // if the current postcode isnt found in the address book of the user make user create a new address 
+        if (!this.selectedAddress) this.editAddress();
+      } else {
+        this.selectAddress(this.favoriteAddress);
+      }
     })
   }
 

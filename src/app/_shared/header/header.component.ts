@@ -12,6 +12,7 @@ import { MenuItem } from '../../_store/models/basket';
 import { PizzaMagicShop } from '../../_interfaces/pizza-magic.shop';
 import { StorageControllerService } from '../../core/services/storage-controller.service';
 import { LocatorDialogComponent } from '../../_common/shop-locator/locator-dialog/locator-dialog.component';
+import { MethodPickerComponent } from 'src/app/_common/method-picker/method-picker.component';
 
 @Component({
   selector: 'app-header',
@@ -29,6 +30,7 @@ export class HeaderComponent implements OnInit {
   basketTotal: number = 0;
   shop$: Observable<PizzaMagicShop>;
   currentPostcode$: Observable<string>;
+  currentFulfillmentMethod$: Observable<string>;
 
   constructor(private userService: UserService,
     private authService: AuthService,
@@ -46,7 +48,8 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.userService.currentUser.subscribe(user => this.user = user);
     this.shop$ = this.store.select(store => store.favourite.shop);
-    this.currentPostcode$ = this.store.select(store => store.favourite.address.postcode);
+    this.currentPostcode$ = this.store.select(store => store.favourite.address ? store.favourite.address.postcode : '');
+    this.currentFulfillmentMethod$ = this.store.select(store => store.favourite.fulfillment_method ? store.favourite.fulfillment_method : 'delivery');
 
 
     this.shoppingCart = this.store.select(store => store.basket.list);
@@ -73,6 +76,12 @@ export class HeaderComponent implements OnInit {
 
   updateShop(): void {
     this.dialog.open(LocatorDialogComponent);
+  }
+
+  updateMethod(): void {
+    this.dialog.open(MethodPickerComponent, {
+      width: '300px'
+    });
   }
 
   getCurrentRoute(): string {

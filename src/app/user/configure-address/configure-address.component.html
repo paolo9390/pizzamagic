@@ -44,14 +44,15 @@
       </mat-form-field>
     </div>
   </form>
+</div>
 
 
-  <div mat-dialog-actions fxLayoutAlign="space-between end" fxLayout.lt-sm="column">
-    <button fxFlex="40%" fxFlexOrder.lt-sm="2" mat-stroked-button (click)="onNoClick()" color="accent">
-      Cancel
-    </button>
-    <button fxFlex="50%" fxFlexOrder.lt-sm="1" [disabled]="this.addressForm.invalid" mat-flat-button (click)="onAddClick()" color="accent">
-      <span>{{data.mode | titlecase}}</span>
-    </button>
-  </div>
+<div mat-dialog-actions fxLayoutAlign="space-between end" fxLayout.lt-sm="column">
+  <button fxFlex="40%" fxFlexOrder.lt-sm="2" mat-stroked-button (click)="onNoClick()" color="accent">
+    Cancel
+  </button>
+  <button fxFlex="50%" fxFlexOrder.lt-sm="1" [disabled]="this.addressForm.invalid" mat-flat-button
+    (click)="onAddClick()" color="accent">
+    <span>{{data.mode | titlecase}}</span>
+  </button>
 </div>

@@ -19,7 +19,7 @@
 
   <div fxLayout="column" fxLayoutAlign="space-around" *ngIf="shops">
     <mat-nav-list>
-      <mat-list-item color="primary" (click)="selectShop(shop); this.onNoClick();" *ngFor="let shop of shopsLocation">
+      <mat-list-item color="primary" (click)="selectShopByNewAddress(shop); this.onNoClick();" *ngFor="let shop of shopsLocation">
         <p matLine>
           <mat-icon class="align-icon">store</mat-icon>{{shop?.name | uppercase}} - {{shop?.distance}}m
         </p>
