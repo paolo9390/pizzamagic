@@ -12,7 +12,7 @@ import { MenuItem } from '../../_store/models/basket';
 import { PizzaMagicShop } from '../../_interfaces/pizza-magic.shop';
 import { StorageControllerService } from '../../core/services/storage-controller.service';
 import { LocatorDialogComponent } from '../../_common/shop-locator/locator-dialog/locator-dialog.component';
-import { MethodPickerComponent } from 'src/app/_common/method-picker/method-picker.component';
+import { MethodPickerComponent } from '../../_common/method-picker/method-picker.component';
 
 @Component({
   selector: 'app-header',
