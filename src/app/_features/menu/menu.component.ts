@@ -15,7 +15,7 @@ export class MenuComponent implements OnInit {
     {
       name: 'Pizzas',
       route: '/pizza',
-      background: '#7ec6d9',
+      background: '#60c7ee',
       img: '/assets/img/menu/pizzas.png'
     },
     {
@@ -57,7 +57,7 @@ export class MenuComponent implements OnInit {
     {
       name: 'Meal Deals',
       route: '/meal-deals',
-      background: '#74cdd4',
+      background: '#fbc426',
       img: '/assets/img/menu/meal-deals.png'
     }
   ];
