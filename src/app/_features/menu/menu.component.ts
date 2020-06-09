@@ -15,20 +15,14 @@ export class MenuComponent implements OnInit {
     {
       name: 'Pizzas',
       route: '/pizza',
-      background: '#d62126',
+      background: '#7ec6d9',
       img: '/assets/img/menu/pizzas.png'
     },
     {
       name: 'Garlic Bread',
       route: '/garlic-bread',
-      background: '#6eacbd',
+      background: '#4abba4',
       img: '/assets/img/menu/gbread.png'
-    },
-    {
-      name: 'Burgers',
-      route: '/burgers',
-      background: '#389e86',
-      img: '/assets/img/menu/burgers.png'
     },
     {
       name: 'Side Orders',
@@ -37,11 +31,17 @@ export class MenuComponent implements OnInit {
       img: '/assets/img/menu/fries.png'
     },
     {
-      name: 'Kids Meal',
-      route: '/kids-meal',
-      background: '#db0201',
-      img: '/assets/img/menu/kids.png'
+      name: 'Burgers',
+      route: '/burgers',
+      background: '#843516',
+      img: '/assets/img/menu/burgers.png'
     },
+    // {
+    //   name: 'Kids Meal',
+    //   route: '/kids-meal',
+    //   background: '#db0201',
+    //   img: '/assets/img/menu/kids.png'
+    // },
     {
       name: 'Dessert',
       route: '/desserts',
@@ -53,6 +53,12 @@ export class MenuComponent implements OnInit {
       route: '/drinks',
       background: '#ce8400',
       img: '/assets/img/menu/drinks.png'
+    },
+    {
+      name: 'Meal Deals',
+      route: '/meal-deals',
+      background: '#74cdd4',
+      img: '/assets/img/menu/meal-deals.png'
     }
   ];
 

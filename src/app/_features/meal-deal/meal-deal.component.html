@@ -1,3 +1,5 @@
+<app-menu></app-menu>
+
 <section class="drawer-container" fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="start">
   <div fxFlex="22%">
 
@@ -26,7 +28,7 @@
         <mat-expansion-panel>
           <mat-expansion-panel-header>
             <mat-panel-title>
-              Dietary
+              Kids Dietary
             </mat-panel-title>
           </mat-expansion-panel-header>
 
@@ -44,9 +46,10 @@
 
   <div fxFlex="75%">
     <section class="content">
-      <div fxLayout="row" fxLayoutAlign="space-between stretch" layout-wrap>
-        <mat-card class="card" fxFlex.gt-sm="48%" fxFlex.lt-sm="100%"
-          *ngFor="let meal of filteredMeals">
+      <h2>Meal Deals</h2>
+      <div class="cards_container" fxLayout="row" fxLayoutAlign="space-between stretch" layout-wrap>
+        <mat-card (click)="addMealDeal(meal)" class="card" fxFlex="32%" fxFlex.lt-md="48%" fxFlex.lt-sm="100%"
+          *ngFor="let meal of mealDeals">
           <img mat-card-image [src]="img">
           <mat-card-header>
             <mat-card-title>
@@ -55,13 +58,36 @@
           </mat-card-header>
           <mat-card-content>
             <p>{{meal?.description}}</p>
+            <div class="base-price" fxLayoutAlign="space-between">
+              <span>£ {{meal.price| number: '1.2'}}</span>
+              <span class="accent-color" *ngIf="meal?.popular">
+                <mat-icon class="align-icon" color="accent">star</mat-icon> Popular
+              </span>
+            </div>
           </mat-card-content>
-          <mat-card-actions fxLayoutAlign="end">
-            <button mat-raised-button color="warn" (click)="addProduct(meal)">
-              <mat-icon>add</mat-icon>
-              <span class="mat-typography">£ {{meal?.price | number:'1.2'}}</span>
-            </button>
-          </mat-card-actions>
+        </mat-card>
+      </div>
+
+
+      <h2>Kids Meals</h2>
+      <div class="cards_container" fxLayout="row" fxLayoutAlign="space-between stretch" layout-wrap>
+        <mat-card (click)="addKidsMeal(meal)" class="card" fxFlex="32%" fxFlex.lt-md="48%" fxFlex.lt-sm="100%"
+          *ngFor="let meal of filteredKidsMeals">
+          <img mat-card-image [src]="imgKids">
+          <mat-card-header>
+            <mat-card-title>
+              {{meal?.title}}
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p>{{meal?.description}}</p>
+            <div class="base-price" fxLayoutAlign="space-between">
+              <span>£ {{meal.price| number: '1.2'}}</span>
+              <span class="accent-color" *ngIf="meal?.popular">
+                <mat-icon class="align-icon" color="accent">star</mat-icon> Popular
+              </span>
+            </div>
+          </mat-card-content>
         </mat-card>
       </div>
     </section>

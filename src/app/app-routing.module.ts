@@ -14,6 +14,7 @@ import { DessertDrinkComponent } from './_features/dessert-drink/dessert-drink.c
 import { KidsMealComponent } from './_features/kids-meal/kids-meal.component';
 import { CheckoutComponent } from './_features/checkout/checkout.component';
 import { CheckoutGuard } from './_helpers/checkout.guard';
+import { MealDealComponent } from './_features/meal-deal/meal-deal.component';
 
 
 const routes: Routes = [
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'login', component: AuthComponent},
   { path: 'home', component: HomeComponent},
   { path: 'user', component: UserComponent, canActivate: [AuthGuard] },
+  { path: 'meal-deals', component: MealDealComponent, canActivate: [ShopGuard]  },
   { path: 'pizza', component: PizzaComponent, canActivate: [ShopGuard]  },
   { path: 'burgers', component: BurgerComponent, canActivate: [ShopGuard]  },
   { path: 'garlic-bread', component: GarlicBreadComponent, canActivate: [ShopGuard]  },

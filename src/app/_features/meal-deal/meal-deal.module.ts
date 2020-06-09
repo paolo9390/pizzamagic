@@ -1,15 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { KidsMealComponent } from './kids-meal.component';
+import { MealDealComponent } from './meal-deal.component';
+import { OrderMealDealComponent } from './order-meal-deal/order-meal-deal.component';
 import { MenuModule } from '../menu/menu.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatIconModule, MatCardModule, MatButtonModule, MatExpansionModule, MatCheckboxModule, MatRadioModule, MatDialogModule } from '@angular/material';
 import { OrderProductModule } from '../order-product/order-product.module';
+import { StoreModule } from '@ngrx/store';
+import { basketReducer } from '../../_store/reducers/basket.reducer';
+import { KidsMealModule } from '../kids-meal/kids-meal.module';
 
 
 
 @NgModule({
-  declarations: [KidsMealComponent],
+  declarations: [MealDealComponent, OrderMealDealComponent],
   imports: [
     CommonModule,
     MenuModule,
@@ -21,8 +25,12 @@ import { OrderProductModule } from '../order-product/order-product.module';
     MatCheckboxModule,
     MatRadioModule,
     MatDialogModule,
-    OrderProductModule
+    OrderProductModule,
+    KidsMealModule,
+    StoreModule.forFeature('basket', basketReducer)
   ],
-  exports: [KidsMealComponent]
+  entryComponents: [
+    OrderMealDealComponent
+  ]
 })
-export class KidsMealModule { }
+export class MealDealModule { }

@@ -5,7 +5,7 @@ import { OrderDComponent } from '../order-product/order-d/order-d.component';
 import { MatDialog } from '@angular/material';
 
 @Component({
-  selector: 'app-kids-meal',
+  selector: 'kids-meal',
   templateUrl: './kids-meal.component.html',
   styleUrls: ['./kids-meal.component.scss']
 })

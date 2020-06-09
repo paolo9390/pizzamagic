@@ -14,6 +14,7 @@ import { UserModule } from './user/user.module';
 import { LoaderService } from './_services/loader.service';
 import { LoaderInterceptor } from './_helpers/loader.interceptor';
 import { JwtInterceptor } from './_helpers/jwt.interceptor';
+import { MealDealModule } from './_features/meal-deal/meal-deal.module';
 import { PizzaModule } from './_features/pizza/pizza.module';
 import { GarlicBreadModule } from './_features/garlic-bread/garlic-bread.module';
 import { BurgerModule } from './_features/burger/burger.module';
@@ -42,6 +43,7 @@ import { reducers, metaReducers } from './_store/meta-reducers/meta-reducers';
     HomeModule,
     AuthModule,
     UserModule,
+    MealDealModule,
     PizzaModule,
     GarlicBreadModule,
     BurgerModule,
