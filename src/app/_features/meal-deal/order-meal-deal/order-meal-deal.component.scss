@@ -1,0 +1,66 @@
+.mat-dialog-content {
+    padding-bottom: 1em;
+}
+
+.mat-dialog-actions {
+    padding-top: 1em;
+}
+
+.description {
+    max-width: 30em;
+}
+
+.description > p {
+    margin-top: 0;
+}
+
+.mat-vertical-content {
+    padding-left: 0 !important;
+}
+
+.actions {
+    margin-top: 1em;
+}
+
+mat-radio-button {
+    line-height: 24px;
+}
+
+mat-radio-button mat-icon,
+mat-checkbox mat-icon {
+    vertical-align: sub;
+    margin-left: 0.5em;
+}
+
+.panel-content {
+    margin-top: 0.5em;
+}
+
+.panel-content > div > section > div {
+    margin-top: 1em;
+}
+
+.panel-content p {
+    margin-top: 0;
+}
+
+@media (max-width:420px) {
+    .mat-dialog-content {
+        max-height: 100vh;
+    }
+    
+    .panel-content {
+      font-size: 12px;
+      margin-left: -10px;
+    }
+
+    .actions button {
+        font-size: 10px;
+    }
+}
+
+.mat-dialog-actions button {
+    margin: 0.2em;
+    width: 100%;
+    font-size: 16px;
+}

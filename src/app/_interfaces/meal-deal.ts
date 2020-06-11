@@ -1,5 +1,6 @@
 import { Topping } from './pizza';
 import { Dip } from './side-order';
+import { FormControl } from '@angular/forms';
 
 export interface MealDeal {
     _id: number;
@@ -31,8 +32,11 @@ export interface Item {
     title: string;
     description: string;
     modifiable: boolean;
+    question_title?: string;
+    question_description?: string;
     sizes_available: string[];
     options: Option[];
+    formControl?: FormControl;
 }
 
 export interface Option {

@@ -14,13 +14,13 @@ export class MenuComponent implements OnInit {
   constmenus: any[] = [
     {
       name: 'Pizzas',
-      route: '/pizza',
+      route: '/pizzas',
       background: '#60c7ee',
       img: '/assets/img/menu/pizzas.png'
     },
     {
-      name: 'Garlic Bread',
-      route: '/garlic-bread',
+      name: 'Garlic Breads',
+      route: '/garlic-breads',
       background: '#4abba4',
       img: '/assets/img/menu/gbread.png'
     },
@@ -36,14 +36,8 @@ export class MenuComponent implements OnInit {
       background: '#843516',
       img: '/assets/img/menu/burgers.png'
     },
-    // {
-    //   name: 'Kids Meal',
-    //   route: '/kids-meal',
-    //   background: '#db0201',
-    //   img: '/assets/img/menu/kids.png'
-    // },
     {
-      name: 'Dessert',
+      name: 'Desserts',
       route: '/desserts',
       background: '#e05a49',
       img: '/assets/img/menu/desserts.png'

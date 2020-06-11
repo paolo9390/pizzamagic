@@ -56,8 +56,8 @@ export class MealDealComponent implements OnInit {
       maxWidth: '100vw',
       panelClass: 'full-screen-dialog',
       data: {
-        meal: meal,
-        sizes: this.dips,
+        mealDeal: meal,
+        dips: this.dips,
         toppings: this.toppings
       },
     });

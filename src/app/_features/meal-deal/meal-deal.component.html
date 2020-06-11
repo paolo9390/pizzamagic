@@ -48,7 +48,7 @@
     <section class="content">
       <h2>Meal Deals</h2>
       <div class="cards_container" fxLayout="row" fxLayoutAlign="space-between stretch" layout-wrap>
-        <mat-card (click)="addMealDeal(meal)" class="card" fxFlex="32%" fxFlex.lt-md="48%" fxFlex.lt-sm="100%"
+        <mat-card (click)="addMeal(meal)" class="card" fxFlex="32%" fxFlex.lt-md="48%" fxFlex.lt-sm="100%"
           *ngFor="let meal of mealDeals">
           <img mat-card-image [src]="img">
           <mat-card-header>

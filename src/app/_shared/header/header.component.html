@@ -1,7 +1,7 @@
 <mat-toolbar class="header-toolbar mat-elevation-z6" [ngClass]="{'mat-elevation-z6': this.getCurrentRoute() !== '/home' }" >
   <mat-toolbar-row [ngClass]="{'primary-background': this.getCurrentRoute() === '/home' }" fxLayoutAlign="space-between center">
     <div fxLayout="space-around">
-      <a mat-button [routerLink]="user ? ['./pizza'] : ['./']">
+      <a mat-button [routerLink]="user ? ['./pizzas'] : ['./']">
         <h3>
           <mat-icon svgIcon="magic" class="align-icon"></mat-icon>{{title | lowercase}}
         </h3>

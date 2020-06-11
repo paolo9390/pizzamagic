@@ -134,7 +134,7 @@ export class ShopLocatorComponent implements OnInit {
 
   redirectUser(): void {
     // get return url from route parameters or default to '/'
-    this.returnUrl = this.route.snapshot.queryParams.returnUrl || 'pizza';
+    this.returnUrl = this.route.snapshot.queryParams.returnUrl || 'pizzas';
     this.router.navigateByUrl(this.returnUrl);
   }
 

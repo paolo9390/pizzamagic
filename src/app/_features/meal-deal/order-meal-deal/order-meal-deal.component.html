@@ -1,1 +1,84 @@
-<p>order-meal-deal works!</p>
+<h1 mat-dialog-title fxLayoutAlign="space-between">
+  <span>{{data.mealDeal.title | titlecase}}</span>
+  <button mat-icon-button (click)="onNoClick()">
+    <mat-icon>close</mat-icon>
+  </button>
+</h1>
+
+<div mat-dialog-content>
+  <section class="description">
+    <img mat-card-image [src]="img">
+    <p>{{data.mealDeal.description}}</p>
+  </section>
+
+  <mat-vertical-stepper [linear]="true" #stepper *ngIf="items && items.length > 0">
+
+    <div *ngFor="let item of items; let last = last">
+
+      <mat-step [stepControl]="item.formControl">
+        <ng-template matStepLabel>
+          {{item?.label}}
+        </ng-template>
+
+        <div class="panel-content" layout-wrap>
+          <div *ngIf="item?.sizes_available?.length > 1">
+            <mat-radio-group [formControl]="item.formControl" (change)="selectSize($event, item)" fxLayout="column">
+              <mat-radio-button *ngFor="let size of item.sizes_available" [value]="size">{{size | titlecase}}
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
+
+          <div *ngIf="item?.options?.length > 0">
+            <section *ngFor="let option of item?.options">
+              <div *ngIf="option?.type === 'toppings'" fxLayout="column">
+                <p class="primary-color">{{option?.label}} 
+                  <small>(extra + £{{option?.extra_price | number: '1.2'}})</small>
+                </p>
+                <mat-checkbox (change)="addOption($event, item, option)" *ngFor="let topping of data.toppings"
+                  [value]="topping.title">
+                  {{topping.title | titlecase}}
+                  <span class="veg-span" *ngIf="topping.vegeterian">V</span>
+                  <mat-icon svgIcon="chilli" *ngIf="topping.spicy"></mat-icon>
+                </mat-checkbox>
+              </div>
+
+              <div *ngIf="option?.type === 'xdips'" fxLayout="column">
+                <p class="primary-color">{{option?.label}} 
+                  <small>(extra + £{{option?.extra_price | number: '1.2'}})</small>
+                </p>
+                <mat-checkbox (change)="addOption($event, item, option)" *ngFor="let dip of data.dips"
+                  [value]="dip.title">
+                  {{dip.title | titlecase}}
+                  <mat-icon svgIcon="chilli" *ngIf="dip.spicy"></mat-icon>
+                </mat-checkbox>
+              </div>
+
+              <div *ngIf="option?.type === 'cheese'" fxLayout="column">
+                <p class="warn-color">{{option?.label}}</p>
+                <mat-checkbox (change)="addOption($event, item, option)" value="Extra Cheese">
+                  Extra cheese
+                </mat-checkbox>
+              </div>
+            </section>
+          </div>
+        </div>
+        <div class="actions" fxLayoutAlign="end end">
+          <button mat-button color="warn" matStepperPrevious>Previous</button>
+          <button mat-button [disabled]="!item.formControl.valid" *ngIf="!last" color="accent" matStepperNext>Next</button>
+        </div>
+      </mat-step>
+
+    </div>
+
+  </mat-vertical-stepper>
+</div>
+
+<div mat-dialog-actions fxLayoutAlign="space-between end" fxLayout.lt-sm="column">
+  <button fxFlex="40%" fxFlexOrder.lt-sm="2" mat-stroked-button (click)="onNoClick()" color="primary">
+    Cancel
+  </button>
+  <button fxFlex="50%" fxFlexOrder.lt-sm="1" [disabled]="formGroup.invalid" mat-flat-button (click)="onAddClick()"
+    color="primary">
+    Add for £{{total | number: '1.2'}}
+  </button>
+</div>

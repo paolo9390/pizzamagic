@@ -14,7 +14,7 @@ import { MenuItem, ProductModifier } from '../../../_store/models/basket';
 })
 export class OrderPizzaComponent implements OnInit {
 
-  img: string = '/assets/img/pizzas/pizza.jpg'
+  img: string = '/assets/img/pizzas/pizza.jpg';
   extrasDisabled: boolean = true;
   baseDisabled: boolean = true;
   defaultSauce: {
