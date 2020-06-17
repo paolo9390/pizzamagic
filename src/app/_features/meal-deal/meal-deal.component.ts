@@ -7,6 +7,9 @@ import { MatDialog } from '@angular/material';
 import { OrderMealDealComponent } from './order-meal-deal/order-meal-deal.component';
 import { KidsMeal } from '../../_interfaces/kids-meal';
 import { OrderDComponent } from '../order-product/order-d/order-d.component';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/_store/models/app-state';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-meal-deal',
@@ -26,22 +29,35 @@ export class MealDealComponent implements OnInit {
 
   menu: MenuMealDeal;
   mealDeals: MealDeal[];
+  filteredMealDeals: MealDeal[] = [];
+  
   kidsMeals: KidsMeal[];
   filteredKidsMeals: KidsMeal[];
+
   toppings: Topping[];
   dips: Dip[];
 
+  weekDays: string [] = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+  currentFulfillmentMethod$: Observable<string>;
+
 
   constructor(private mealDealService: MealDealService,
+    private store: Store<AppState>,
     public dialog: MatDialog ) { }
 
   ngOnInit() {
+    this.currentFulfillmentMethod$ = this.store.select(store => store.favourite.fulfillment_method ? store.favourite.fulfillment_method : '');
+    
     this.mealDealService.getMealDeals().subscribe(menu => {
       if (menu) {
         this.menu = menu;
         this.mealDeals = menu.mealDeals;
         this.dips = menu.dips;
-        this.toppings = menu.toppings;       
+        this.toppings = menu.toppings;
+        
+        menu.mealDeals.forEach(deal => {
+          if (deal.availability.days.includes(this.weekDays[new Date().getDay()])) this.filteredMealDeals.push(deal);
+        });
       }
     });
 
@@ -49,6 +65,7 @@ export class MealDealComponent implements OnInit {
       this.kidsMeals = kidsMeals;
       this.filteredKidsMeals = kidsMeals;
     })
+
   }
 
   addMeal(meal: MealDeal): void {

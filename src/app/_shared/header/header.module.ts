@@ -8,7 +8,7 @@ import { StoreModule } from '@ngrx/store';
 import { basketReducer } from '../../_store/reducers/basket.reducer';
 import { favouriteReducer } from '../../_store/reducers/favourite.reducer';
 import { ShopLocatorModule } from '../../_common/shop-locator/shop-locator.module';
-import { MethodPickerModule } from 'src/app/_common/method-picker/method-picker.module';
+import { MethodPickerModule } from '../../_common/method-picker/method-picker.module';
 
 
 @NgModule({

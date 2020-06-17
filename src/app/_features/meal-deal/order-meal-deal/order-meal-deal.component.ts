@@ -73,12 +73,14 @@ export class OrderMealDealComponent implements OnInit {
       item.selected.forEach(selection => {
         extras.push({
           name: item.item.name,
-          description: selection.value,
+          description: `${item.item.title} - ${selection.value}`,
           quantity: 1,
           top_level: false
         })
       })
     })
+
+    console.log(this.selectedItems);
 
 
     const item: MenuItem = {
@@ -114,7 +116,20 @@ export class OrderMealDealComponent implements OnInit {
       type: 'crust_size',
       value: evt.source.value
     };
+    this.selectedItems.forEach(itemSelected => {
+      if (itemSelected.item === item) {
+        let selected: OptionSelected = selection;
+        itemSelected.selected.forEach(option => {
+          if (option.type === selection.type) selected = option;
+        })
+        const index = itemSelected.selected.indexOf(selected);
 
+        if (index > -1) {
+          itemSelected.selected.splice(index, 1);
+        }
+      }
+    })
+      
     this.addToItem(item, selection, 1, 0);
   }
 
@@ -190,6 +205,10 @@ export class OrderMealDealComponent implements OnInit {
     this.total = Math.round((this.extraTotal + this.data.mealDeal.price + Number.EPSILON) * 100) / 100;
   }
 
+  next(): void {
+    console.log('scrolling')
+    document.querySelector('.mat-dialog-content').scrollTo(0,0)
+  }
 }
 
 export interface OrderData {

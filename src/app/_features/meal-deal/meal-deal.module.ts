@@ -10,6 +10,7 @@ import { StoreModule } from '@ngrx/store';
 import { basketReducer } from '../../_store/reducers/basket.reducer';
 import { KidsMealModule } from '../kids-meal/kids-meal.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { favouriteReducer } from '../../_store/reducers/favourite.reducer';
 
 
 
@@ -31,7 +32,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     MatDialogModule,
     OrderProductModule,
     KidsMealModule,
-    StoreModule.forFeature('basket', basketReducer)
+    StoreModule.forRoot({basket: basketReducer, favourite: favouriteReducer})
   ],
   entryComponents: [
     OrderMealDealComponent

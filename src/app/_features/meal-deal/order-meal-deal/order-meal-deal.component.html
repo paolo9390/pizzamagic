@@ -64,7 +64,7 @@
         </div>
         <div class="actions" fxLayoutAlign="end end">
           <button mat-button color="warn" matStepperPrevious>Previous</button>
-          <button mat-button [disabled]="!item.formControl.valid" *ngIf="!last" color="accent" matStepperNext>Next</button>
+          <button mat-button (click)="next()" [disabled]="!item.formControl.valid" *ngIf="!last" color="accent" matStepperNext>Next</button>
         </div>
       </mat-step>
 
