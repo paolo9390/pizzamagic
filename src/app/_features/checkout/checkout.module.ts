@@ -10,11 +10,15 @@ import { FormsModule } from '@angular/forms';
 import { basketReducer } from '../../_store/reducers/basket.reducer';
 import { favouriteReducer } from '../../_store/reducers/favourite.reducer';
 import { AuthModule } from '../../auth/auth.module';
+import { GeneralInfoModule } from 'src/app/_common/general-info/general-info.module';
+import { MethodComponent } from './method/method.component';
+import { PaymentComponent } from './payment/payment.component';
+import { ShopComponent } from './shop/shop.component';
 
 
 
 @NgModule({
-  declarations: [CheckoutComponent],
+  declarations: [CheckoutComponent, MethodComponent, PaymentComponent, ShopComponent],
   imports: [
     CommonModule,
     FlexLayoutModule,
@@ -33,7 +37,13 @@ import { AuthModule } from '../../auth/auth.module';
     AuthModule,
     BasketModule,
     FormsModule,
+    GeneralInfoModule,
     StoreModule.forRoot({basket: basketReducer, favourite: favouriteReducer})
+  ],
+  exports: [
+    ShopComponent,
+    PaymentComponent,
+    MethodComponent
   ]
 })
 export class CheckoutModule { }

@@ -1,0 +1,18 @@
+<div *ngIf="!isEditShop" fxLayoutAlign="space-between center">
+  <h3>
+    <mat-icon class="align-icon" mat-list-icon>storefront</mat-icon> Pizza Magic {{selectedShop?.name | titlecase}}
+    <small>{{userDistance ? '- '+userDistance+'m' : ''}}</small>
+  </h3>
+  <button mat-stroked-button color="accent" (click)="editShop()">Edit</button>
+</div>
+
+<div *ngIf="isEditShop && shops">
+    <mat-nav-list>
+      <mat-list-item (click)="selectShop(shop)" *ngFor="let shop of shops">
+        <p matLine>
+          <mat-icon class="align-icon">store</mat-icon>{{shop?.name | titlecase}}
+        </p>
+        <p matLine> {{shop?.address}} - {{shop?.phone}}</p>
+      </mat-list-item>
+    </mat-nav-list>
+  </div>

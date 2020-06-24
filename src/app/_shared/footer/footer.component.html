@@ -1,11 +1,31 @@
 <!-- footer -->
 <footer class="footer">
   <div class="content-footer">
-    <div class="mat-typography" fxLayout="column" fxLayoutAlign="space-around center">
-      <p>
-        <mat-icon class="icon">touch_app</mat-icon>{{web}}
-      </p>
-      <p>{{message}}</p>
+    <div fxLayout="row" fxLayoutAlign="space-around stretch" layout-wrap>
+
+      <mat-nav-list fxFlex="32%" fxFlex.lt-md="45%" fxFlex.lt-sm="100%">
+        <h3>Discover Pizza Magic</h3>
+        <mat-list-item *ngFor="let link of discover">
+           <a matLine>{{ link?.name }}</a>
+        </mat-list-item>
+      </mat-nav-list>
+
+      <mat-nav-list fxFlex="32%" fxFlex.lt-md="45%" fxFlex.lt-sm="100%">
+        <h3>Help</h3>
+        <mat-list-item *ngFor="let link of help">
+           <a matLine>{{ link?.name }}</a>
+        </mat-list-item>
+      </mat-nav-list>
+    </div>
+
+
+    <div fxLayout="row" fxLayoutAlign="space-around stretch" layout-wrap> 
+      <section fxLayout="column">
+        <mat-divider></mat-divider>
+        <h2 class="title"><mat-icon class="icon">local_pizza</mat-icon>{{web}}</h2>
+        
+        <p>{{message}}</p>
+      </section>
     </div>
   </div>
 </footer>

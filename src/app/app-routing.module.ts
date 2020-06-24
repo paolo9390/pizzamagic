@@ -30,7 +30,8 @@ const routes: Routes = [
   { path: 'desserts', component: DessertDrinkComponent, data: { mode: 'desserts'}, canActivate: [ShopGuard]  },
   { path: 'drinks', component: DessertDrinkComponent, data: { mode: 'drinks'}, canActivate: [ShopGuard]  },
   { path: 'kids-meal', component: KidsMealComponent, canActivate: [ShopGuard]  },
-  { path: 'checkout', component: CheckoutComponent, canActivate: [CheckoutGuard] }
+  { path: 'checkout', component: CheckoutComponent, canActivate: [CheckoutGuard] },
+  { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
 
 @NgModule({

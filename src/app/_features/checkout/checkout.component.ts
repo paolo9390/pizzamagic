@@ -4,12 +4,13 @@ import { ShopService } from '../../_services/shop.service';
 import { forkJoin, Observable, observable } from 'rxjs';
 import { UserPreferences, User, Address, PizzaMagicUser } from '../../_interfaces/user';
 import { PizzaMagicShop, ShopInfo } from '../../_interfaces/pizza-magic.shop';
-import { ConfigureAddressComponent } from 'src/app/user/configure-address/configure-address.component';
+import { ConfigureAddressComponent } from '../../user/configure-address/configure-address.component';
 import { MatDialog } from '@angular/material';
-import { AppState } from 'src/app/_store/models/app-state';
+import { AppState } from '../../_store/models/app-state';
 import { Store } from '@ngrx/store';
-import { FavouriteState } from 'src/app/_store/models/favourite';
-import { SetFavouriteShopAction } from 'src/app/_store/actions/favourite.actions';
+import { FavouriteState } from '../../_store/models/favourite';
+import { SetFavouriteShopAction } from '../../_store/actions/favourite.actions';
+import { GeneralInfoComponent } from '../../_common/general-info/general-info.component';
 
 @Component({
   selector: 'app-checkout',
@@ -36,6 +37,7 @@ export class CheckoutComponent implements OnInit {
   shops: PizzaMagicShop[];
   selectedShop: PizzaMagicShop;
   shopInfo: ShopInfo;
+  isShopClosed: boolean = false;
 
 
   // favorite state
@@ -49,6 +51,8 @@ export class CheckoutComponent implements OnInit {
   isEditAddress: boolean = false;
   isEditShop: boolean = false;
   defaultMethod: string = 'delivery';
+
+  weekDays: string [] = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
 
   constructor(private userService: UserService,
     private dialog: MatDialog,
@@ -104,6 +108,7 @@ export class CheckoutComponent implements OnInit {
       // check if a shop was pre-selected  
       if (this.favoriteShop) {
         this.selectedShop = this.shops.find(({ name }) => name === this.favoriteShop.name);
+        this.validateOpeningHours();
       }
 
       
@@ -131,6 +136,7 @@ export class CheckoutComponent implements OnInit {
     this.isEditShop = false;
     this.store.dispatch(new SetFavouriteShopAction(shop));
     this.verifyDistance();
+    this.validateOpeningHours();
   }
 
   editShop(): void {
@@ -160,7 +166,35 @@ export class CheckoutComponent implements OnInit {
         this.userDistance = this.shopService.getDistanceByLatLonShop(this.selectedShop, response['result'].latitude, response['result'].longitude);
       }
     })
+  }
 
+  validateOpeningHours(): void {
+    this.isShopClosed = false;
+    const currentDate = new Date();
+    const currentDay: string = this.weekDays[currentDate.getDay()];
+    const currentMinutes: string = currentDate.getMinutes() < 10 ? `0${currentDate.getMinutes()}` : `${currentDate.getMinutes()}`
+    const currentTime: string = `${currentDate.getHours()}${currentMinutes}`
+
+    for (let day of this.selectedShop.opening_hours) {
+      if (currentDay in day) {
+        const openingHours: string = day[currentDay].open;
+        const closingHours: string = day[currentDay].close;
+        if (parseInt(currentTime) > parseInt(openingHours) && parseInt(currentTime) < parseInt(closingHours)) {}
+        else this.showShopClosed();
+      }
+    }
+  }
+
+  showShopClosed(): void {
+    this.isShopClosed = true;
+
+    this.dialog.open(GeneralInfoComponent, {
+      data: {
+        title: this.selectedShop.name,
+        icon: 'store',
+        description: `Sorry, the ${this.selectedShop.name} branch is closed at this moment.`
+      },
+    });
   }
 
   editAddress(): void {

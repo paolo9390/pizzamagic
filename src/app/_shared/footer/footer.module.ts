@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FooterComponent } from './footer.component';
-import { MatIconModule } from '@angular/material';
+import { MatIconModule, MatButtonModule, MatListModule, MatDividerModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 
@@ -11,6 +11,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
   imports: [
     CommonModule,
     MatIconModule,
+    MatButtonModule,
+    MatListModule,
+    MatDividerModule,
     FlexLayoutModule
   ],
   exports: [FooterComponent]

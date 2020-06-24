@@ -75,6 +75,11 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
     color: mat-color($dark-body, 100);
   }
 
+  .card-footer {
+    background-color: mat-color($dark-body, 700);
+    box-shadow: none !important;
+  }
+
   app-basket mat-card {
     box-shadow: 0 14px 14px 0 rgba(0, 0, 0, 0.54) !important;
   }
@@ -124,6 +129,11 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
   footer {
     background-color: mat-color($dark-body, 100);
     color: mat-color($dark-body, 800);
+  }
+
+  .card-footer {
+    background-color: mat-color($dark-body, 300);
+    box-shadow: none !important;
   }
 
   app-basket mat-card {
