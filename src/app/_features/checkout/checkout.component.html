@@ -11,68 +11,8 @@
         fxFlex.lt-md="100%" fxFlexOrder.lt-md="2">
 
         <checkout-shop></checkout-shop>
-
-        <div *ngIf="!isEditShop" fxLayoutAlign="space-between center">
-          <h3>
-            <mat-icon class="align-icon" mat-list-icon>storefront</mat-icon> Pizza Magic
-            {{selectedShop?.name | titlecase}}
-            <small> - {{userDistance}}m</small>
-          </h3>
-          <button mat-stroked-button color="accent" (click)="editShop()">Edit</button>
-        </div>
-        <div>
-          <div *ngIf="isEditShop && shops">
-            <mat-nav-list>
-              <mat-list-item (click)="selectShop(shop)" *ngFor="let shop of shops">
-                <p matLine>
-                  <mat-icon class="align-icon">store</mat-icon>{{shop?.name | titlecase}}
-                </p>
-                <p matLine> {{shop?.address}} - {{shop?.phone}}</p>
-              </mat-list-item>
-            </mat-nav-list>
-          </div>
-        </div>
-
-        <div *ngIf="selectedShop">
-          <mat-button-toggle-group vertical="true" [(ngModel)]="favoriteMethod">
-            <mat-button-toggle *ngFor="let method of selectedShop.fulfillment_methods" [value]="method.name">
-              <span [ngClass]="{'mat-h2': favoriteMethod === method.name}">{{method?.asap?.display_label}}</span>
-            </mat-button-toggle>
-          </mat-button-toggle-group>
-        </div>
-
-
-        <div>
-          <div fxLayout="row" fxLayoutAlign="space-between center">
-            <h3>
-              <mat-icon class="align-icon" mat-list-icon>maps</mat-icon>Delivery Details
-            </h3>
-            <button *ngIf="!isEditAddress" mat-stroked-button color="accent" (click)="editAddress()">Edit</button>
-          </div>
-          <mat-card class="mat-typography" *ngIf="selectedAddress && !isEditAddress">
-            <mat-list>
-              <mat-list-item>
-                <mat-icon mat-list-icon>local_taxi</mat-icon>
-                <div mat-line class="mat-h1">{{selectedAddress?.address}}</div>
-                <div mat-line>{{selectedAddress?.postcode}} - {{selectedAddress?.phone}}</div>
-              </mat-list-item>
-            </mat-list>
-          </mat-card>
-        </div>
-        <div>
-          <div *ngIf="isEditAddress">
-            <mat-nav-list>
-              <mat-list-item (click)="selectAddress(address)" *ngFor="let address of addressBook">
-                <p matLine>
-                  <mat-icon class="align-icon">my_location</mat-icon>{{address?.address}}
-                </p>
-                <p matLine> {{address?.postcode}} - {{address?.phone}}</p>
-              </mat-list-item>
-            </mat-nav-list>
-            <button mat-button color="accent" (click)="addAddress()">Add new address</button>
-          </div>
-        </div>
-
+        <checkout-method></checkout-method>
+        <checkout-delivery *ngIf="(favorite$ | async)?.fulfillment_method === 'delivery'"></checkout-delivery>
 
         <div>
           <h3>

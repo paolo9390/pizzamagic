@@ -1,1 +1,7 @@
-<p>method works!</p>
+<div *ngIf="selectedShop">
+  <mat-button-toggle-group vertical="true" [(ngModel)]="favoriteMethod">
+    <mat-button-toggle (click)="selectMethod(method.name)" *ngFor="let method of selectedShop.fulfillment_methods" [value]="method.name">
+      <span [ngClass]="{'mat-h2': favoriteMethod === method.name}">{{method?.asap?.display_label}}</span>
+    </mat-button-toggle>
+  </mat-button-toggle-group>
+</div>

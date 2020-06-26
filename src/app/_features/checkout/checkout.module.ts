@@ -14,11 +14,12 @@ import { GeneralInfoModule } from 'src/app/_common/general-info/general-info.mod
 import { MethodComponent } from './method/method.component';
 import { PaymentComponent } from './payment/payment.component';
 import { ShopComponent } from './shop/shop.component';
+import { DeliveryComponent } from './delivery/delivery.component';
 
 
 
 @NgModule({
-  declarations: [CheckoutComponent, MethodComponent, PaymentComponent, ShopComponent],
+  declarations: [CheckoutComponent, MethodComponent, PaymentComponent, ShopComponent, DeliveryComponent],
   imports: [
     CommonModule,
     FlexLayoutModule,
@@ -43,7 +44,8 @@ import { ShopComponent } from './shop/shop.component';
   exports: [
     ShopComponent,
     PaymentComponent,
-    MethodComponent
+    MethodComponent,
+    DeliveryComponent
   ]
 })
 export class CheckoutModule { }

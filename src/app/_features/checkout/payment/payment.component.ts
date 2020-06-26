@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-payment',
+  selector: 'checkout-payment',
   templateUrl: './payment.component.html',
   styleUrls: ['./payment.component.scss']
 })
