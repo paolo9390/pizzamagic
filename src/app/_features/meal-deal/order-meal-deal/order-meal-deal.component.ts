@@ -80,9 +80,6 @@ export class OrderMealDealComponent implements OnInit {
       })
     })
 
-    console.log(this.selectedItems);
-
-
     const item: MenuItem = {
       menu_item_id: this.data.mealDeal._id,
       name: this.data.mealDeal.name,
@@ -206,7 +203,6 @@ export class OrderMealDealComponent implements OnInit {
   }
 
   next(): void {
-    console.log('scrolling')
     document.querySelector('.mat-dialog-content').scrollTo(0,0)
   }
 }

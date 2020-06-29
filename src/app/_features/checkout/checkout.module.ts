@@ -15,7 +15,7 @@ import { MethodComponent } from './method/method.component';
 import { PaymentComponent } from './payment/payment.component';
 import { ShopComponent } from './shop/shop.component';
 import { DeliveryComponent } from './delivery/delivery.component';
-
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
 
 @NgModule({
@@ -39,6 +39,7 @@ import { DeliveryComponent } from './delivery/delivery.component';
     BasketModule,
     FormsModule,
     GeneralInfoModule,
+    NgxMaterialTimepickerModule,
     StoreModule.forRoot({basket: basketReducer, favourite: favouriteReducer})
   ],
   exports: [

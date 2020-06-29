@@ -1,7 +1,33 @@
-<div *ngIf="selectedShop">
-  <mat-button-toggle-group vertical="true" [(ngModel)]="favoriteMethod">
-    <mat-button-toggle (click)="selectMethod(method.name)" *ngFor="let method of selectedShop.fulfillment_methods" [value]="method.name">
-      <span [ngClass]="{'mat-h2': favoriteMethod === method.name}">{{method?.asap?.display_label}}</span>
-    </mat-button-toggle>
-  </mat-button-toggle-group>
-</div>
+<section *ngIf="selectedShop">
+
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <div fxFlex="48%">
+      <mat-button-toggle-group vertical="true" [(ngModel)]="favoriteMethod">
+        <mat-button-toggle (click)="selectMethod(method)" *ngFor="let method of selectedShop.fulfillment_methods"
+          [value]="method.name">
+          <span [ngClass]="{'mat-h2': favoriteMethod === method.name}">{{method?.label}}</span>
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+
+    <div fxFlex="48%">
+      <mat-button-toggle-group vertical="true" [(ngModel)]="selectedType">
+        <mat-button-toggle (click)="selectType(type.name)" *ngFor="let type of types" [value]="type.name">
+          <span [ngClass]="{'mat-h2': selectedType === type.name}">{{type.label}}</span>
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+  </div>
+
+  <div *ngIf="selectedType === 'custom'" fxLayoutAlign="space-between start" fxLayout="column">
+    <h4> Select a time</h4>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Select Time</mat-label>
+      <input [(ngModel)]="selectedTime" [ngxTimepicker]="range" min="16:10" max="22:11" matInput
+        placeholder="Select Time" readonly>
+      <ngx-material-timepicker (timeSet)="setTime($event)" #range></ngx-material-timepicker>
+    </mat-form-field>
+  </div>
+
+</section>

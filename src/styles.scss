@@ -84,6 +84,34 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
     box-shadow: 0 14px 14px 0 rgba(0, 0, 0, 0.54) !important;
   }
 
+  .timepicker__body, .timepicker__actions {
+    background-color: mat-color($dark-body, 800) !important;
+  }
+
+  .timepicker__header {
+    background-color: mat-color($dark-body, 600) !important;
+  }
+
+  .clock-face {
+    background-color: mat-color($dark-body, 600) !important;
+  }
+
+  .clock-face__number > span {
+    color: mat-color($dark-body, 50) !important;
+  }
+
+  .clock-face__number > span.active {
+    background-color: mat-color($dark-primary) !important;
+  }
+
+  .clock-face__number > span.disabled {
+    color: mat-color($dark-body, 500) !important;
+  }
+
+  .timepicker-button {
+    color: white !important;
+  }
+  
 }
 
 .color-scheme-light {
@@ -138,6 +166,14 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 
   app-basket mat-card {
     box-shadow: 0 14px 14px 0 rgba(0,0,0,0.08) !important;
+  }
+
+  .timepicker__header {
+    background-color: mat-color($accent) !important;
+  }
+
+  .timepicker-button {
+    color: mat-color($accent) !important;
   }
 }
 

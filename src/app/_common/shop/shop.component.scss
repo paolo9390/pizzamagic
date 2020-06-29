@@ -1,0 +1,20 @@
+mat-card-title {
+  margin-left: -16px;
+}
+
+mat-icon {
+  vertical-align: sub;
+  margin-right: 0.4em;
+}
+
+h2 > mat-icon {
+    vertical-align: unset;
+}
+
+.cards_container {
+  margin: 0.5em;
+}
+
+button {
+    margin-top: 1em;
+}

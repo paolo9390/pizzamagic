@@ -1,0 +1,42 @@
+<section>
+  <div class="content">
+    <h2 class="title">OUR SHOPS</h2>
+
+    <section class="cards_container" fxLayout="row" fxLayoutAlign="space-between stretch" layout-wrap>
+      <div class="footer-card" fxFlex="44%" fxFlex.lt-sm="100%" *ngFor="let shop of shops">
+        <h2>
+          <mat-icon>storefront</mat-icon>{{shop?.name | titlecase}}
+        </h2>
+
+        <div>
+          <p>
+            <mat-icon>location_on</mat-icon>{{shop?.address}} - {{shop?.postcode | uppercase}}
+          </p>
+          <p>
+            <mat-icon>phone</mat-icon>{{shop?.phone}}
+          </p>
+        </div>
+
+        <div fxLayout="column" *ngFor="let hours of shop?.opening_hours">
+          <h4>
+            <mat-icon>query_builder</mat-icon>Opening hours
+          </h4>
+          <span>Monday: {{hours?.mon?.open}} - {{hours?.mon?.close}}</span>
+          <span>Tuesday: {{hours?.tue?.open}} - {{hours?.tue?.close}}</span>
+          <span>Wednesday: {{hours?.wed?.open}} - {{hours?.wed?.close}}</span>
+          <span>Thursday: {{hours?.thu?.open}} - {{hours?.thu?.close}}</span>
+          <span>Friday: {{hours?.fri?.open}} - {{hours?.fri?.close}}</span>
+          <span>Saturday: {{hours?.sat?.open}} - {{hours?.sat?.close}}</span>
+          <span>Sunday: {{hours?.sun?.open}} - {{hours?.sun?.close}}</span>
+        </div>
+
+        <div fxLayoutAlign="start end" fxLayoutGap="10px">
+          <button mat-raised-button color="accent" (click)="selectShop(shop)">Order from {{shop?.name | titlecase}}</button>
+        </div>
+      </div>
+
+
+    </section>
+
+  </div>
+</section>

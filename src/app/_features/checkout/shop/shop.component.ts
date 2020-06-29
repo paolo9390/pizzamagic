@@ -38,6 +38,7 @@ export class ShopComponent implements OnInit {
           // check if a shop was pre-selected  
         if (this.favoriteShop) {
           this.selectedShop = this.shops.find(({ name }) => name === this.favoriteShop.name);
+          this.validateOpeningHours();
         }
       }
     );
@@ -76,10 +77,11 @@ export class ShopComponent implements OnInit {
     this.isShopClosed = true;
 
     this.dialog.open(GeneralInfoComponent, {
+      maxWidth: '600px',
       data: {
         title: this.selectedShop.name,
         icon: 'store',
-        description: `Sorry, the ${this.selectedShop.name} branch is closed at this moment.`
+        description: `Sorry, the ${this.selectedShop.name} branch is closed at this moment. Please try again later.`
       },
     });
   }

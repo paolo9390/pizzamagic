@@ -15,6 +15,7 @@ import { KidsMealComponent } from './_features/kids-meal/kids-meal.component';
 import { CheckoutComponent } from './_features/checkout/checkout.component';
 import { CheckoutGuard } from './_helpers/checkout.guard';
 import { MealDealComponent } from './_features/meal-deal/meal-deal.component';
+import { ShopComponent } from './_common/shop/shop.component';
 
 
 const routes: Routes = [
@@ -31,6 +32,7 @@ const routes: Routes = [
   { path: 'drinks', component: DessertDrinkComponent, data: { mode: 'drinks'}, canActivate: [ShopGuard]  },
   { path: 'kids-meal', component: KidsMealComponent, canActivate: [ShopGuard]  },
   { path: 'checkout', component: CheckoutComponent, canActivate: [CheckoutGuard] },
+  { path: 'our-shops', component: ShopComponent },
   { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
 

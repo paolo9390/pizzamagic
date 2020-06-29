@@ -26,6 +26,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { StoreModule } from '@ngrx/store';
 import { reducers, metaReducers } from './_store/meta-reducers/meta-reducers';
+import { ShopModule } from './_common/shop/shop.module';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { reducers, metaReducers } from './_store/meta-reducers/meta-reducers';
     DessertDrinkModule,
     KidsMealModule,
     CheckoutModule,
+    ShopModule,
     StoreModule.forRoot(reducers, {metaReducers}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],

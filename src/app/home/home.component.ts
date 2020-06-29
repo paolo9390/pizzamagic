@@ -15,6 +15,11 @@ export class HomeComponent implements OnInit {
 
   cards: any[] = [
     {
+      title: 'Meal Deals',
+      route: '/deals',
+      img: '/assets/img/home/deals.jpg'
+    },
+    {
       title: 'Pizzas',
       route: '/pizzas',
       img: '/assets/img/home/pizzas.jpg'
@@ -30,9 +35,9 @@ export class HomeComponent implements OnInit {
       img: '/assets/img/home/burgers.jpg'
     },
     {
-      title: 'Meal Deals',
-      route: '/deals',
-      img: '/assets/img/home/deals.jpg'
+      title: 'Desserts',
+      route: '/desserts',
+      img: '/assets/img/home/desserts.jpg'
     }
   ];
 
