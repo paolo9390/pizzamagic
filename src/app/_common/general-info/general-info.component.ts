@@ -25,4 +25,8 @@ export interface GenericInfoData {
   title: string;
   icon: string;
   description: string;
+  more?: {
+    info: string;
+    url: string;
+  }
 }

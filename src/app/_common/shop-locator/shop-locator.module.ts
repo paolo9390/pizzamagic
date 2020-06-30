@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ShopLocatorComponent } from './shop-locator.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatFormFieldModule, MatInputModule, MatIconModule, MatButtonModule, MatCardModule, MatListModule } from '@angular/material';
+import { MatFormFieldModule, MatInputModule, MatIconModule, MatButtonModule, MatCardModule, MatListModule, MatDialogModule } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { favouriteReducer } from '../../_store/reducers/favourite.reducer';
@@ -20,6 +20,7 @@ import { LocatorDialogComponent } from './locator-dialog/locator-dialog.componen
     ReactiveFormsModule,
     MatIconModule,
     MatButtonModule,
+    MatDialogModule,
     MatCardModule,
     MatListModule,
     RouterModule,

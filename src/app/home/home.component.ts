@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
   cards: any[] = [
     {
       title: 'Meal Deals',
-      route: '/deals',
+      route: '/meal-deals',
       img: '/assets/img/home/deals.jpg'
     },
     {

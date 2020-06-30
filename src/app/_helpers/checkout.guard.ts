@@ -13,8 +13,7 @@ export class CheckoutGuard implements CanActivate {
 
   constructor(
     private router: Router,
-    private store: Store<AppState>,
-  ) {}
+    private store: Store<AppState>) {}
 
   canActivate(
     next: ActivatedRouteSnapshot,
@@ -26,7 +25,7 @@ export class CheckoutGuard implements CanActivate {
         }
       });
 
-      if (!this.isBasketAllowed) this.router.navigate(['/home'], { queryParams: { returnUrl: state.url } });
+      if (!this.isBasketAllowed) this.router.navigateByUrl('/home');
       return this.isBasketAllowed;
   }
   

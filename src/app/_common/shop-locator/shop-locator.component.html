@@ -18,7 +18,7 @@
   <div *ngIf="addressBook">
     <p class="mat-caption">Or, select a recent address</p>
     <mat-nav-list>
-      <mat-list-item (click)="selectAddress(address); selectNearestShopByAddress(address);" *ngFor="let address of addressBook">
+      <mat-list-item (click)="selectNearestShopByAddress(address);" *ngFor="let address of addressBook">
         <div matLine fxLayout="row" fxLayoutAlign="space-around center">
           <mat-icon>location_on</mat-icon>
           <span class="address-span">

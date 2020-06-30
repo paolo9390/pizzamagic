@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { GeneralInfoComponent } from './general-info.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatIconModule, MatDialogModule, MatButtonModule } from '@angular/material';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -13,7 +14,8 @@ import { MatIconModule, MatDialogModule, MatButtonModule } from '@angular/materi
     FlexLayoutModule,
     MatIconModule,
     MatDialogModule,
-    MatButtonModule
+    MatButtonModule,
+    RouterModule
   ],
   entryComponents: [GeneralInfoComponent]
 })

@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { PizzaMagicShop, ShopInfo } from '../../../_interfaces/pizza-magic.shop';
+import { Component, OnInit } from '@angular/core';
+import { PizzaMagicShop, ShopInfo, ShopFulfillmentMethod } from '../../../_interfaces/pizza-magic.shop';
 import { ShopService } from '../../../_services/shop.service';
 import { combineLatest } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -25,6 +25,8 @@ export class ShopComponent implements OnInit {
   isEditShop: boolean = false;
   isShopClosed: boolean = false;
 
+  selectedMethod: ShopFulfillmentMethod;
+
   constructor(
     private store: Store<AppState>,
     private shopService: ShopService,
@@ -39,6 +41,10 @@ export class ShopComponent implements OnInit {
         if (this.favoriteShop) {
           this.selectedShop = this.shops.find(({ name }) => name === this.favoriteShop.name);
           this.validateOpeningHours();
+        }
+        // check if a method is pre-selected
+        if (favorite && favorite.fulfillment_method) {
+          this.selectedMethod = this.selectedShop.fulfillment_methods.find(({ name }) => name === favorite.fulfillment_method);
         }
       }
     );
@@ -77,11 +83,16 @@ export class ShopComponent implements OnInit {
     this.isShopClosed = true;
 
     this.dialog.open(GeneralInfoComponent, {
-      maxWidth: '600px',
+      maxWidth: '100vw',
+      panelClass: 'full-screen-dialog',
       data: {
         title: this.selectedShop.name,
         icon: 'store',
-        description: `Sorry, the ${this.selectedShop.name} branch is closed at this moment. Please try again later.`
+        description: `Sorry, the ${this.selectedShop.name} branch is closed at this moment. Please try again later.`,
+        more: {
+          info: 'See opening hours',
+          url: 'our-shops'
+        }
       },
     });
   }
