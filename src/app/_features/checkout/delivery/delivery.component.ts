@@ -18,26 +18,30 @@ export class DeliveryComponent implements OnInit {
   addressBook: Address[];
   selectedAddress: Address;
   favoriteAddress: Address;
-  isEditAddress: boolean;
+  isEditAddress: boolean = true;
 
   constructor(private userService: UserService,
-    public dialog: MatDialog,
+    private dialog: MatDialog,
     private store: Store<AppState>) { }
 
   ngOnInit() {
     combineLatest(this.store.select(store => store.favourite),
     this.userService.getAddressBook()).subscribe(
-      ([favorite, addressBook]: any) => {
+      ([favorite, addressBook]) => {
         this.addressBook = addressBook;
-        if (favorite && favorite.address) this.favoriteAddress = favorite.address;
-  
-        addressBook.forEach(address => {
-          if (address.postcode.toUpperCase() === favorite.address.postcode.toUpperCase()) {
-            this.selectedAddress = address;
-          }  else {
-            this.selectedAddress = this.favoriteAddress;
-          }
-        });
+        if (favorite && favorite.address) { 
+          this.favoriteAddress = favorite.address;
+        }
+        
+        // search this address from the addressBook 
+        if (addressBook && addressBook.length > 0) {
+          addressBook.forEach(address => {
+            if (address.postcode.toUpperCase() === favorite.address.postcode.toUpperCase()) {
+              this.selectedAddress = address;
+              this.isEditAddress = false;
+            }
+          });
+        }
       }
     );
   }
@@ -56,7 +60,11 @@ export class DeliveryComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result) this.getAddressBook();
+      if (result) {
+        this.isEditAddress = false;
+        console.log(this.isEditAddress)
+        this.getAddressBook();
+      }
     });
   }
 
@@ -72,7 +80,6 @@ export class DeliveryComponent implements OnInit {
 
   selectAddress(address: Address): void {
     this.selectedAddress = address;
-    this.isEditAddress = false;
     this.store.dispatch(new SetFavouriteAddressAction(address));
   }
 }

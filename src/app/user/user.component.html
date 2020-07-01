@@ -141,5 +141,27 @@
         </mat-slide-toggle>
       </div>
     </section>
+
+    <section>
+      <mat-divider></mat-divider>
+      <h2>
+        <mat-icon>cancel_presentation</mat-icon>Deactivate Account
+      </h2>
+
+      <div fxLayout="column">
+        <h4>You must supply your current password.</h4>
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px" fxLayout.lt-sm="column">
+          <mat-form-field appearance="outline">
+            <mat-label>Current Password</mat-label>
+            <input type="password" matInput [formControl]="password" required>
+            <mat-error *ngIf="password.invalid">Enter your current password.</mat-error>
+          </mat-form-field>
+          <div class="save_profile__buttons" fxLayoutGap="10px">
+            <button class="large-button" (click)="deactivateAccount()" mat-flat-button color="warn">Deactivate</button>
+          </div>
+        </div>
+        <span class="warn-color" *ngIf="errorInSaving">{{saveError}}</span>
+      </div>
+    </section>
   </div>
 </section>

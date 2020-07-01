@@ -6,13 +6,16 @@ import { MatIconModule, MatListModule, MatSlideToggleModule, MatFormFieldModule,
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ConfigureAddressComponent } from './configure-address/configure-address.component';
 import { ConfigurePreferencesComponent } from './configure-preferences/configure-preferences.component';
+import { DeactivateUserComponent } from './deactivate-user/deactivate-user.component';
+import { RouterModule } from '@angular/router';
 
 
 
 @NgModule({
-  declarations: [UserComponent, ConfigureAddressComponent, ConfigurePreferencesComponent],
+  declarations: [UserComponent, ConfigureAddressComponent, ConfigurePreferencesComponent, DeactivateUserComponent],
   imports: [
     CommonModule,
+    RouterModule,
     FlexLayoutModule,
     MatIconModule,
     MatListModule,
@@ -28,6 +31,6 @@ import { ConfigurePreferencesComponent } from './configure-preferences/configure
     ReactiveFormsModule,
     FormsModule
   ],
-  entryComponents: [ConfigureAddressComponent, ConfigurePreferencesComponent]
+  entryComponents: [ConfigureAddressComponent, ConfigurePreferencesComponent, DeactivateUserComponent]
 })
 export class UserModule { }

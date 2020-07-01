@@ -19,6 +19,8 @@ export function favouriteReducer(
             return {...state, fulfillment_method: action.payload};
         case FavouriteActionTypes.RESET_FAVOURITE_SHOP:
             return Object.assign({}, state.shop = undefined)
+        case FavouriteActionTypes.RESET_FAVOURITE:
+            return Object.assign({}, state = initialState)
         default: 
             return state;
     }

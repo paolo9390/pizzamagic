@@ -16,7 +16,7 @@ export class ShopService {
 
   getShops(): Observable<PizzaMagicShop[]>{
     if (!this.shops$) {
-      this.shops$ = this.http.get<PizzaMagicShop[]>(`${globals.HTTP_API_URL}/shops`).pipe(
+      this.shops$ = this.http.get<PizzaMagicShop[]>(`${globals.HTTP_V1_URL}/shops`).pipe(
         shareReplay(1)
       )
     }
@@ -25,7 +25,7 @@ export class ShopService {
 
   getAllShops(): Observable<PizzaMagicShop[]>{
     if (!this.shops$) {
-      this.shops$ = this.http.get<PizzaMagicShop[]>(`${globals.HTTP_API_URL}/shops/all`).pipe(
+      this.shops$ = this.http.get<PizzaMagicShop[]>(`${globals.HTTP_V1_URL}/shops/all`).pipe(
         shareReplay(1)
       )
     }
@@ -33,7 +33,7 @@ export class ShopService {
   }
 
   getShopInfoById(shopId: number): Observable<ShopInfo>{
-    return this.http.get<ShopInfo>(`${globals.HTTP_API_URL}/shops/${shopId}`);
+    return this.http.get<ShopInfo>(`${globals.HTTP_V1_URL}/shops/${shopId}`);
   }
 
   findAddressByPostcode(postcode): Observable<any>{

@@ -13,6 +13,7 @@ import { PizzaMagicShop } from '../../_interfaces/pizza-magic.shop';
 import { StorageControllerService } from '../../core/services/storage-controller.service';
 import { LocatorDialogComponent } from '../../_common/shop-locator/locator-dialog/locator-dialog.component';
 import { MethodPickerComponent } from '../../_common/method-picker/method-picker.component';
+import { ResetFavoriteAction } from '../../_store/actions/favourite.actions';
 
 @Component({
   selector: 'app-header',
@@ -65,13 +66,19 @@ export class HeaderComponent implements OnInit {
     this.storageController.verifyBasketValidity();
   }
 
-  logout() {
+  logout(): void {
     this.authService.logout().subscribe(
       () => {
-        this.router.navigateByUrl('login');
         this.userService.resetUser();
+        this.resetFavStore();
+        this.router.navigateByUrl('login');
       }
     );
+  }
+
+  resetFavStore(): void {
+    // reset store
+    this.store.dispatch(new ResetFavoriteAction());
   }
 
   updateShop(): void {

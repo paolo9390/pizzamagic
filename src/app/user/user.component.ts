@@ -9,6 +9,7 @@ import { PizzaMagicShop } from '../_interfaces/pizza-magic.shop';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { ConfigureAddressComponent } from './configure-address/configure-address.component';
 import { ConfigurePreferencesComponent } from './configure-preferences/configure-preferences.component';
+import { DeactivateUserComponent } from './deactivate-user/deactivate-user.component';
 
 @Component({
   selector: 'app-user',
@@ -139,7 +140,29 @@ export class UserComponent implements OnInit {
         this.getPreferences();
       }
     });
-    
+  }
+
+  deactivateAccount(): void {
+    this.userService.deleteVerifyUser(this.password.value).subscribe(res => {
+      if (res) {
+        const dialogRef = this.dialog.open(DeactivateUserComponent, {
+          maxWidth: '100vw',
+          panelClass: 'full-screen-dialog',
+          data: {
+            message: res.message,
+            title: 'Are you sure?',
+            icon: 'cancel_presentation',
+            confirm: 'Deactivate'
+          }
+        });
+
+        // dialogRef.afterClosed().subscribe(result => {
+        //   if (result) {
+        //     this.getPreferences();
+        //   }
+        // });
+      }
+    })
   }
   
   configureAddress(mode: string, address?: Address): void {

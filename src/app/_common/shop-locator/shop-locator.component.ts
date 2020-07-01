@@ -7,7 +7,7 @@ import { SetFavouriteShopAction, SetFavouriteAddressAction } from '../../_store/
 import { FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../../_services/user.service';
-import { Address } from '../../_interfaces/user';
+import { Address, PizzaMagicUser } from '../../_interfaces/user';
 
 @Component({
   selector: 'app-shop-locator',
@@ -32,8 +32,9 @@ export class ShopLocatorComponent implements OnInit {
     protected userService: UserService) { }
 
   ngOnInit() {
-    this.userService.getAddressBook().subscribe(addressBook => this.addressBook = addressBook);
     this.shopService.getAllShops().subscribe(shops => this.shops = shops);
+    const user: PizzaMagicUser = this.userService.currentUserValue;
+    if (user) this.userService.getAddressBook().subscribe(addressBook => this.addressBook = addressBook);
   }
 
   locateShop() {

@@ -75,6 +75,18 @@ export class UserService {
     return this.user$
   }
 
+  deleteVerifyUser(password: string): Observable<any> {
+    // delete user by posting and verifying the current pass for extra security 
+    const body = {
+      password: password
+    }
+    return this.http.post<any>(`${globals.HTTP_API_URL}/user/me/delete/verify`, body);
+  }
+
+  deleteUser(): Observable<any> {
+    return this.http.delete<any>(`${globals.HTTP_API_URL}/user/me/delete`);
+  }
+
   getUserPreferences(): Observable<UserPreferences> {
     if (!this.preferences$) {
       this.preferences$ = this.http.get<UserPreferences>(`${globals.HTTP_API_URL}/favourites`).pipe(

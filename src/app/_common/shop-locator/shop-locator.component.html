@@ -15,7 +15,7 @@
     <button class="search-button" mat-flat-button color="primary" (click)="searchNearestShop()">Search</button>
   </mat-card-content>
 
-  <div *ngIf="addressBook">
+  <div *ngIf="addressBook?.length > 0">
     <p class="mat-caption">Or, select a recent address</p>
     <mat-nav-list>
       <mat-list-item (click)="selectNearestShopByAddress(address);" *ngFor="let address of addressBook">

@@ -16,7 +16,7 @@ export class BurgerService {
 
   getBurgers(): Observable<Burger[]> {
     if (!this.burgers$) {
-      this.burgers$ = this.http.get<Burger[]>(`${globals.HTTP_API_URL}/burger`).pipe(
+      this.burgers$ = this.http.get<Burger[]>(`${globals.HTTP_V1_URL}/burger`).pipe(
         shareReplay(1)
       )
     }

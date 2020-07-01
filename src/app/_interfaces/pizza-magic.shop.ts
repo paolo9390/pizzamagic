@@ -23,6 +23,8 @@ export interface ShopFulfillmentMethod {
   radius?: number;
   max_radius?: number;
   delivery_fee?: number;
+  non_asap_minutes: number;
+  times: DailyOpenClose;
 }
 
 export interface ASAP {

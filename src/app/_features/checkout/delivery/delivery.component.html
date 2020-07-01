@@ -15,16 +15,16 @@
     </mat-list>
   </mat-card>
 </div>
-<div>
-  <div *ngIf="isEditAddress">
-    <mat-nav-list>
-      <mat-list-item (click)="selectAddress(address)" *ngFor="let address of addressBook">
-        <p matLine>
-          <mat-icon class="align-icon">my_location</mat-icon>{{address?.address}}
-        </p>
-        <p matLine> {{address?.postcode}} - {{address?.phone}}</p>
-      </mat-list-item>
-    </mat-nav-list>
-    <button mat-button color="accent" (click)="addAddress()">Add new address</button>
-  </div>
+
+
+<div *ngIf="isEditAddress">
+  <mat-nav-list>
+    <mat-list-item (click)="selectAddress(address)" *ngFor="let address of addressBook">
+      <p matLine>
+        <mat-icon class="align-icon">my_location</mat-icon>{{address?.address}}
+      </p>
+      <p matLine> {{address?.postcode}} - {{address?.phone}}</p>
+    </mat-list-item>
+  </mat-nav-list>
+  <button mat-button color="accent" (click)="addAddress()">Add new address {{!selectedAddress ? 'for ' +(favoriteAddress?.postcode | uppercase) : ''}}</button>
 </div>

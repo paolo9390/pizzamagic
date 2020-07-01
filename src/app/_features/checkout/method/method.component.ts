@@ -16,7 +16,6 @@ import { GeneralInfoComponent } from '../../../_common/general-info/general-info
 })
 export class MethodComponent implements OnInit {
 
-
   favoriteMethod: string;
   selectedMethod: ShopFulfillmentMethod;
   selectedShop: PizzaMagicShop;
@@ -24,6 +23,10 @@ export class MethodComponent implements OnInit {
   types: any = [{name: 'asap', label: 'As soon as possible'},{ name: 'custom', label: 'Select a time'}];
   selectedType: string = 'asap';
   selectedTime: string;
+  times: {
+    max: string;
+    min: string;
+  } = null;
 
   selectedAddress: Address;
   userDistance: number;
@@ -31,7 +34,7 @@ export class MethodComponent implements OnInit {
 
 
   constructor(private shopService: ShopService,
-    public dialog: MatDialog,
+    private dialog: MatDialog,
     private store: Store<AppState>) { }
 
   ngOnInit() {
@@ -46,6 +49,7 @@ export class MethodComponent implements OnInit {
         // check if a method is pre-selected
         if (favorite && favorite.fulfillment_method) {
           this.selectedMethod = this.selectedShop.fulfillment_methods.find(({ name }) => name === favorite.fulfillment_method);
+          this.setMethodTimes();
         }
         // check if a address was pre-selected  
         if (favorite && favorite.address) {
@@ -75,6 +79,11 @@ export class MethodComponent implements OnInit {
   
   selectType(type: string): void {
     this.selectedType = type;
+
+
+
+    console.log(new Date().getHours())
+    console.log(new Date().getMinutes())
   }
 
   validateDistance(): void {
@@ -95,14 +104,46 @@ export class MethodComponent implements OnInit {
   }
 
   deliveryUnavailable(): void {
-    this.dialog.open(GeneralInfoComponent, {
-      maxWidth: '600px',
-      data: {
-        title: this.selectedAddress.address,
-        icon: 'maps',
-        description: `Sorry, the address you have selected is outside from our delivery area. Please try a different address.`
-      },
-    });
+    if (this.selectedAddress.address) {
+      this.dialog.open(GeneralInfoComponent, {
+        maxWidth: '600px',
+        data: {
+          title: this.selectedAddress.address,
+          icon: 'maps',
+          description: `Sorry, the address you have selected is outside from our delivery area. Please try a different address.`
+        },
+      });
+    }
+  }
+
+  setMethodTimes(): void {
+    let now = new Date();
+    if (this.selectedMethod) {
+      now = this.addMinutes(now, this.selectedMethod.non_asap_minutes);
+      const currentMinutes: string = now.getMinutes() < 10 ? `0${now.getMinutes()}` : `${now.getMinutes()}`
+
+      // use this to compare
+      const currentTime: string = `${now.getHours()}${currentMinutes}`
+
+      const openingHours: string = this.selectedMethod.times.open;
+      const closingHours: string = this.selectedMethod.times.close;
+
+      if (parseInt(currentTime) > parseInt(openingHours) && parseInt(currentTime) < parseInt(closingHours)) {
+        this.times = {
+          min: `${now.getHours()}:${currentMinutes}`,
+          max: `${closingHours.match(/.{1,2}/g)[0]}:${closingHours.match(/.{1,2}/g)[1]}`
+        }
+      } else {
+        this.times = {
+          min: `${openingHours.match(/.{1,2}/g)[0]}:${openingHours.match(/.{1,2}/g)[1]}`,
+          max: `${closingHours.match(/.{1,2}/g)[0]}:${closingHours.match(/.{1,2}/g)[1]}`
+        }
+      }
+    }
+  }
+
+  addMinutes(date: Date, minutes: number): Date {
+    return new Date(date.getTime() + minutes * 60000);
   }
 
 }

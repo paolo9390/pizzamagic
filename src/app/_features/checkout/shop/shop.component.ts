@@ -30,7 +30,7 @@ export class ShopComponent implements OnInit {
   constructor(
     private store: Store<AppState>,
     private shopService: ShopService,
-    public dialog: MatDialog) { }
+    private dialog: MatDialog) { }
 
   ngOnInit() {
     combineLatest(this.store.select(store => store.favourite), this.shopService.getAllShops()).subscribe(
@@ -43,7 +43,7 @@ export class ShopComponent implements OnInit {
           this.validateOpeningHours();
         }
         // check if a method is pre-selected
-        if (favorite && favorite.fulfillment_method) {
+        if (favorite && favorite.fulfillment_method && this.selectedShop) {
           this.selectedMethod = this.selectedShop.fulfillment_methods.find(({ name }) => name === favorite.fulfillment_method);
         }
       }

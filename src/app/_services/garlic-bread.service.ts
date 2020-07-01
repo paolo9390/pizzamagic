@@ -16,7 +16,7 @@ export class GarlicBreadService {
 
   getGarlicBreads(): Observable<GarlicBread[]> {
     if (!this.breads$) {
-      this.breads$ = this.http.get<GarlicBread[]>(`${globals.HTTP_API_URL}/garlic-bread`).pipe(
+      this.breads$ = this.http.get<GarlicBread[]>(`${globals.HTTP_V1_URL}/garlic-bread`).pipe(
         shareReplay(1)
       )
     }

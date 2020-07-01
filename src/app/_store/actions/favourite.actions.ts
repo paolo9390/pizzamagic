@@ -6,7 +6,8 @@ export enum FavouriteActionTypes {
   SET_FAVOURITE_SHOP = '[FAVOURITE] Set Favourite Shop',
   RESET_FAVOURITE_SHOP = '[FAVOURITE] Reset Favourite Shop',
   SET_FAVOURITE_METHOD = '[FAVOURITE] Set Favourite Method',
-  SET_FAVOURITE_ADDRESS = '[FAVOURITE] Set Favourite Address'
+  SET_FAVOURITE_ADDRESS = '[FAVOURITE] Set Favourite Address',
+  RESET_FAVOURITE = '[FAVOURITE] Reset all'
 }
 
 export class SetFavouriteShopAction implements Action {
@@ -27,10 +28,16 @@ export class SetFavouriteAddressAction implements Action {
   constructor(public payload: Address) { }
 }
 
+export class ResetFavoriteAction implements Action {
+  readonly type = FavouriteActionTypes.RESET_FAVOURITE
+
+  constructor() { }
+}
+
 export class ResetFavouriteShopAction implements Action {
   readonly type = FavouriteActionTypes.RESET_FAVOURITE_SHOP
 
   constructor(public payload: PizzaMagicShop) { }
 }
 
-export type FavouriteAction = SetFavouriteShopAction | SetFavouriteMethodAction | SetFavouriteAddressAction | ResetFavouriteShopAction; 
+export type FavouriteAction = SetFavouriteShopAction | SetFavouriteMethodAction | SetFavouriteAddressAction | ResetFavouriteShopAction | ResetFavoriteAction; 

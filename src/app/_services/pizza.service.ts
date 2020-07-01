@@ -16,7 +16,7 @@ export class PizzaService {
 
   getMenu(): Observable<PizzaMenu> {
     if (!this.menu$) {
-      this.menu$ = this.http.get<PizzaMenu>(`${globals.HTTP_API_URL}/pizza/menu`).pipe(
+      this.menu$ = this.http.get<PizzaMenu>(`${globals.HTTP_V1_URL}/pizza/menu`).pipe(
         shareReplay(1)
       )
     }

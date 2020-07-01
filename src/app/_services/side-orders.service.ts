@@ -17,7 +17,7 @@ export class SideOrdersService {
 
   getSideOrders(): Observable<SideOrder[]> {
     if (!this.sides$) {
-      this.sides$ = this.http.get<SideOrder[]>(`${globals.HTTP_API_URL}/side-orders`).pipe(
+      this.sides$ = this.http.get<SideOrder[]>(`${globals.HTTP_V1_URL}/side-orders`).pipe(
         shareReplay(1)
       )
     }
@@ -26,7 +26,7 @@ export class SideOrdersService {
 
   getDips(): Observable<Dip[]> {
     if (!this.dips$) {
-      this.dips$ = this.http.get<Dip[]>(`${globals.HTTP_API_URL}/side-orders/dips`).pipe(
+      this.dips$ = this.http.get<Dip[]>(`${globals.HTTP_V1_URL}/side-orders/dips`).pipe(
         shareReplay(1)
       )
     }

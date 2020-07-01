@@ -1,0 +1,19 @@
+<h1 mat-dialog-title fxLayoutAlign="space-between">
+  <span>
+    <mat-icon class="align-icon">{{data?.icon}}</mat-icon>
+    {{data?.title | titlecase}}
+  </span>
+</h1>
+
+<div mat-dialog-content>
+  <p>{{data?.message}}</p>
+</div>
+
+<div mat-dialog-actions fxLayoutAlign="space-between end" fxLayout.lt-sm="column">
+  <button fxFlex="40%" mat-stroked-button (click)="onNoClick()" color="warn">
+    Cancel
+  </button>
+  <button fxFlex="50%" mat-flat-button (click)="confirmDelete()" color="warn">
+    {{data?.confirm}}
+  </button>
+</div>

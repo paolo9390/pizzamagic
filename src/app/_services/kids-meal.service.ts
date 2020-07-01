@@ -16,7 +16,7 @@ export class KidsMealService {
 
   getKidsMeals(): Observable<KidsMeal[]> {
     if (!this.kidsMeal$) {
-      this.kidsMeal$ = this.http.get<KidsMeal[]>(`${globals.HTTP_API_URL}/kids-meal`).pipe(
+      this.kidsMeal$ = this.http.get<KidsMeal[]>(`${globals.HTTP_V1_URL}/kids-meal`).pipe(
         shareReplay(1)
       )
     }

@@ -18,7 +18,7 @@ export class MealDealService {
 
   getMealDeals(): Observable<MenuMealDeal> {
     if (!this.mealDeals$) {
-      this.mealDeals$ = this.http.get<MenuMealDeal>(`${globals.HTTP_API_URL}/meal-deals`).pipe(
+      this.mealDeals$ = this.http.get<MenuMealDeal>(`${globals.HTTP_V1_URL}/meal-deals`).pipe(
         shareReplay(1)
       )
     }
@@ -27,7 +27,7 @@ export class MealDealService {
 
   getKidsMeals(): Observable<KidsMeal[]> {
     if (!this.kidsMeal$) {
-      this.kidsMeal$ = this.http.get<KidsMeal[]>(`${globals.HTTP_API_URL}/kids-meal`).pipe(
+      this.kidsMeal$ = this.http.get<KidsMeal[]>(`${globals.HTTP_V1_URL}/kids-meal`).pipe(
         shareReplay(1)
       )
     }

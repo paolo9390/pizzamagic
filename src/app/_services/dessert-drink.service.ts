@@ -16,7 +16,7 @@ export class DessertDrinkService {
 
   getAll(): Observable<DDs> {
     if (!this.dds$) {
-      this.dds$ = this.http.get<DDs>(`${globals.HTTP_API_URL}/dessert-drinks`).pipe(
+      this.dds$ = this.http.get<DDs>(`${globals.HTTP_V1_URL}/dessert-drinks`).pipe(
         shareReplay(1)
       )
     }
