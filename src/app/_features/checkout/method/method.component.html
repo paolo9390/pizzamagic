@@ -26,6 +26,7 @@
       <mat-label>Select Time</mat-label>
       <input [(ngModel)]="selectedTime" [ngxTimepicker]="range" [min]="times.min" [max]="times.max" matInput
         placeholder="Select Time" readonly>
+        <mat-icon matSuffix>schedule</mat-icon>
       <ngx-material-timepicker (timeSet)="setTime($event)" #range></ngx-material-timepicker>
     </mat-form-field>
   </div>

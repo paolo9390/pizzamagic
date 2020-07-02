@@ -10,7 +10,7 @@
   <div fxLayoutAlign="space-between" fxLayout="row" fxLayoutGap="20px"> 
     <mat-form-field appearance="outline">
       <mat-label>Postcode</mat-label>
-      <input (keydown)="onPress($event)" [formControl]="postcodeCtrl" matInput placeholder="ie. CH60 0AG">
+      <input (keydown)="onPress($event)" [formControl]="postcodeCtrl" matInput placeholder="ie. CH60 0AG" cdkFocusInitial>
       <mat-icon (click)="locateShop()" matSuffix color="primary">near_me</mat-icon>
       <mat-error *ngIf="postcodeCtrl.invalid">{{getErrorMessage()}}</mat-error>
     </mat-form-field>

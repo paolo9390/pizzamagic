@@ -8,6 +8,7 @@ import { StoreModule } from '@ngrx/store';
 import { favouriteReducer } from '../../_store/reducers/favourite.reducer';
 import { RouterModule } from '@angular/router';
 import { LocatorDialogComponent } from './locator-dialog/locator-dialog.component';
+import { A11yModule } from '@angular/cdk/a11y';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { LocatorDialogComponent } from './locator-dialog/locator-dialog.componen
     MatCardModule,
     MatListModule,
     RouterModule,
+    A11yModule,
     StoreModule.forFeature('favourite', favouriteReducer)
   ],
   exports: [ShopLocatorComponent],

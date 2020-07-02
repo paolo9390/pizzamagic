@@ -20,16 +20,24 @@ export class UserComponent implements OnInit {
 
   user: User;
   address_book: Address[];
+
   userForm: FormGroup;
   password = new FormControl('', [Validators.required]);
+
+  editMode: boolean = false;
   errorInSaving: boolean;
   saveError: string = '';
+  errorInDeactivating: boolean;
+  deactivateError: string = '';
+
   panelOpenState = false;
+
   isDarkTheme: Observable<boolean>;
   colorSheme: string;
+
   preferences: UserPreferences;
   shops: PizzaMagicShop[];
-  editMode: boolean = false;
+
   
   constructor(private userService: UserService,
     private colorSchemeService: ColorSchemeService,
@@ -144,6 +152,8 @@ export class UserComponent implements OnInit {
 
   deactivateAccount(): void {
     this.userService.deleteVerifyUser(this.password.value).subscribe(res => {
+      this.errorInDeactivating = false;
+      this.deactivateError = '';
       if (res) {
         const dialogRef = this.dialog.open(DeactivateUserComponent, {
           maxWidth: '100vw',
@@ -155,13 +165,10 @@ export class UserComponent implements OnInit {
             confirm: 'Deactivate'
           }
         });
-
-        // dialogRef.afterClosed().subscribe(result => {
-        //   if (result) {
-        //     this.getPreferences();
-        //   }
-        // });
       }
+    }, err =>  {
+      this.errorInDeactivating = true;
+      this.deactivateError = err.error.error;
     })
   }
   

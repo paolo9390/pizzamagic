@@ -122,6 +122,7 @@ export class ShopLocatorComponent implements OnInit {
           this.shopsLocation.forEach(shop => {
             if (shop.distance < nearestShop.distance) nearestShop = shop;
           });
+          this.selectShop(nearestShop);
         }
         this.selectAddress(address);
       }

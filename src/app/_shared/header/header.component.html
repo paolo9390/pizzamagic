@@ -1,5 +1,5 @@
-<mat-toolbar class="header-toolbar mat-elevation-z6" [ngClass]="{'mat-elevation-z6': this.getCurrentRoute() !== '/home' }" >
-  <mat-toolbar-row [ngClass]="{'primary-background': this.getCurrentRoute() === '/home' }" fxLayoutAlign="space-between center">
+<mat-toolbar class="header-toolbar mat-elevation-z6" [ngClass]="{'mat-elevation-z6': !this.getCurrentRoute().includes('home') }" >
+  <mat-toolbar-row [ngClass]="{'primary-background': this.getCurrentRoute().includes('home') }" fxLayoutAlign="space-between center">
     <div fxLayout="space-around">
       <a mat-button [routerLink]="user ? ['./pizzas'] : ['./']">
         <h3>
@@ -20,7 +20,7 @@
     </div>
     
     <div fxLayoutAlign="space-around">
-      <button [routerLink]="['checkout']" *ngIf="basketTotal > 0" mat-icon-button [color]="this.getCurrentRoute() === '/home' ? '' : 'primary'">
+      <button [routerLink]="['checkout']" *ngIf="basketTotal > 0" mat-icon-button [color]="this.getCurrentRoute().includes('home') ? '' : 'primary'">
         <mat-icon [matBadge]="basketTotal" matBadgeColor="accent">shopping_basket</mat-icon>
       </button>
 
