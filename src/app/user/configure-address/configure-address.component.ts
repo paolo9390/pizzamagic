@@ -13,6 +13,8 @@ export class ConfigureAddressComponent implements OnInit {
 
 
   addressForm: FormGroup;
+  postcodeRegEx: RegExp = /^[a-z]{1,2}\d[a-z\d]?\s*\d[a-z]{2}$/i;
+  phoneRegEx: RegExp = /^\(?0( *\d\)?){9,10}$/;
 
   constructor(
     public dialogRef: MatDialogRef<ConfigureAddressComponent>,
@@ -36,8 +38,8 @@ export class ConfigureAddressComponent implements OnInit {
     this.addressForm = this.formBuilder.group({
       address_line1: [{value: address_line1, disabled: this.data.mode === 'edit' ? true : false}, Validators.required],
       address_line2: [{value: address_line2, disabled: this.data.mode === 'edit' ? true : false}, Validators.required],
-      postcode: [{value: postcode, disabled: this.data.mode === 'edit' ? true : false}, Validators.required],
-      phone: [phone, Validators.required],
+      postcode: [{value: postcode, disabled: this.data.mode === 'edit' ? true : false}, [Validators.required, Validators.pattern(this.postcodeRegEx)]],
+      phone: [phone, [Validators.required, Validators.pattern(this.phoneRegEx)]],
       notes: [notes]
     });
   }
@@ -54,7 +56,7 @@ export class ConfigureAddressComponent implements OnInit {
     if (this.addressForm.valid) {
       const address: Address = {
         address: `${this.addressForm.controls.address_line1.value}, ${this.addressForm.controls.address_line2.value}`,
-        postcode: this.addressForm.controls.postcode.value,
+        postcode: this.addressForm.controls.postcode.value.toUpperCase(),
         phone: this.addressForm.controls.phone.value,
         notes: this.addressForm.controls.notes.value
       }

@@ -89,7 +89,7 @@ export class UserService {
 
   getUserPreferences(): Observable<UserPreferences> {
     if (!this.preferences$) {
-      this.preferences$ = this.http.get<UserPreferences>(`${globals.HTTP_API_URL}/favourites`).pipe(
+      this.preferences$ = this.http.get<UserPreferences>(`${globals.HTTP_API_URL}/preferences`).pipe(
         shareReplay(1)
       )
     }
@@ -104,17 +104,17 @@ export class UserService {
 
   addFavourite(shop_id: string, fulfillment_method: string, address_id: string): Observable<UserPreferences> {
     const body = { shop_id: shop_id, fulfillment_method: fulfillment_method, address_id: address_id}
-    return this.http.put<UserPreferences>(`${globals.HTTP_API_URL}/favourites/`, body);
+    return this.http.put<UserPreferences>(`${globals.HTTP_API_URL}/preferences/`, body);
   }
 
   updateFavourite(shop_id: string, fulfillment_method: string, address_id: string, fav_id: string): Observable<UserPreferences> {
     const body = { shop_id: shop_id, fulfillment_method: fulfillment_method, address_id: address_id}
-    return this.http.patch<UserPreferences>(`${globals.HTTP_API_URL}/favourites/${fav_id}`, body);
+    return this.http.patch<UserPreferences>(`${globals.HTTP_API_URL}/preferences/${fav_id}`, body);
   }
 
   getAddressBook(): Observable<Address[]> {
     if (!this.addressBook$) {
-      this.addressBook$ = this.http.get<Address[]>(`${globals.HTTP_API_URL}/favourites/address-book`).pipe(
+      this.addressBook$ = this.http.get<Address[]>(`${globals.HTTP_API_URL}/preferences/address-book`).pipe(
         shareReplay(1)
       )
     }
@@ -123,16 +123,16 @@ export class UserService {
 
   addAddress(address: Address): Observable<Address> {
     this.addressBook$ = undefined;
-    return this.http.put<Address>(`${globals.HTTP_API_URL}/favourites/address-book`, address);
+    return this.http.put<Address>(`${globals.HTTP_API_URL}/preferences/address-book`, address);
   }
 
   updateAddress(address: Address, address_id: string): Observable<Address> {
     this.addressBook$ = undefined;
-    return this.http.patch<Address>(`${globals.HTTP_API_URL}/favourites/address-book/${address_id}`, address);
+    return this.http.patch<Address>(`${globals.HTTP_API_URL}/preferences/address-book/${address_id}`, address);
   }
 
   deleteAddress(address_id: string): Observable<any> {
     this.addressBook$ = undefined;
-    return this.http.delete<any>(`${globals.HTTP_API_URL}/favourites/address-book/${address_id}`);
+    return this.http.delete<any>(`${globals.HTTP_API_URL}/preferences/address-book/${address_id}`);
   }
 }

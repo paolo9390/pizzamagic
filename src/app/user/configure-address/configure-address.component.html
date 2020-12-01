@@ -28,14 +28,14 @@
         <mat-label>Postcode</mat-label>
         <input formControlName="postcode" matInput placeholder="Postcode">
         <mat-icon matSuffix>location_on</mat-icon>
-        <mat-error *ngIf="this.addressForm.controls.postcode.invalid">postcode required</mat-error>
+        <mat-error *ngIf="this.addressForm.controls.postcode.invalid">Valid postcode required</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="fill" fxFlex="48%">
         <mat-label>Phone number</mat-label>
         <input formControlName="phone" matInput placeholder="Phone">
         <mat-icon matSuffix>phone</mat-icon>
-        <mat-error *ngIf="this.addressForm.controls.phone.invalid">Phone number required</mat-error>
+        <mat-error *ngIf="this.addressForm.controls.phone.invalid">Valid Phone number required</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="fill" fxFlex="100%">
